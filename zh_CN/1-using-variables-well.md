@@ -8,9 +8,9 @@
 
 『Python 工匠』这个系列文章，是我的一次小小尝试。它专注于分享 Python 编程中的一些偏**『小』**的东西。希望能够帮到每一位编程路上的匠人。
 
-系列文章：
+系列其他文章：
 
-- [Python 工匠：善用变量改善代码质量](http://www.zlovezl.cn/articles/python-using-variables-well/)
+- [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
 - [Python 工匠：编写条件分支代码的技巧](http://www.zlovezl.cn/articles/python-else-block-secrets/)
 
 ## 变量和代码质量

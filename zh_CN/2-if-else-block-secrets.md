@@ -8,10 +8,10 @@
 
 『Python 工匠』这个系列文章，是我的一次小小尝试。它专注于分享 Python 编程中的一些偏**『小』**的东西。希望能够帮到每一位编程路上的匠人。
 
-系列文章：
+系列其他文章：
 
+- [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
 - [Python 工匠：善用变量改善代码质量](http://www.zlovezl.cn/articles/python-using-variables-well/)
-- [Python 工匠：编写条件分支代码的技巧](http://www.zlovezl.cn/articles/python-else-block-secrets/)
 
 ## 序言
 
@@ -379,3 +379,5 @@ True
 > 
 > - 2018.04.08：在与 @geishu 的讨论后，调整了“运算优先符”使用的代码样例
 > - 2018.04.10：根据 @dongweiming 的建议，添加注解说明 "x and y or c" 表达式的陷阱
+
+
