@@ -1,6 +1,6 @@
 # one-python-craftsman
 
-"One Python Craftman" is a collection of articles on how to write better python codes.
+"One Python Craftsman" is a collection of articles on how to write better python codes.
 
 ## Index
 
