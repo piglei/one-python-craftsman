@@ -12,6 +12,8 @@
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
 - [Python 工匠：善用变量改善代码质量](http://www.zlovezl.cn/articles/python-using-variables-well/)
+- [Python 工匠：使用数字与字符串的技巧
+](http://www.zlovezl.cn/articles/tips-on-numbers-and-strings/)
 
 ## 序言
 

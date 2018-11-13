@@ -59,7 +59,7 @@ def mark_trip_as_featured(trip):
 # -*- coding: utf-8 -*-
 from enum import IntEnum
 
-class TripSource(IntEum):
+class TripSource(IntEnum):
     FROM_WEBSITE = 11
     FROM_IOS_CLIENT = 12
 

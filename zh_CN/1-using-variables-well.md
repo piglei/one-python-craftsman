@@ -12,6 +12,8 @@
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
 - [Python 工匠：编写条件分支代码的技巧](http://www.zlovezl.cn/articles/python-else-block-secrets/)
+- [Python 工匠：使用数字与字符串的技巧
+](http://www.zlovezl.cn/articles/tips-on-numbers-and-strings/)
 
 ## 变量和代码质量
 
