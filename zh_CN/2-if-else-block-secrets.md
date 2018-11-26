@@ -69,6 +69,12 @@ def buy_fruit(nerd, store):
 
 ```python
 def buy_fruit(nerd, store):
+    """去水果店买苹果
+    
+    - 先得看看店是不是在营业
+    - 如果有苹果的话，就买 1 个
+    - 如果钱不够，就回家取钱再来
+    """
     if not store.is_open():
         raise MadAtNoFruit("store is closed!")
 
@@ -84,6 +90,7 @@ def buy_fruit(nerd, store):
 ```
 
 “提前结束”指：**在函数内使用 `return` 或 `raise` 等语句提前在分支内结束函数。**比如，在新的 `buy_fruit` 函数里，当分支条件不满足时，我们直接抛出异常，结束这段这代码分支。这样的代码没有嵌套分支，更直接也更易读。
+> 提前结束避免了嵌套分支，这是很好的实践，但是后续的维护者或者三个月后的自己有可能不能直接还原之前的业务逻辑，所以此时在函数的 document string 中说明业务逻辑就显得尤为重要了。并且要直接说明业务逻辑，而不是解释代码。
 
 ### 2. 封装那些过于复杂的逻辑判断
 
