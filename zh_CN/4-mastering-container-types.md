@@ -9,12 +9,12 @@
 - [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
 - [Python 工匠：使用数字与字符串的技巧](https://www.zlovezl.cn/articles/tips-on-numbers-and-strings/)
 
-## 序言
-
-<div style="text-align: center; color: #999">
+<div style="text-align: center; color: #999; margin-bottom: 14px;">
 <img src="https://www.zlovezl.cn/static//uploaded/2019/01/6002476959_cca2bf5424_b_thumb.jpg" width="100%" />
-*图片来源: <a href="https://www.flickr.com/photos/chiotsrun/6002476959/in/photolist-a9qgh4-W4eQ1j-7MrCfo-4ARLWp-dwCzHh-Tascu9-RNRbRf-foLHW5-22dkkHM-9ceFA8-aGGd3a-26X3sqQ-iuTwX9-q52ktA-osn2eb-29oujY-6mXd1c-8E92nc-mPbq55-9GuPU8-26Q1NZG-8UL8PL-pdyFsW-7V8ifD-VZavJ8-2cUdHbU-9WrgjZ-6g7M5K-VMLVrb-cXDd4-bygFJG-C76kP-nMQW54-7MoQqn-qA3fud-c92dBU-tAzTBm-7KqFXc-24VvcW1-djQX9e-5LzjkA-63U4kb-bt1EEY-jLRpKo-dQSWBH-aDbqXc-8KhfnE-2m5ZsF-6ciuiR-qwdbt">"The Humble Mason Jar" by Chiot's Run</a> - 非商业性使用 2.0 通用
+图片来源: <a href="https://www.flickr.com/photos/chiotsrun/6002476959/in/photolist-a9qgh4-W4eQ1j-7MrCfo-4ARLWp-dwCzHh-Tascu9-RNRbRf-foLHW5-22dkkHM-9ceFA8-aGGd3a-26X3sqQ-iuTwX9-q52ktA-osn2eb-29oujY-6mXd1c-8E92nc-mPbq55-9GuPU8-26Q1NZG-8UL8PL-pdyFsW-7V8ifD-VZavJ8-2cUdHbU-9WrgjZ-6g7M5K-VMLVrb-cXDd4-bygFJG-C76kP-nMQW54-7MoQqn-qA3fud-c92dBU-tAzTBm-7KqFXc-24VvcW1-djQX9e-5LzjkA-63U4kb-bt1EEY-jLRpKo-dQSWBH-aDbqXc-8KhfnE-2m5ZsF-6ciuiR-qwdbt">"The Humble Mason Jar" by Chiot's Run</a> - 非商业性使用 2.0 通用
 </div>
+
+## 序言
 
 “容器”这两个字很少被 Python 技术文章提起。一看到“容器”，大家想到的多是那头蓝色小鲸鱼：*Docker*，但这篇文章和它没有任何关系。本文里的容器，是 Python 中的一个抽象概念，是对**专门用来装其他对象的数据类型**的统称。
 
