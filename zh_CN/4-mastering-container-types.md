@@ -1,28 +1,45 @@
 # Python 工匠：容器的门道
 
-## 『Python 工匠』是什么？
+## 序言
 
-『Python 工匠』系列文章：
+> 这是 “Python 工匠”系列的第四篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
-- [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：善用变量改善代码质量](https://www.zlovezl.cn/articles/python-using-variables-well/)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：使用数字与字符串的技巧](https://www.zlovezl.cn/articles/tips-on-numbers-and-strings/)
-
-<div style="text-align: center; color: #999; margin-bottom: 14px;">
+<div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
 <img src="https://www.zlovezl.cn/static//uploaded/2019/01/6002476959_cca2bf5424_b_thumb.jpg" width="100%" /><div>
 图片来源: <a href="https://www.flickr.com/photos/chiotsrun/6002476959/in/photolist-a9qgh4-W4eQ1j-7MrCfo-4ARLWp-dwCzHh-Tascu9-RNRbRf-foLHW5-22dkkHM-9ceFA8-aGGd3a-26X3sqQ-iuTwX9-q52ktA-osn2eb-29oujY-6mXd1c-8E92nc-mPbq55-9GuPU8-26Q1NZG-8UL8PL-pdyFsW-7V8ifD-VZavJ8-2cUdHbU-9WrgjZ-6g7M5K-VMLVrb-cXDd4-bygFJG-C76kP-nMQW54-7MoQqn-qA3fud-c92dBU-tAzTBm-7KqFXc-24VvcW1-djQX9e-5LzjkA-63U4kb-bt1EEY-jLRpKo-dQSWBH-aDbqXc-8KhfnE-2m5ZsF-6ciuiR-qwdbt">"The Humble Mason Jar" by Chiot's Run</a> - 非商业性使用 2.0 通用</div>
 </div>
 
-## 序言
-
-“容器”这两个字很少被 Python 技术文章提起。一看到“容器”，大家想到的多是那头蓝色小鲸鱼：*Docker*，但这篇文章和它没有任何关系。本文里的容器，是 Python 中的一个抽象概念，是对**专门用来装其他对象的数据类型**的统称。
+容器”这两个字很少被 Python 技术文章提起。一看到“容器”，大家想到的多是那头蓝色小鲸鱼：*Docker*，但这篇文章和它没有任何关系。本文里的容器，是 Python 中的一个抽象概念，是对**专门用来装其他对象的数据类型**的统称。
 
 在 Python 中，有四类最常见的内建容器类型：`列表（list）`、`元组（tuple）`、`字典（dict）`、`集合（set）`。通过单独或是组合使用它们，可以高效的完成很多事情。
 
 Python 语言自身的内部实现细节也与这些容器类型息息相关。比如 Python 的类实例属性、全局变量 `globals()` 等就都是通过字典类型来存储的。
 
 在这篇文章里，我首先会从容器类型的定义出发，尝试总结出一些日常编码的最佳实践。之后再围绕各个容器类型提供的特殊机能，分享一些编程的小技巧。
+
+### 内容目录
+
+* [底层看容器](#底层看容器)
+    * [写更快的代码](#写更快的代码)
+       * [1. 避免频繁扩充列表/创建新列表](#1-避免频繁扩充列表创建新列表)
+       * [2. 在列表头部操作多的场景使用 deque 模块](#2-在列表头部操作多的场景使用-deque-模块)
+       * [3. 使用集合/字典来判断成员是否存在](#3-使用集合字典来判断成员是否存在)
+* [高层看容器](#高层看容器)
+    * [写扩展性更好的代码](#写扩展性更好的代码)
+       * [面向容器接口编程](#面向容器接口编程)
+* [常用技巧](#常用技巧)
+    * [1. 使用元组改善分支代码](#1-使用元组改善分支代码)
+    * [2. 在更多地方使用动态解包](#2-在更多地方使用动态解包)
+    * [3. 最好不用“获取许可”，也无需“要求原谅”](#3-最好不用获取许可也无需要求原谅)
+    * [4. 使用 next() 函数](#4-使用-next-函数)
+    * [5. 使用有序字典来去重](#5-使用有序字典来去重)
+* [常见误区](#常见误区)
+    * [1. 当心那些已经枯竭的迭代器](#1-当心那些已经枯竭的迭代器)
+    * [2. 别在循环体内修改被迭代对象](#2-别在循环体内修改被迭代对象)
+* [总结](#总结)
+* [系列其他文章](#系列其他文章)
+* [注解](#注解)
+
 
 ### 当我们谈论容器时，我们在谈些什么？
 
@@ -434,7 +451,7 @@ print(numbers)
 
 ## 总结
 
-“Python 工匠”系列的第四篇文章到此结束。在这篇文章中，我们首先从“容器类型”的定义出发，在底层和高层两个层面探讨了容器类型。之后遵循系列文章传统，提供了一些编写容器相关代码时的技巧。
+在这篇文章中，我们首先从“容器类型”的定义出发，在底层和高层两个层面探讨了容器类型。之后遵循系列文章传统，提供了一些编写容器相关代码时的技巧。
 
 让我们最后再总结一下要点：
 
@@ -446,6 +463,13 @@ print(numbers)
 - collections、itertools 模块里有非常多有用的工具，快去看看吧！
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
+
+## 系列其他文章
+
+- [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
+- [Python 工匠：善用变量改善代码质量](https://www.zlovezl.cn/articles/python-using-variables-well/)
+- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
+- [Python 工匠：使用数字与字符串的技巧](https://www.zlovezl.cn/articles/tips-on-numbers-and-strings/)
 
 ## 注解
 

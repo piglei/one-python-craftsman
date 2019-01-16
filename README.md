@@ -1,7 +1,3 @@
-# one-python-craftsman
-
-"One Python Craftsman" is a collection of articles on how to write better python codes.
-
 ## 『Python 工匠』是什么？
 
 我一直觉得编程某种意义上是一门『手艺』，因为优雅而高效的代码，就如同完美的手工艺品一样让人赏心悦目。
@@ -12,7 +8,7 @@
 
 ## 文章目录
 
-1. [Python 工匠：善用变量改善代码质量](zh_CN/1-using-variables-well.md)
-2. [Python 工匠：编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
-3. [Python 工匠：使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
-3. [Python 工匠：容器的门道](zh_CN/4-mastering-container-types.md)
+1. [善用变量改善代码质量](zh_CN/1-using-variables-well.md)
+2. [编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
+3. [使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
+3. [容器的门道](zh_CN/4-mastering-container-types.md)
