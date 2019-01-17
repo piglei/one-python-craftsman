@@ -6,7 +6,15 @@
 
 『Python 工匠』这个系列文章，是我的一次小小尝试。它专注于分享 Python 编程中的一些偏**『小』**的东西。希望能够帮到每一位编程路上的匠人。
 
-## 文章目录
+
+## 文章列表
+ 
+- [1. 善用变量改善代码质量](zh_CN/1-using-variables-well.md)
+- [2. 编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
+- [3. 使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
+- [4. 容器的门道](zh_CN/4-mastering-container-types.md)
+
+## 详细内容
 
 ### 1. [善用变量改善代码质量](zh_CN/1-using-variables-well.md)
 
