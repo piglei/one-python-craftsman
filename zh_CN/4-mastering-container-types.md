@@ -104,6 +104,7 @@ VALID_NAMES_SET = set(VALID_NAMES)
 
 def validate_name(name):
     if name not in VALID_NAMES_SET:
+        # 此处使用了 Python 3.6 添加的 f-strings 特性
         raise ValueError(f"{name} is not a valid name!")
 ```
 
