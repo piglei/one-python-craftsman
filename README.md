@@ -13,6 +13,7 @@
 - [2. 编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
 - [3. 使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
 - [4. 容器的门道](zh_CN/4-mastering-container-types.md)
+- [5. 让函数返回结果的技巧](zh_CN/5-function-returning-tips.md)
 
 ## 详细内容
 
