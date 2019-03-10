@@ -46,7 +46,7 @@ Python 语言非常灵活，我们能用它轻松完成一些在其他语言里�
 
 ```python
 def get_users(user_id=None):
-    if user_id is None:
+    if user_id is not None:
         return User.get(user_id)
     else:
         return User.filter(is_active=True)
