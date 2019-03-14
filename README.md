@@ -121,7 +121,7 @@
 * 总结
 * 附录
 
-### [6. 异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
+### 6. [异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
 
 * 前言
 * 三个好习惯
