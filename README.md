@@ -15,6 +15,8 @@
 - [4. 容器的门道](zh_CN/4-mastering-container-types.md)
 - [5. 让函数返回结果的技巧](zh_CN/5-function-returning-tips.md)
 - [6. 异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
+- [7. 编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
+
 
 关注我的微信公众号，在第一时间阅读最新文章：
 
@@ -130,3 +132,20 @@
    * 3 - 异常处理不应该喧宾夺主
 * 总结
 * 附录
+
+### 7. [编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
+
+* 前言
+* 什么是“地道”的循环？
+   * enumerate() 所代表的编程思路
+* 建议1：使用函数修饰被迭代对象来优化循环
+   * 1 - 使用 product 扁平化多层嵌套循环
+   * 2 - 使用 islice 实现循环内隔行处理
+   * 3 - 使用 takewhile 替代 break 语句
+   * 4 - 使用生成器编写自己的修饰函数
+* 建议2：按职责拆解循环体内复杂代码块
+   * 复杂循环体如何应对新需求
+   * 使用生成器函数解耦循环体
+* 总结
+* 附录
+
