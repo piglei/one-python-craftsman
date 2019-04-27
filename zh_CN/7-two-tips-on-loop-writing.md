@@ -259,7 +259,7 @@ def gen_weekend_ts_ranges(days_ago, hour_start, hour_end):
     """生成过去一段时间内周六日特定时间段范围，并以 UNIX 时间戳返回
     """
     for days_delta in range(days_ago):
-        dt = datetime.date.today() + datetime.timedelta(days=days_delta)
+        dt = datetime.date.today() - datetime.timedelta(days=days_delta)
         # 5: Saturday, 6: Sunday
         if dt.weekday() not in (5, 6):
             continue
