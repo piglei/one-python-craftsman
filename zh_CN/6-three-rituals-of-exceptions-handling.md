@@ -258,7 +258,7 @@ class raise_api_error:
         self.code = getattr(error_codes, code_name)
 
     def __enter__(self):
-        # 刚方法将在进入上下文时调用
+        # 该方法将在进入上下文时调用
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
