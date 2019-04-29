@@ -145,7 +145,7 @@ teachers -> `pl_teachers`
 也许你第一次发现 globals()/locals() 这对内建函数时很兴奋，迫不及待的写下下面这种极端『简洁』的代码：
 
 ```python
-def render(request, user_id, trip_id):
+def render_trip_page(request, user_id, trip_id):
     user = User.objects.get(id=user_id)
     trip = get_object_or_404(Trip, pk=trip_id)
     is_suggested = is_suggested(user, trip)
