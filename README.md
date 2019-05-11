@@ -16,6 +16,7 @@
 - [5. 让函数返回结果的技巧](zh_CN/5-function-returning-tips.md)
 - [6. 异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
 - [7. 编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
+- [8. 使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -149,3 +150,15 @@
 * 总结
 * 附录
 
+### 8. [使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
+
+* 前言
+* 最佳实践
+   * 1 - 尝试用类来实现装饰器
+   * 2 - 使用 wrapt 模块编写更扁平的装饰器
+* 常见错误
+   * 1 - “装饰器”并不是“装饰器模式”
+   * 2 - 记得用 functools.wraps() 装饰内层函数
+   * 3 - 修改外层变量时记得使用 nonlocal
+* 总结
+* 附录
