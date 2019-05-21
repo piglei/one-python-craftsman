@@ -17,6 +17,7 @@
 - [6. 异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
 - [7. 编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
 - [8. 使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
+- [9. 一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -160,5 +161,15 @@
    * 1 - “装饰器”并不是“装饰器模式”
    * 2 - 记得用 functools.wraps() 装饰内层函数
    * 3 - 修改外层变量时记得使用 nonlocal
+* 总结
+* 附录
+
+### 9. [一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
+
+* 前言
+* 一个关于模块的小故事
+   * 需求变更
+   * 解决环形依赖问题
+   * 小 C 的疑问
 * 总结
 * 附录
