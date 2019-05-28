@@ -18,6 +18,7 @@
 - [7. 编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
 - [8. 使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
 - [9. 一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
+- [10.做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -171,5 +172,22 @@
    * 需求变更
    * 解决环形依赖问题
    * 小 C 的疑问
+* 总结
+* 附录
+
+- 10.[做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+
+* [前言
+   * Python 里的规则
+* 案例：从两份旅游数据中获取人员名单
+   * 第一次蛮力尝试
+   * 尝试使用集合优化函数
+   * 对问题的重新思考
+   * 利用集合的游戏规则
+   * 使用 dataclass 简化代码
+   * 案例总结
+* 其他规则如何影响我们
+   * 使用 `__format__` 做对象字符串格式化
+   * 使用 `__getitem__` 定义对象切片操作
 * 总结
 * 附录
