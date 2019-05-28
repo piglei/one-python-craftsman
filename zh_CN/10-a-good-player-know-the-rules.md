@@ -170,7 +170,7 @@ def __eq__(self, other):
     # 当两条访问记录的名字与电话号相等时，判定二者相等。
     if isinstance(other, VisitRecord) and hash(other) == hash(self):
         return True
-    return True
+    return False
 ```
 
 完成了恰当的数据建模后，之后的求差值运算便算是水到渠成了。新版本的函数只需要一行代码就能完成操作：
