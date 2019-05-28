@@ -175,7 +175,7 @@
 * 总结
 * 附录
 
-- 10.[做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+### 10.[做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
 
 * 前言
    * Python 里的规则
