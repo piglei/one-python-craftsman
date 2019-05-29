@@ -36,7 +36,7 @@ Python 是一门初见简单、深入后愈觉复杂的语言。拿 Python 里�
 
 ```python
 # 去过普吉岛的人员数据
-users_visited_puket = [
+users_visited_phuket = [
     {"first_name": "Sirena", "last_name": "Gross", "phone_number": "650-568-0388", "date_visited": "2018-03-14"},
     {"first_name": "James", "last_name": "Ashcraft", "phone_number": "412-334-4380", "date_visited": "2014-09-16"},
     ... ...
@@ -60,17 +60,17 @@ users_visited_nz = [
 def find_potential_customers_v1():
     """找到去过普吉岛但是没去过新西兰的人
     """
-    for puket_record in users_visited_puket:
+    for phuket_record in users_visited_phuket:
         is_potential = True
         for nz_record in users_visited_nz:
-            if puket_record['first_name'] == nz_record['first_name'] and \
-                    puket_record['last_name'] == nz_record['last_name'] and \
-                    puket_record['phone_number'] == nz_record['phone_number']:
+            if phuket_record['first_name'] == nz_record['first_name'] and \
+                    phuket_record['last_name'] == nz_record['last_name'] and \
+                    phuket_record['phone_number'] == nz_record['phone_number']:
                 is_potential = False
                 break
 
         if is_potential:
-            yield puket_record
+            yield phuket_record
 ```
 
 因为原始数据里没有*“用户 ID”*之类的唯一标示，所以我们只能把“姓名和电话号码完全相同”作为判断是不是同一个人的标准。
@@ -99,7 +99,7 @@ def find_potential_customers_v2():
         for rec in users_visited_nz
     }
 
-    for rec in users_visited_puket:
+    for rec in users_visited_phuket:
         key = (rec['first_name'], rec['last_name'], rec['phone_number'])
         if key not in nz_records_idx:
             yield rec
@@ -177,7 +177,7 @@ def __eq__(self, other):
 
 ```python
 def find_potential_customers_v3():
-    return set(VisitRecord(**r) for r in users_visited_puket) - \
+    return set(VisitRecord(**r) for r in users_visited_phuket) - \
         set(VisitRecord(**r) for r in users_visited_nz)
 ```
 
@@ -202,7 +202,7 @@ class VisitRecordDC:
 
 
 def find_potential_customers_v4():
-    return set(VisitRecordDC(**r) for r in users_visited_puket) - \
+    return set(VisitRecordDC(**r) for r in users_visited_phuket) - \
         set(VisitRecordDC(**r) for r in users_visited_nz)
 ```
 
