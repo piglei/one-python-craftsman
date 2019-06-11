@@ -260,7 +260,7 @@ import bisect
 BREAKPOINTS = (1, 60, 3600, 3600 * 24)
 TMPLS = (
     # unit, template
-    (0, "less than 1 second ago"),
+    (1, "less than 1 second ago"),
     (1, "{units} seconds ago"),
     (60, "{units} minutes ago"),
     (3600, "{units} hours ago"),
