@@ -18,7 +18,8 @@
 - [7. 编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
 - [8. 使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
 - [9. 一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
-- [10.做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+- [10. 做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+- [11. 高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -175,7 +176,7 @@
 * 总结
 * 附录
 
-### 10.[做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+### 10. [做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
 
 * 前言
    * Python 里的规则
@@ -191,3 +192,19 @@
    * 使用 `__getitem__` 定义对象切片操作
 * 总结
 * 附录
+
+### 11. [高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
+
+* 前言
+* 建议一：使用 pathlib 模块
+   * 使用 pathlib 模块改写代码
+   * 其他用法
+* 建议二：掌握如何流式读取大文件
+   * 标准做法的缺点
+   * 使用 read 方法分块读取
+   * 利用生成器解耦代码
+* 建议三：设计接受文件对象的函数
+   * 如何编写兼容二者的函数
+* 总结
+* 附录
+* 注解
