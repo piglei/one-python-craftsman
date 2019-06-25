@@ -77,8 +77,8 @@ Python 是一门高级编程语言，**它所提供的内置容器类型，都�
 
 - 更多的使用 `yield` 关键字，返回生成器对象
 - 尽量使用生成器表达式替代列表推导表达式
-    - 生成器表达式：`(i for in range(100))` 👍
-    - 列表推导表达式：`[i for in range(100)]`
+    - 生成器表达式：`(i for i in range(100))` 👍
+    - 列表推导表达式：`[i for i in range(100)]`
 - 尽量使用模块提供的懒惰对象：
     - 使用 `re.finditer` 替代 `re.findall`
     - 直接使用可迭代的文件对象： `for line in fp`，而不是 `for line in fp.readlines()`
