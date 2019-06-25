@@ -350,6 +350,10 @@ Python 世界有着一套非常复杂的规则，这些规则的涵盖范围包�
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【11.高效操作文件的三个建议】](11-three-tips-on-writing-file-related-codes.md)
+
+[<<<上一篇【9.一个关于模块的小故事】](9-a-story-on-cyclic-imports.md)
+
 ## 附录
 
 - 题图来源: Photo by JESHOOTS.COM on Unsplash
