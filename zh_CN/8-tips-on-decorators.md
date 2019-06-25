@@ -341,6 +341,10 @@ def decorated(*args, **kwargs):
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【9.一个关于模块的小故事】](9-a-story-on-cyclic-imports.md)
+
+[<<<上一篇【7.编写地道循环的两个建议】](7-two-tips-on-loop-writing.md)
+
 
 ## 附录
 
