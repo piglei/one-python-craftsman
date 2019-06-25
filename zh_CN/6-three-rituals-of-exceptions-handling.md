@@ -307,6 +307,10 @@ def upload_avatar(request):
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【7.编写地道循环的两个建议】](7-two-tips-on-loop-writing.md)
+
+[<<<上一篇【5.让函数返回结果的技巧】](5-function-returning-tips.md)
+
 ## 附录
 
 - 题图来源: Photo by Bernard Hermant on Unsplash
