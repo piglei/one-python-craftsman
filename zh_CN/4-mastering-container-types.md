@@ -465,6 +465,10 @@ print(numbers)
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【5.让函数返回结果的技巧】](5-function-returning-tips.md)
+
+[<<<上一篇【3.编写条件分支代码的技巧】](3-tips-on-numbers-and-strings.md)
+
 ## 系列其他文章
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)

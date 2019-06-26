@@ -390,6 +390,10 @@ def foo_func(items):
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【6.异常处理的三个好习惯】](6-three-rituals-of-exceptions-handling.md)
+
+[<<<上一篇【4.容器的门道】](4-mastering-container-types.md)
+
 ## 附录
 
 - 题图来源: Dominik Scythe on Unsplash

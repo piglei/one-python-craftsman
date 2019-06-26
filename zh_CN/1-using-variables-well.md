@@ -289,6 +289,8 @@ def get_best_trip_by_user_id(user_id):
 
 这是『Python 工匠』系列文章的第一篇，不知道看完文章的你，有没有什么想吐槽的？请留言告诉我吧。
 
+[>>>下一篇【2.编写条件分支代码的技巧】](2-if-else-block-secrets.md)
+
 > 文章更新记录：
 > 
 > - 2018.04.09：根据 @onlyice 的建议，添加了 namedtuple 部分
