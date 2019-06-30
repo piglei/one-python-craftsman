@@ -20,6 +20,7 @@
 - [9. 一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
 - [10. 做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
 - [11. 高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
+- [12. 写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -208,3 +209,21 @@
 * 总结
 * 附录
 * 注解
+
+### 12. [写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
+
+* 前言
+   * Python 对 OOP 的支持
+   * SOLID 设计原则
+* SOLID 原则与 Python
+* S：单一职责原则
+   * 违反“单一职责原则”的坏处
+   * 拆分大类为多个小类
+   * 另一种方案：使用函数
+* O：开放-关闭原则
+   * 如何违反“开放-关闭原则”
+   * 使用类继承来改造代码
+   * 使用组合与依赖注入来改造代码
+   * 使用数据驱动思想来改造代码
+* 总结
+* 附录

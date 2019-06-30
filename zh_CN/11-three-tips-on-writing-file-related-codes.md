@@ -372,6 +372,8 @@ def parse(self, source, parser=None):
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【12.写好面向对象代码的原则（上）】](12-write-solid-python-codes-part-1.md)
+
 [<<<上一篇【10.做一个精通规则的玩家】](10-a-good-player-know-the-rules.md)
 
 ## 附录
