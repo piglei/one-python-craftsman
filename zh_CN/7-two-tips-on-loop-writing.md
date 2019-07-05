@@ -304,6 +304,10 @@ def notify_nonsleep_users_in_last_30days():
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【8.使用装饰器的技巧】](8-tips-on-decorators.md)
+
+[<<<上一篇【6.异常处理的三个好习惯】](6-three-rituals-of-exceptions-handling.md)
+
 ## 附录
 
 - 题图来源: Photo by Lai man nung on Unsplash
