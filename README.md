@@ -21,6 +21,7 @@
 - [10. 做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
 - [11. 高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
 - [12. 写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
+- [13. 写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -227,3 +228,20 @@
    * 使用数据驱动思想来改造代码
 * 总结
 * 附录
+
+### 13. [写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
+
+* 前言
+* 里氏替换原则与继承
+* L：里氏替换原则
+* 一个违反 L 原则的样例
+   * 不当继承关系如何违反 L 原则
+   * 一个简单但错误的解决办法
+   * 正确的修改办法
+* 另一种违反方式：子类修改方法返回值法返回值)
+   * 分析类方法返回结果
+   * 如何修改代码
+   * 方法参数与 L 原则
+* 总结
+* 附录
+
