@@ -206,7 +206,7 @@ class Admin(User):
 
 现在，假设我需要写一个函数，来获取和用户有关的所有帖子标题：
 
-```
+```python
 def list_user_post_titles(user: User) -> Iterable[str]:
     """获取与用户有关的所有帖子标题
     """
