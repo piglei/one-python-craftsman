@@ -313,7 +313,7 @@ def do_stuff():
 
 其实，我们可以用更简单的方法达到同样的效果：
 
-```
+```python
 def do_stuff():
     try:
         do_the_first_thing()
