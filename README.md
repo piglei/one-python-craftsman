@@ -22,6 +22,7 @@
 - [11. 高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
 - [12. 写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
 - [13. 写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
+- [14. 写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
 
 
 关注我的微信公众号，在第一时间阅读最新文章：
@@ -245,3 +246,23 @@
 * 总结
 * 附录
 
+### 14. [写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
+
+* 前言
+* D：依赖倒置原则
+   * 需求：按域名分组统计 HN 新闻数量
+   * 为 SiteSourceGrouper 编写单元测试
+      * 使用 mock 模块
+   * 实现依赖倒置原则
+   * 依赖倒置后的单元测试
+   * 问题：一定要使用抽象类 abc 吗？
+   * 问题：抽象一定是好东西吗？
+* I：接口隔离原则
+   * 例子：开发页面归档功能
+   * 问题：实体类不符合 HNWebPage 接口规范
+   * 成功违反 I 协议
+   * 如何分拆接口
+   * 一些不容易发现的违反情况
+   * 现实世界中的接口隔离
+* 总结
+* 附录

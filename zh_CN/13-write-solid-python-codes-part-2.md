@@ -337,6 +337,8 @@ class Admin(User):
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【14.写好面向对象代码的原则（下）】](14-write-solid-python-codes-part-3.md)
+
 [<<<上一篇【12.写好面向对象代码的原则（上）】](12-write-solid-python-codes-part-1.md)
 
 ## 附录
