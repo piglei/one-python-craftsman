@@ -205,7 +205,18 @@ with open("comments") as fp:
 
 答案是： **各个容器类型实现的接口协议定义了容器。** 不同的容器类型在我们的眼里，应该是 `是否可以迭代`、`是否可以修改`、`有没有长度` 等各种特性的组合。我们需要在编写相关代码时，**更多的关注容器的抽象属性，而非容器类型本身**，这样可以帮助我们写出更优雅、扩展性更好的代码。
 
-> Hint：在 [itertools](https://docs.python.org/3/library/itertools.html) 内置模块里可以找到更多关于处理可迭代对象的宝藏。
+另外，很多内置函数接受的参数也是`是否可迭代`，`是否有长度`等，比如一个经典的面
+试问题：找出一个超大文件的最长的一行。在 Python 中只需要写两行:
+
+```
+>>> with open("bigfile.txt") as file:
+        longest_line = max(file, key=len)
+```
+
+> Hint1：在 [itertools](https://docs.python.org/3/library/itertools.html) 内置模块里可以找到更多关于处理可迭代对象的宝藏。
+
+> Hint2：第三方模块 [more-itertools](https://pypi.org/project/more-itertools/)
+基于 itertools 实现了更多的工具方法。
 
 ## 常用技巧
 
