@@ -256,7 +256,7 @@ def fancy_func():
 
 所以，请打开 IDE 的智能提示，及时清理掉那些定义了但是没有使用的变量吧。
 
-### 7. 能不定义变量就不定义
+### 7. 不要定义没有意义的变量名字
 
 有时候，我们定义变量时的心理活动是这样的：『嗯，这个值未来说不定会修改/二次使用』，让我们先把它定义成变量吧！
 
@@ -282,6 +282,30 @@ def get_best_trip_by_user_id(user_id):
 ```
 
 没有必要为了那些可能出现的变动，牺牲代码当前的可读性。如果以后有定义变量的需求，那就以后再加吧。
+
+但有时候，定义额外的变量名可以增加程序的可读性。为布尔值取名字是人们经常会忽略
+的做法，比如下面这段代码:
+
+```
+# 如果活动还在开放，并且活动剩余名额大于 10，为所有性别为女性，或者级别大于 3
+# 的活跃用户发放 10000 个金币
+if activity.is_active and activity.remaining > 10 and \
+        user.is_active and (user.sex == 'female' or user.level > 3):
+    user.add_coins(10000)
+    return
+```
+
+假如我们通过取名字来解释这段代码，甚至没有必要添加注释（当然，更好的方法是将这
+个逻辑进行封装，见
+[2.2封装那些过于复杂的逻辑判断](2-if-else-block-secrets.md#2-封装那些过于复杂的逻辑判断))
+
+```
+activity_is_ongoing = activity.is_active and activity.remaining > 10
+user_is_eligible = user.is_active and (user.sex == 'female' or user.level > 3)
+if activity_is_ongoing and user_is_eligible:
+    user.add_coins(10000)
+    return
+```
 
 ## 结语
 
