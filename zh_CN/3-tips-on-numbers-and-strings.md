@@ -277,7 +277,9 @@ def main():
 
 #### 大数字也可以变得更加可读
 
-Python 中的数字，可以通过在中间添加下划线来提高可读性
+> 该小节内容由 [@laixintao](https://github.com/laixintao) 提供。
+
+对那些特别大的数字，可以通过在中间添加下划线来提高可读性
 ([PEP515](https://www.python.org/dev/peps/pep-0515/)，需要 Python3.6+)。
 
 比如：
