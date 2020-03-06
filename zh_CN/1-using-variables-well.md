@@ -256,12 +256,35 @@ def fancy_func():
 
 所以，请打开 IDE 的智能提示，及时清理掉那些定义了但是没有使用的变量吧。
 
-### 7. 能不定义变量就不定义
+### 7. 定义临时变量提升可读性
 
-有时候，我们定义变量时的心理活动是这样的：『嗯，这个值未来说不定会修改/二次使用』，让我们先把它定义成变量吧！
+有时，我们的代码里会出现一些复杂的表达式，像下面这样：
+
+```python
+# 为所有性别为女性，或者级别大于 3 的活跃用户发放 10000 个金币
+if user.is_active and (user.sex == 'female' or user.level > 3):
+    user.add_coins(10000)
+    return
+```
+
+看见 `if` 后面那一长串了吗？有点难读对不对？但是如果我们把它赋值成一个临时变量，
+就能给读者一个心理缓冲，提高可读性：
+
+```
+# 为所有性别为女性，或者级别大于 3 的活跃用户发放 10000 个金币
+user_is_eligible = user.is_active and (user.sex == 'female' or user.level > 3):
+
+if user_is_eligible:
+    user.add_coins(10000)
+    return
+```
+
+定义临时变量可以提高可读性。但有时，把不必要的东西赋值成临时变量反而会让代码显得啰嗦：
 
 ```python
 def get_best_trip_by_user_id(user_id):
+
+    # 心理活动：『嗯，这个值未来说不定会修改/二次使用』，让我们先把它定义成变量吧！
     user = get_user(user_id)
     trip = get_best_trip(user_id)
     result = {
@@ -281,7 +304,7 @@ def get_best_trip_by_user_id(user_id):
     }
 ```
 
-没有必要为了那些可能出现的变动，牺牲代码当前的可读性。如果以后有定义变量的需求，那就以后再加吧。
+没必要为了那些可能出现的变动，牺牲代码当前的可读性。如果以后有定义变量的需求，那就以后再加吧。
 
 ## 结语
 
