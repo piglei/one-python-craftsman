@@ -205,7 +205,7 @@ with open("comments") as fp:
 
 答案是： **各个容器类型实现的接口协议定义了容器。** 不同的容器类型在我们的眼里，应该是 `是否可以迭代`、`是否可以修改`、`有没有长度` 等各种特性的组合。我们需要在编写相关代码时，**更多的关注容器的抽象属性，而非容器类型本身**，这样可以帮助我们写出更优雅、扩展性更好的代码。
 
-> Hint1：在 [itertools](https://docs.python.org/3/library/itertools.html) 与 [more-itertools](https://pypi.org/project/more-itertools/) 模块里可以找到更多关于处理可迭代对象的宝藏。
+> Hint：在 [itertools](https://docs.python.org/3/library/itertools.html) 与 [more-itertools](https://pypi.org/project/more-itertools/) 模块里可以找到更多关于处理可迭代对象的宝藏。
 
 ## 常用技巧
 
