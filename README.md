@@ -23,7 +23,7 @@
 - [12. 写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
 - [13. 写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
 - [14. 写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
-
+- [15. 在边界处思考](zh_CN/15-thinking-in-edge-cases)
 
 关注我的微信公众号，在第一时间阅读最新文章：
 
@@ -266,3 +266,21 @@
    * 现实世界中的接口隔离
 * 总结
 * 附录
+
+### 15. [在边界处思考](zh_CN/15-thinking-in-edge-cases.md)
+
+* 前言
+* 第一课：使用分支还是异常？
+    * 获取原谅比许可简单(EAFP)
+* 当容器内容不存在时
+    * 使用 defaultdict 改写示例
+    * 使用 setdefault 取值并修改
+    * 使用 dict.pop 删除不存在的键
+    * 当列表切片越界时
+* 好用又危险的 “or” 操作符
+* 不要手动去做数据校验
+* 不要忘记做数学计算
+* 总结
+* 附录
+
+

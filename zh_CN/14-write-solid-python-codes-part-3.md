@@ -17,7 +17,7 @@
 
 有了模块，模块间自然就有了依赖关系。比如，你的个人博客可能依赖着 Flask 框架，而 Flask 又依赖了 Werkzeug，Werkzeug 又由更多个低层模块组成。
 
-依赖倒置原则（Dependency Inversion Principle）就是一条和有关依赖的原则。它认为：**“高层模块不应该依赖于低层模块，二者都应该依赖于抽象。”**
+依赖倒置原则（Dependency Inversion Principle）就是一条和依赖关系相关的原则。它认为：**“高层模块不应该依赖于低层模块，二者都应该依赖于抽象。”**
 
 > High-level modules should not depend on low-level modules. Both should depend on abstractions.
 
@@ -491,7 +491,7 @@ def is_new_visitor(request: HttpRequest) -> bool:
     return request.COOKIES.get('is_new_visitor') == 'y'
 ```
 
-单事实上，除了 `.COOKIES` 以外，`is_new_visitor` 根本就不需要 `request` 对象里面的任何其他内容。“用户请求对象（request）”是一个比“Cookie 字典（request.COOKIES）”复杂得多的抽象。我们完全可以把函数改成只接收 cookies 字典。
+但事实上，除了 `.COOKIES` 以外，`is_new_visitor` 根本就不需要 `request` 对象里面的任何其他内容。“用户请求对象（request）”是一个比“Cookie 字典（request.COOKIES）”复杂得多的抽象。我们完全可以把函数改成只接收 cookies 字典。
 
 ```python
 def is_new_visitor(cookies: Dict) -> bool:
@@ -530,7 +530,10 @@ def is_new_visitor(cookies: Dict) -> bool:
 
 看完文章的你，有没有什么想吐槽的？请留言或者在 [项目 Github Issues](https://github.com/piglei/one-python-craftsman) 告诉我吧。
 
+[>>>下一篇【15.在边界处思考】](15-thinking-in-edge-cases.md)
+
 [<<<上一篇【13.写好面向对象代码的原则（中）】](13-write-solid-python-codes-part-2.md)
+
 
 ## 附录
 

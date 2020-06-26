@@ -30,9 +30,8 @@ Python 语言自身的内部实现细节也与这些容器类型息息相关。�
 * [常用技巧](#常用技巧)
     * [1. 使用元组改善分支代码](#1-使用元组改善分支代码)
     * [2. 在更多地方使用动态解包](#2-在更多地方使用动态解包)
-    * [3. 最好不用“获取许可”，也无需“要求原谅”](#3-最好不用获取许可也无需要求原谅)
-    * [4. 使用 next() 函数](#4-使用-next-函数)
-    * [5. 使用有序字典来去重](#5-使用有序字典来去重)
+    * [3. 使用 next() 函数](#4-使用-next-函数)
+    * [4. 使用有序字典来去重](#5-使用有序字典来去重)
 * [常见误区](#常见误区)
     * [1. 当心那些已经枯竭的迭代器](#1-当心那些已经枯竭的迭代器)
     * [2. 别在循环体内修改被迭代对象](#2-别在循环体内修改被迭代对象)
@@ -316,60 +315,7 @@ user = {**{"name": "piglei"}, **{"movies": ["Fight Club"]}}
 > - [PEP 3132 -- Extended Iterable Unpacking | Python.org](https://www.python.org/dev/peps/pep-3132/)
 > - [PEP 448 -- Additional Unpacking Generalizations | Python.org](https://www.python.org/dev/peps/pep-0448/)
 
-### 3. 最好不用“获取许可”，也无需“要求原谅”
-
-这个小标题可能会稍微让人有点懵，让我来简短的解释一下：“获取许可”与“要求原谅”是两种不同的编程风格。如果用一个经典的需求：*“计算列表内各个元素出现的次数”* 来作为例子，两种不同风格的代码会是这样：
-
-```python
-# AF: Ask for Forgiveness
-# 要做就做，如果抛出异常了，再处理异常
-def counter_af(l):
-    result = {}
-    for key in l:
-        try:
-            result[key] += 1
-        except KeyError:
-            result[key] = 1
-    return result
-
-
-# AP: Ask for Permission
-# 做之前，先问问能不能做，可以做再做
-def counter_ap(l):
-    result = {}
-    for key in l:
-        if key in result:
-            result[key] += 1
-        else:
-            result[key] = 1
-    return result
-```
-
-整个 Python 社区对第一种 *Ask for Forgiveness* 的异常捕获式编程风格有着明显的偏爱。这其中有很多原因，首先，在 Python 中抛出异常是一个很轻量的操作。其次，第一种做法在性能上也要优于第二种，因为它不用在每次循环的时候都做一次额外的成员检查。
-
-不过，示例里的两段代码在现实世界中都非常少见。为什么？因为如果你想统计次数的话，直接用 `collections.defaultdict` 就可以了：
-
-```python
-from collections import defaultdict
-
-
-def counter_by_collections(l):
-    result = defaultdict(int)
-    for key in l:
-        result[key] += 1
-    return result
-```
-
-这样的代码既不用“获取许可”，也无需“请求原谅”。 **整个代码的控制流变得更清晰自然了。** 所以，如果可能的话，请尽量想办法省略掉那些 **非核心** 的异常捕获逻辑。一些小提示：
-
-- 操作字典成员时：使用 `collections.defaultdict` 类型
-    - 或者使用 `dict[key] = dict.setdefault(key, 0) + 1` 内建函数
-- 如果移除字典成员，不关心是否存在：
-    - 调用 pop 函数时设置默认值，比如 `dict.pop(key, None)`
-- 在字典获取成员时指定默认值：`dict.get(key, default_value)`
-- 对列表进行不存在的切片访问不会抛出 `IndexError` 异常：`["foo"][100:200]`
-
-### 4. 使用 next() 函数
+### 3. 使用 next() 函数
 
 `next()` 是一个非常实用的内建函数，它接收一个迭代器作为参数，然后返回该迭代器的下一个元素。使用它配合生成器表达式，可以高效的实现*“从列表中查找第一个满足条件的成员”* 之类的需求。
 
@@ -380,7 +326,7 @@ print(next(i for i in numbers if i % 2 == 0))
 # OUTPUT: 8
 ```
 
-### 5. 使用有序字典来去重
+### 4. 使用有序字典来去重
 
 字典和集合的结构特点保证了它们的成员不会重复，所以它们经常被用来去重。但是，使用它们俩去重后的结果会丢失原有列表的顺序。这是由底层数据结构“哈希表（Hash Table）”的特点决定的。
 
