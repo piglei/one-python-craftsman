@@ -23,7 +23,7 @@
 - [12. 写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
 - [13. 写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
 - [14. 写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
-- [15. 在边界处思考](zh_CN/15-thinking-in-edge-cases)
+- [15. 在边界处思考](zh_CN/15-thinking-in-edge-cases.md)
 
 关注我的微信公众号，在第一时间阅读最新文章：
 
