@@ -469,5 +469,7 @@ while True:
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
+- [Python 工匠：写好面向对象代码的原则（上）](https://www.zlovezl.cn/articles/write-solid-python-codes-part-1/)
+- [Python 工匠：让函数返回结果的技巧](https://www.zlovezl.cn/articles/function-returning-tips/)
 
 
