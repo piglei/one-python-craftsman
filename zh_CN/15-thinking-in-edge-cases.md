@@ -429,8 +429,8 @@ while True:
 
 ```python
 while True:
-    # 使用 % page_with 控制不要超过页面宽度
-    element.position_x = (element.position_x + width_unit) % page_with
+    # 使用 % page_width 控制不要超过页面宽度
+    element.position_x = (element.position_x + width_unit) % page_width
 ```
 
 这样写的话，代码里的边界情况就连着那行 `if` 语句一起消失了。
