@@ -413,7 +413,7 @@ print(numbers)
 
 [>>>下一篇【5.让函数返回结果的技巧】](5-function-returning-tips.md)
 
-[<<<上一篇【3.编写条件分支代码的技巧】](3-tips-on-numbers-and-strings.md)
+[<<<上一篇【3.使用数字与字符串的技巧】](3-tips-on-numbers-and-strings.md)
 
 ## 系列其他文章
 
