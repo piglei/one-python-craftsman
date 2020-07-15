@@ -8,7 +8,7 @@
 <img src="https://www.zlovezl.cn/static/uploaded/2019/05/clem-onojeghuo-142120-unsplash_w1280.jpg" width="100%" />
 </div>
 
-装饰器*（Decorator）* 是 Python 里的一种特殊工具，它为我们提供了一种在函数外部修改函数的灵活能力。它有点像一顶画着独一无二 `@` 符号的神奇帽子，只要将它戴在函数头顶上，就能悄无声息的改变函数本身的行为。
+装饰器 *（Decorator）* 是 Python 里的一种特殊工具，它为我们提供了一种在函数外部修改函数的灵活能力。它有点像一顶画着独一无二 `@` 符号的神奇帽子，只要将它戴在函数头顶上，就能悄无声息的改变函数本身的行为。
 
 你可能已经和装饰器打过不少交道了。在做面向对象编程时，我们就经常会用到 `@staticmethod` 和 `@classmethod` 两个内置装饰器。此外，如果你接触过 [click](https://click.palletsprojects.com/en/7.x/) 模块，就更不会对装饰器感到陌生。click 最为人所称道的参数定义接口 `@click.option(...)` 就是利用装饰器实现的。
 
@@ -123,7 +123,7 @@ def provide_number(min_num, max_num):
             return func(num, *args, **kwargs)
         return decorated
     return wrapper
-    
+
 
 
 @provide_number(1, 100)
@@ -135,7 +135,7 @@ def print_random_number(num):
 print_random_number()
 ```
 
-`@provide_number` 装饰器功能看上去很不错，但它有着我在前面提到的两个问题：**嵌套层级深、无法在类方法上使用。**如果直接用它去装饰类方法，会出现下面的情况：
+`@provide_number` 装饰器功能看上去很不错，但它有着我在前面提到的两个问题：**嵌套层级深、无法在类方法上使用。** 如果直接用它去装饰类方法，会出现下面的情况：
 
 ```
 class Foo:
@@ -149,9 +149,9 @@ Foo().print_random_number()
 
 `Foo` 类实例中的 `print_random_number` 方法将会输出类实例 `self` ，而不是我们期望的随机数 `num`。
 
-之所以会出现这个结果，是因为类方法*（method）*和函数*（function）*二者在工作机制上有着细微不同。如果要修复这个问题，`provider_number` 装饰器在修改类方法的位置参数时，必须聪明的跳过藏在 `*args` 里面的类实例 `self` 变量，才能正确的将 `num` 作为第一个参数注入。
+之所以会出现这个结果，是因为类方法 *（method）*和函数*（function）* 二者在工作机制上有着细微不同。如果要修复这个问题，`provider_number` 装饰器在修改类方法的位置参数时，必须聪明的跳过藏在 `*args` 里面的类实例 `self` 变量，才能正确的将 `num` 作为第一个参数注入。
 
-这时，就应该是 [wrapt](https://pypi.org/project/wrapt/) 模块闪亮登场的时候了。`wrapt` 模块是一个专门帮助你编写装饰器的工具库。利用它，我们可以非常方便的改造 `provide_number` 装饰器，完美解决*“嵌套层级深”*和*“无法通用”*两个问题，
+这时，就应该是 [wrapt](https://pypi.org/project/wrapt/) 模块闪亮登场的时候了。`wrapt` 模块是一个专门帮助你编写装饰器的工具库。利用它，我们可以非常方便的改造 `provide_number` 装饰器，完美解决 *“嵌套层级深”* 和 *“无法通用”* 两个问题，
 
 ```python
 import wrapt
@@ -175,9 +175,9 @@ def provide_number(min_num, max_num):
         args = (num,) + args
         return wrapped(*args, **kwargs)
     return wrapper
-    
+
 <... 应用装饰器部分代码省略 ...>
-    
+
 # OUTPUT: 48
 Foo().print_random_number()
 ```
@@ -198,9 +198,9 @@ Foo().print_random_number()
 
 不过 [*“装饰器模式（Decorator Pattern）”*](https://en.wikipedia.org/wiki/Decorator_pattern) 是个例外。因为 Python 的“装饰器”和“装饰器模式”有着一模一样的名字，我不止一次听到有人把它们俩当成一回事，认为使用“装饰器”就是在实践“装饰器模式”。但事实上，**它们是两个完全不同的东西。**
 
-“装饰器模式”是一个完全基于“面向对象”衍生出的编程手法。它拥有几个关键组成：**一个统一的接口定义**、**若干个遵循该接口的类**、**类与类之间一层一层的包装**。最终由它们共同形成一种*“装饰”*的效果。
+“装饰器模式”是一个完全基于“面向对象”衍生出的编程手法。它拥有几个关键组成：**一个统一的接口定义**、**若干个遵循该接口的类**、**类与类之间一层一层的包装**。最终由它们共同形成一种 *“装饰”* 的效果。
 
-而 Python 里的“装饰器”和“面向对象”没有任何直接联系，**它完全可以只是发生在函数和函数间的把戏。**事实上，“装饰器”并没有提供某种无法替代的功能，它仅仅就是一颗[“语法糖”](https://en.wikipedia.org/wiki/Syntactic_sugar)而已。下面这段使用了装饰器的代码：
+而 Python 里的“装饰器”和“面向对象”没有任何直接联系，**它完全可以只是发生在函数和函数间的把戏。** 事实上，“装饰器”并没有提供某种无法替代的功能，它仅仅就是一颗[“语法糖”](https://en.wikipedia.org/wiki/Syntactic_sugar)而已。下面这段使用了装饰器的代码：
 
 ```python
 @log_time

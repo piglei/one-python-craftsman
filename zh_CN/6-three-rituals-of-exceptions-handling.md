@@ -14,15 +14,15 @@
 
 在这篇文章里，我会分享与异常处理相关的 3 个好习惯。继续阅读前，我希望你已经了解了下面这些知识点：
 
-- 异常的基本语法与用法*（建议阅读官方文档 [“Errors and Exceptions”](https://docs.python.org/3.6/tutorial/errors.html)）*
-- 为什么要使用异常代替错误返回*（建议阅读[《让函数返回结果的技巧》](https://www.zlovezl.cn/articles/function-returning-tips/)）*
+- 异常的基本语法与用法 *（建议阅读官方文档 [“Errors and Exceptions”](https://docs.python.org/3.6/tutorial/errors.html)）*
+- 为什么要使用异常代替错误返回 *（建议阅读[《让函数返回结果的技巧》](https://www.zlovezl.cn/articles/function-returning-tips/)）*
 - 为什么在写 Python 时鼓励使用异常 *（建议阅读 [“Write Cleaner Python: Use Exceptions”](https://jeffknupp.com/blog/2013/02/06/write-cleaner-python-use-exceptions/)）*
 
 ## 三个好习惯
 
 ### 1. 只做最精确的异常捕获
 
-假如你不够了解异常机制，就难免会对它有一种天然恐惧感。你可能会觉得：*异常是一种不好的东西，好的程序就应该捕获所有的异常，让一切都平平稳稳的运行。*而抱着这种想法写出的代码，里面通常会出现大段含糊的异常捕获逻辑。
+假如你不够了解异常机制，就难免会对它有一种天然恐惧感。你可能会觉得：*异常是一种不好的东西，好的程序就应该捕获所有的异常，让一切都平平稳稳的运行。* 而抱着这种想法写出的代码，里面通常会出现大段含糊的异常捕获逻辑。
 
 让我们用一段可执行脚本作为样例：
 
@@ -34,7 +34,7 @@ import re
 
 def save_website_title(url, filename):
     """获取某个地址的网页标题，然后将其写入到文件中
-    
+
     :returns: 如果成功保存，返回 True，否则打印错误，返回 False
     """
     try:
@@ -110,7 +110,7 @@ def save_website_title(url, filename):
 
 ### 2. 别让异常破坏抽象一致性
 
-大约四五年前，当时的我正在开发某移动应用的后端 API 项目。如果你也有过开发后端 API 的经验，那么你一定知道，这样的系统都需要制定一套**“API 错误码规范”**，来为客户端处理调用错误时提供方便。
+大约四五年前，当时的我正在开发某移动应用的后端 API 项目。如果你也有过开发后端 API 的经验，那么你一定知道，这样的系统都需要制定一套 **“API 错误码规范”**，来为客户端处理调用错误时提供方便。
 
 一个错误码返回大概长这个样子：
 
@@ -163,7 +163,7 @@ def process_image(...):
 - 我必须引入 `APIErrorCode` 异常类作为依赖来捕获异常
     - **哪怕我的脚本和 Django API 根本没有任何关系**
 
-**这就是异常类抽象层级不一致导致的结果。**APIErrorCode 异常类的意义，在于表达一种能够直接被终端用户（人）识别并消费的“错误代码”。**它在整个项目里，属于最高层的抽象之一。**但是出于方便，我们却在底层模块里引入并抛出了它。这打破了 `image.processor` 模块的抽象一致性，影响了它的可复用性和可维护性。
+**这就是异常类抽象层级不一致导致的结果。** APIErrorCode 异常类的意义，在于表达一种能够直接被终端用户（人）识别并消费的“错误代码”。**它在整个项目里，属于最高层的抽象之一。** 但是出于方便，我们却在底层模块里引入并抛出了它。这打破了 `image.processor` 模块的抽象一致性，影响了它的可复用性和可维护性。
 
 这类情况属于“模块抛出了**高于**所属抽象层级的异常”。避免这类错误需要注意以下几点：
 
@@ -186,7 +186,7 @@ def process_image(...):
     except Exception as e:
         raise ImageOpenError(exc=e)
     ... ...
-    
+
 # <PROJECT_ROOT>/app/views.py
 def foo_view_function(request):
     try:
@@ -294,7 +294,7 @@ def upload_avatar(request):
 ```
 
 > Hint：建议阅读 [PEP 343 -- The "with" Statement | Python.org](https://www.python.org/dev/peps/pep-0343/)，了解与上下文管理器有关的更多知识。
-> 
+>
 > 模块 [contextlib](https://docs.python.org/3/library/contextlib.html) 也提供了非常多与编写上下文管理器相关的工具函数与样例。
 
 ## 总结

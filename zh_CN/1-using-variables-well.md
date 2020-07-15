@@ -6,7 +6,7 @@
 
 在雕琢代码的过程中，有大工程：比如应该用什么架构、哪种设计模式。也有更多的小细节，比如何时使用异常（Exceptions）、或怎么给变量起名。那些真正优秀的代码，正是由无数优秀的细节造就的。
 
-『Python 工匠』这个系列文章，是我的一次小小尝试。它专注于分享 Python 编程中的一些偏**『小』**的东西。希望能够帮到每一位编程路上的匠人。
+『Python 工匠』这个系列文章，是我的一次小小尝试。它专注于分享 Python 编程中的一些偏 **『小』** 的东西。希望能够帮到每一位编程路上的匠人。
 
 > 这是 “Python 工匠”系列的第 1 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
@@ -44,7 +44,7 @@
 
 > There are only two hard things in Computer Science: cache invalidation and naming things.
 > 在计算机科学领域只有两件难事：缓存过期 和 给东西起名字
-> 
+>
 > -- Phil Karlton
 
 第一个『缓存过期问题』的难度不用多说，任何用过缓存的人都会懂。至于第二个『给东西起名字』这事的难度，我也是深有体会。在我的职业生涯里，度过的最为黑暗的下午之一，就是坐在显示器前抓耳挠腮为一个新项目起一个合适的名字。
@@ -68,7 +68,7 @@
 
 #### 『什么样的名字会被当成 bool 类型？』
 
-布尔类型变量的最大特点是：它只存在两个可能的值**『是』** 或 **『不是』**。所以，用 `is`、`has` 等非黑即白的词修饰的变量名，会是个不错的选择。原则就是：**让读到变量名的人觉得这个变量只会有『是』或『不是』两种值**。
+布尔类型变量的最大特点是：它只存在两个可能的值 **『是』** 或 **『不是』**。所以，用 `is`、`has` 等非黑即白的词修饰的变量名，会是个不错的选择。原则就是：**让读到变量名的人觉得这个变量只会有『是』或『不是』两种值**。
 
 下面是几个不错的示例：
 
@@ -86,13 +86,13 @@
 - 使用 _id 结尾的单词，比如：`user_id`、`host_id`
 - 使用 length/count 开头或者结尾的单词，比如： `length_of_username`、`max_length`、`users_count`
 
-**注意：**不要使用普通的复数来表示一个 int 类型变量，比如 `apples`、`trips`，最好用 `number_of_apples`、`trips_count` 来替代。
+**注意：** 不要使用普通的复数来表示一个 int 类型变量，比如 `apples`、`trips`，最好用 `number_of_apples`、`trips_count` 来替代。
 
 #### 其他类型
 
 对于 str、list、tuple、dict 这些复杂类型，很难有一个统一的规则让我们可以通过名字去猜测变量类型。比如 `headers`，既可能是一个头信息列表，也可能是包含头信息的 dict。
 
-对于这些类型的变量名，最推荐的方式，就是编写规范的文档，在函数和方法的 document string 中，使用 sphinx 格式（[Python 官方文档使用的文档工具](http://www.sphinx-doc.org/en/stable/)）来标注所有变量的类型。 
+对于这些类型的变量名，最推荐的方式，就是编写规范的文档，在函数和方法的 document string 中，使用 sphinx 格式（[Python 官方文档使用的文档工具](http://www.sphinx-doc.org/en/stable/)）来标注所有变量的类型。
 
 ### 3. 适当使用『匈牙利命名法』
 
@@ -121,7 +121,7 @@ teachers -> `pl_teachers`
 
 有时，上面的原则也存在一些例外。当一些意义明确但是较长的变量名重复出现时，为了让代码更简洁，使用短名字缩写是完全可以的。但是为了降低理解成本，同一段代码内最好不要使用太多这种短名字。
 
-比如在 Python 中导入模块时，就会经常用到短名字作为别名，像 Django i18n 翻译时常用的 `gettext` 方法通常会被缩写成 `_` 来使用*（from django.utils.translation import ugettext as _）*
+比如在 Python 中导入模块时，就会经常用到短名字作为别名，像 Django i18n 翻译时常用的 `gettext` 方法通常会被缩写成 `_` 来使用 *（from django.utils.translation import ugettext as _）*
 
 ### 5. 其他注意事项
 
@@ -272,7 +272,7 @@ if user.is_active and (user.sex == 'female' or user.level > 3):
 
 ```
 # 为所有性别为女性，或者级别大于 3 的活跃用户发放 10000 个金币
-user_is_eligible = user.is_active and (user.sex == 'female' or user.level > 3):
+user_is_eligible = user.is_active and (user.sex == 'female' or user.level > 3)
 
 if user_is_eligible:
     user.add_coins(10000)
@@ -315,6 +315,6 @@ def get_best_trip_by_user_id(user_id):
 [>>>下一篇【2.编写条件分支代码的技巧】](2-if-else-block-secrets.md)
 
 > 文章更新记录：
-> 
+>
 > - 2018.04.09：根据 @onlyice 的建议，添加了 namedtuple 部分
 
