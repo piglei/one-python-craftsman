@@ -16,7 +16,7 @@
 
 Python 函数通过调用 `return` 语句来返回结果。使用 `return value` 可以返回单个值，用 `return value1, value2` 则能让函数同时返回多个值。
 
-如果一个函数体内没有任何 `return` 语句，那么这个函数的返回值默认为 `None`。除了通过 `return` 语句返回内容，在函数内还可以使用抛出异常*（raise Exception）*的方式来“返回结果”。
+如果一个函数体内没有任何 `return` 语句，那么这个函数的返回值默认为 `None`。除了通过 `return` 语句返回内容，在函数内还可以使用抛出异常 *（raise Exception）* 的方式来“返回结果”。
 
 接下来，我将列举一些与函数返回相关的常用编程建议。
 
@@ -40,7 +40,7 @@ Python 函数通过调用 `return` 语句来返回结果。使用 `return value`
 
 ### 1. 单个函数不要返回多种类型
 
-Python 语言非常灵活，我们能用它轻松完成一些在其他语言里很难做到的事情。比如：*让一个函数同时返回不同类型的结果。*从而实现一种看起来非常实用的“多功能函数”。
+Python 语言非常灵活，我们能用它轻松完成一些在其他语言里很难做到的事情。比如：*让一个函数同时返回不同类型的结果。* 从而实现一种看起来非常实用的“多功能函数”。
 
 就像下面这样：
 
@@ -60,9 +60,9 @@ get_users()
 
 当我们需要获取单个用户时，就传递 `user_id` 参数，否则就不传参数拿到所有活跃用户列表。一切都由一个函数 `get_users` 来搞定。这样的设计似乎很合理。
 
-然而在函数的世界里，以编写具备“多功能”的瑞士军刀型函数为荣不是一件好事。这是因为好的函数一定是 [“单一职责（Single responsibility）”](https://en.wikipedia.org/wiki/Single_responsibility_principle) 的。**单一职责意味着一个函数只做好一件事，目的明确。**这样的函数也更不容易在未来因为需求变更而被修改。
+然而在函数的世界里，以编写具备“多功能”的瑞士军刀型函数为荣不是一件好事。这是因为好的函数一定是 [“单一职责（Single responsibility）”](https://en.wikipedia.org/wiki/Single_responsibility_principle) 的。**单一职责意味着一个函数只做好一件事，目的明确。** 这样的函数也更不容易在未来因为需求变更而被修改。
 
-而返回多种类型的函数一定是违反“单一职责”原则的，**好的函数应该总是提供稳定的返回值，把调用方的处理成本降到最低。**像上面的例子，我们应该编写两个独立的函数 `get_user_by_id(user_id)`、`get_active_users()` 来替代。
+而返回多种类型的函数一定是违反“单一职责”原则的，**好的函数应该总是提供稳定的返回值，把调用方的处理成本降到最低。** 像上面的例子，我们应该编写两个独立的函数 `get_user_by_id(user_id)`、`get_active_users()` 来替代。
 
 ### 2. 使用 partial 构造新函数
 
@@ -120,7 +120,7 @@ def create_from_input():
 
 乍看上去，这样的做法很自然。尤其是对那些有 `Go` 语言编程经验的人来说更是如此。但是在 Python 世界里，这并非解决此类问题的最佳办法。因为这种做法会增加调用方进行错误处理的成本，尤其是当很多函数都遵循这个规范而且存在多层调用时。
 
-Python 具备完善的*异常（Exception）*机制，并且在某种程度上鼓励我们使用异常（[官方文档关于 EAFP 的说明](https://docs.python.org/3/glossary.html#term-eafp)）。所以，**使用异常来进行错误流程处理才是更地道的做法。**
+Python 具备完善的 *异常（Exception）* 机制，并且在某种程度上鼓励我们使用异常（[官方文档关于 EAFP 的说明](https://docs.python.org/3/glossary.html#term-eafp)）。所以，**使用异常来进行错误流程处理才是更地道的做法。**
 
 引入自定义异常后，上面的代码可以被改写成这样：
 
@@ -130,7 +130,7 @@ class CreateItemError(Exception):
 
 def create_item(name):
     """创建一个新的 Item
-    
+
     :raises: 当无法创建时抛出 CreateItemError
     """
     if len(name) > MAX_LENGTH_OF_NAME:
@@ -159,21 +159,21 @@ def create_for_input():
 
 
 > Hint：如何在编程语言里处理错误，是一个至今仍然存在争议的主题。比如像上面不推荐的多返回值方式，正是缺乏异常的 Go 语言中最核心的错误处理机制。另外，即使是异常机制本身，不同编程语言之间也存在着差别。
-> 
+>
 > 异常，或是不异常，都是由语言设计者进行多方取舍后的结果，更多时候不存在绝对性的优劣之分。**但是，单就 Python 语言而言，使用异常来表达错误无疑是更符合 Python 哲学，更应该受到推崇的。**
 
 
 ### 4. 谨慎使用 None 返回值
 
-`None` 值通常被用来表示**“某个应该存在但是缺失的东西”**，它在 Python 里是独一无二的存在。很多编程语言里都有与 None 类似的设计，比如 JavaScript 里的 `null`、Go 里的 `nil` 等。因为 None 所拥有的独特 *虚无* 气质，它经常被作为函数返回值使用。
+`None` 值通常被用来表示 **“某个应该存在但是缺失的东西”**，它在 Python 里是独一无二的存在。很多编程语言里都有与 `None` 类似的设计，比如 JavaScript 里的 `null`、Go 里的 `nil` 等。因为 `None` 所拥有的独特 *虚无* 气质，它经常被作为函数返回值使用。
 
-当我们使用 None 作为函数返回值时，通常是下面 3 种情况。
+当我们使用 `None` 作为函数返回值时，通常是下面 3 种情况。
 
 #### 1. 作为操作类函数的默认返回值
 
-当某个操作类函数不需要任何返回值时，通常就会返回 None。同时，None 也是不带任何 `return` 语句函数的默认返回值。
+当某个操作类函数不需要任何返回值时，通常就会返回 `None`。同时，`None` 也是不带任何 `return` 语句函数的默认返回值。
 
-对于这种函数，使用 None 是没有任何问题的，标准库里的 `list.append()`、`os.chdir()` 均属此类。
+对于这种函数，使用 `None` 是没有任何问题的，标准库里的 `list.append()`、`os.chdir()` 均属此类。
 
 #### 2. 作为某些“意料之中”的可能没有的值
 
@@ -212,7 +212,7 @@ if user:
 
 对于那些不能从函数名里读出 None 值暗示的函数来说，有两种修改方式。第一种，如果你坚持使用 None 返回值，那么请修改函数的名称。比如可以将函数 `create_user_from_name()` 改名为 `create_user_or_none()`。
 
-第二种方式则更常见的多：用抛出异常*（raise Exception）*来代替 None 返回值。因为，如果返回不了正常结果并非函数意义里的一部分，这就代表着函数出现了*“意料以外的状况”*，而这正是 **Exceptions 异常** 所掌管的领域。
+第二种方式则更常见的多：用抛出异常 *（raise Exception）* 来代替 None 返回值。因为，如果返回不了正常结果并非函数意义里的一部分，这就代表着函数出现了 *“意料以外的状况”*，而这正是 **Exceptions 异常** 所掌管的领域。
 
 使用异常改写后的例子：
 
@@ -223,7 +223,7 @@ class UnableToCreateUser(Exception):
 
 def create_user_from_name(username):
     ""通过用户名创建一个 User 实例"
-    
+
     :raises: 当无法创建用户时抛出 UnableToCreateUser
     """
     if validate_username(username):
@@ -311,7 +311,7 @@ Martin Fowler 在他的经典著作[《重构》](https://martinfowler.com/books
 ```python
 class Account:
     # def __init__ 已省略... ...
-    
+
     @classmethod
     def from_string(cls, s):
         """从字符串初始化一个账号

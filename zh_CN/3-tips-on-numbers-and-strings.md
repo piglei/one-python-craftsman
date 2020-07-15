@@ -9,7 +9,7 @@
 
 整型在 Python 中比较让人省心，因为它不区分有无符号并且永不溢出。但浮点型仍和绝大多数其他编程语言一样，依然有着精度问题，经常让很多刚进入编程世界大门的新人们感到困惑：["Why Are Floating Point Numbers Inaccurate?"](https://stackoverflow.com/questions/21895756/why-are-floating-point-numbers-inaccurate)。
 
-相比数字，Python 里的字符串要复杂的多。要掌握它，你得先弄清楚 bytes 和 str 的区别。如果更不巧，你还是位 Python2 用户的话，光 unicode 和字符编码问题就够你喝上好几壶了*（赶快迁移到 Python3 吧，就在今天！）*。
+相比数字，Python 里的字符串要复杂的多。要掌握它，你得先弄清楚 bytes 和 str 的区别。如果更不巧，你还是位 Python2 用户的话，光 unicode 和字符编码问题就够你喝上好几壶了 *（赶快迁移到 Python3 吧，就在今天！）*。
 
 不过，上面提到的这些都不是这篇文章的主题，如果感兴趣，你可以在网上找到成堆的相关资料。在这篇文章里，我们将讨论一些 **更细微、更不常见** 的编程实践。来帮助你写出更好的 Python 代码。
 
@@ -57,7 +57,7 @@ def mark_trip_as_featured(trip):
 
 #### 使用 enum 枚举类型改善代码
 
-那么，怎么改善这段代码？最直接的方式，就是为这两个条件分支添加注释。不过在这里，“添加注释”显然不是提升代码可读性的最佳办法*（其实在绝大多数其他情况下都不是）*。我们需要用有意义的名称来代替这些字面量，而`枚举类型（enum）`用在这里最合适不过了。
+那么，怎么改善这段代码？最直接的方式，就是为这两个条件分支添加注释。不过在这里，“添加注释”显然不是提升代码可读性的最佳办法 *（其实在绝大多数其他情况下都不是）*。我们需要用有意义的名称来代替这些字面量，而`枚举类型（enum）`用在这里最合适不过了。
 
 `enum` 是 Python 自 3.4 版本引入的内置模块，如果你使用的是更早的版本，可以通过 `pip install enum34` 来安装它。下面是使用 enum 的样例代码：
 
@@ -99,7 +99,7 @@ def mark_trip_as_featured(trip):
 ```python
 def fetch_users(conn, min_level=None, gender=None, has_membership=False, sort_field="created"):
     """获取用户列表
-   
+
     :param int min_level: 要求的最低用户级别，默认为所有级别
     :param int gender: 筛选用户性别，默认为所有性别
     :param int has_membership: 筛选所有会员/非会员用户，默认非会员
@@ -120,7 +120,7 @@ def fetch_users(conn, min_level=None, gender=None, has_membership=False, sort_fi
         statement += " AND has_membership == true"
     else:
         statement += " AND has_membership == false"
-    
+
     statement += " ORDER BY ?"
     params.append(sort_field)
     return list(conn.execute(statement, params))
@@ -164,7 +164,7 @@ def fetch_users_v2(conn, min_level=None, gender=None, has_membership=False, sort
 def f1(delta_seconds):
     # 如果时间已经过去了超过 11 天，不做任何事
     if delta_seconds > 950400:
-        return 
+        return
     ...
 ```
 
@@ -351,7 +351,7 @@ Python 的字符串有着非常多实用的内建方法，最常用的有 `.stri
 
 当我们编写多线程程序时，经常需要处理复杂的共享变量和竞态等问题。
 
-“线程安全”，通常被用来形容 **某个行为或者某类数据结构，可以在多线程环境下被共享使用并产生预期内的结果。**一个典型的满足“线程安全”的模块就是 [queue 队列模块](https://docs.python.org/3/library/queue.html)。
+“线程安全”，通常被用来形容 **某个行为或者某类数据结构，可以在多线程环境下被共享使用并产生预期内的结果。** 一个典型的满足“线程安全”的模块就是 [queue 队列模块](https://docs.python.org/3/library/queue.html)。
 
 而我们常做的 `value += 1` 操作，很容易被想当然的认为是“线程安全”的。因为它看上去就是一个原子操作 *（指一个最小的操作单位，执行途中不会插入任何其他操作）*。然而真相并非如此，虽然从 Python 代码上来看，`value += 1` 这个操作像是原子的。但它最终被 Python 解释器执行的时候，早就不再 *“原子”* 了。
 

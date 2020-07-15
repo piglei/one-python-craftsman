@@ -8,7 +8,7 @@
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
 <img src="https://www.zlovezl.cn/static/uploaded/2020/02/carolina-garcia-tavizon-w1280.jpg" width="100%" />
 </div>
- 
+
 在这篇文章中，我将继续介绍 SOLID 原则剩下的两位成员：**I（接口隔离原则）** 和 **D（依赖倒置原则）**。为了方便，这篇文章将会使用先 D 后 I 的顺序。
 
 ## D：依赖倒置原则
@@ -21,7 +21,7 @@
 
 > High-level modules should not depend on low-level modules. Both should depend on abstractions.
 
-这个原则看上去有点反直觉。毕竟，在我们的第一堂编程课上，老师就是这么教我们写代码的：*“高层模块要依赖低层模块，hello world 程序依赖 printf()。”*那为什么这条原则又说不要这样做呢？而依赖倒置原则里的“倒置”又是指什么？
+这个原则看上去有点反直觉。毕竟，在我们的第一堂编程课上，老师就是这么教我们写代码的：*“高层模块要依赖低层模块，hello world 程序依赖 printf()。”* 那为什么这条原则又说不要这样做呢？而依赖倒置原则里的“倒置”又是指什么？
 
 让我们先把这些问题放在一边，看看下面这个小需求。上面这些问题的答案都藏在这个需求中。
 
@@ -129,7 +129,7 @@ requests.exceptions.ConnectionError: HTTPSConnectionPool(host='news.ycombinator.
 
 #### 使用 mock 模块
 
-[mock](https://docs.python.org/3/library/unittest.mock.html) 是 unittest 里的一个模块，同时也是一类测试手法的统称。假如你需要测试的模块里有一部分依赖很难被满足*（比如代码需要访问一整套 Kubernetes 集群）*，或者你想在测试时故意替换掉某些依赖，那么 mock 就能派上用场。
+[mock](https://docs.python.org/3/library/unittest.mock.html) 是 unittest 里的一个模块，同时也是一类测试手法的统称。假如你需要测试的模块里有一部分依赖很难被满足 *（比如代码需要访问一整套 Kubernetes 集群）*，或者你想在测试时故意替换掉某些依赖，那么 mock 就能派上用场。
 
 在这个例子里，使用 unittest.mock 模块需要做下面这些事情：
 
@@ -167,11 +167,11 @@ def test_grouper_returning_valid_types():
 
 ### 实现依赖倒置原则
 
-首先，让我们重温一下“依赖倒置原则”*（后简称 D 原则）*的内容：**“高层模块不应该依赖于低层模块，二者都应该依赖于抽象。”**
+首先，让我们重温一下“依赖倒置原则” *（后简称 D 原则）* 的内容：**“高层模块不应该依赖于低层模块，二者都应该依赖于抽象。”**
 
 在上面的代码里，高层模块 `SiteSourceGrouper` 就直接依赖了低层模块 `requests`。为了让代码符合 D 原则，我们首先需要创造一个处于二者中间的抽象，然后让两个模块可以都依赖这个新的抽象层。
 
-创建抽象的第一步*（可能也是最重要的一步）*，就是确定这个抽象层的职责。在例子中，高层模块主要依赖 `requests` 做了这些事：
+创建抽象的第一步 *（可能也是最重要的一步）*，就是确定这个抽象层的职责。在例子中，高层模块主要依赖 `requests` 做了这些事：
 
 - 通过 `requests.get()` 获取 response
 - 通过 `response.text` 获取响应文本
@@ -291,7 +291,7 @@ def test_grouper_from_local():
 这样就可以在没有外网的服务器上测试 `SiteSourceGrouper` 类的核心逻辑了。
 
 > Hint：其实上面的测试函数 `test_grouper_from_local` 远远算不上一个合格的测试用例。
-> 
+>
 > 如果真要测试 `SiteSourceGrouper` 的核心逻辑。我们应该准备一个虚构的 Hacker News 页面 *（比如刚好包含 5 个 来源自 github.com 的条目）*，然后判断结果是否包含 `assert result['github.com] == 5`
 
 ### 问题：一定要使用抽象类 abc 吗？
@@ -300,7 +300,7 @@ def test_grouper_from_local():
 
 **答案是否定的。** 如果你愿意，你可以把代码里的抽象类 `HNWebPage` 以及所有的相关引用都删掉，你会发现没有它们代码仍然可以正常运行。
 
-这是因为 Python 是一门“鸭子类型”语言。这意味着只要 `RemoteHNWebPage` 和 `LocalHNWebPage` 类型保持着统一的接口协议*（提供 .get_text() 公开方法）*，并且它们的 **协议符合我们定义的抽象**。那么那个中间层就存在，依赖倒置就是成立的。至于这份 **协议** 是通过抽象类还是普通父类（甚至可以是普通函数）定义的，就没那么重要了。
+这是因为 Python 是一门“鸭子类型”语言。这意味着只要 `RemoteHNWebPage` 和 `LocalHNWebPage` 类型保持着统一的接口协议 *（提供 .get_text() 公开方法）*，并且它们的 **协议符合我们定义的抽象**。那么那个中间层就存在，依赖倒置就是成立的。至于这份 **协议** 是通过抽象类还是普通父类（甚至可以是普通函数）定义的，就没那么重要了。
 
 所以，虽然在某些编程语言中，实现依赖倒置必须得定义新的接口类型，但在 Python 里，依赖倒置并不是抽象类 abc 的特权。
 
@@ -320,7 +320,7 @@ def test_grouper_from_local():
 
 ## I：接口隔离原则
 
-接口隔离原则*（后简称 I 原则）*全称为 *“Interface Segregation Principles”*。顾名思义，它是一条和“接口（Interface）”有关的原则。
+接口隔离原则 *（后简称 I 原则）* 全称为 *“Interface Segregation Principles”*。顾名思义，它是一条和“接口（Interface）”有关的原则。
 
 我在前面解释过何为“接口（Interface）”。**接口是模块间相互交流的抽象协议**，它在不同的编程语言里有着不同的表现形态。比如在 Go 里它是 `type ... interface`，而在 Python 中它可以是抽象类、普通类或者函数，甚至某个只在你大脑里存在的一套协议。
 
@@ -362,9 +362,9 @@ class HNWebPage(metaclass=ABCMeta):
     @abstractmethod
     def get_text(self) -> str:
         """获取页面文本内容"""
-        
+
     # 新增 get_size 与 get_generated_at
-        
+
     @abstractmethod
     def get_size(self) -> int:
         """获取页面大小"""
@@ -394,7 +394,7 @@ def get_generated_at(self) -> datetime.datetime:
 
 但是，在给 `LocalHNWebPage` 添加 `get_generated_at` 方法时，我碰到了一个问题。`LocalHNWebPage` 是一个完全基于本地页面文件作为数据来源的类，仅仅通过 “static_hn.html” 这么一个本地文件，我根本就没法知道它的内容是什么时候生成的。
 
-这时我只能选择让它的 `get_generated_at` 方法返回一个错误的结果*（比如文件的修改时间）*，或者直接抛出异常。无论是哪种做法，我都可能违反 [里式替换原则](https://www.zlovezl.cn/articles/write-solid-python-codes-part-2/)。
+这时我只能选择让它的 `get_generated_at` 方法返回一个错误的结果 *（比如文件的修改时间）*，或者直接抛出异常。无论是哪种做法，我都可能违反 [里式替换原则](https://www.zlovezl.cn/articles/write-solid-python-codes-part-2/)。
 
 > Hint：里式替换原则认为子类（派生类）对象应该可以在程序中替代父类（基类）对象使用，而不破坏程序原本的功能。让方法抛出异常显然破坏了这一点。
 

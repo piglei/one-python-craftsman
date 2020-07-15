@@ -14,7 +14,7 @@
 
 下面，让我们进入第一个“模块安利”时间吧。
 
-> **注意：**因为不同操作系统的文件系统大不相同，本文的主要编写环境为 Mac OS/Linux 系统，其中一些代码可能并不适用于 Windows 系统。
+> **注意：** 因为不同操作系统的文件系统大不相同，本文的主要编写环境为 Mac OS/Linux 系统，其中一些代码可能并不适用于 Windows 系统。
 
 ## 建议一：使用 pathlib 模块
 
@@ -40,13 +40,13 @@ def unify_ext_with_os_path(path):
 ```
 
 让我们看看，上面的代码一共用到了哪些与文件处理相关的函数：
-  
-- [`os.listdir(path)`](https://docs.python.org/3/library/os.html#os.listdir)：列出 path 目录下的所有文件*（含文件夹）*
+
+- [`os.listdir(path)`](https://docs.python.org/3/library/os.html#os.listdir)：列出 path 目录下的所有文件 *（含文件夹）*
 - [`os.path.splitext(filename)`](https://docs.python.org/3/library/os.path.html#os.path.splitext)：切分文件名里面的基础名称和后缀部分
 - [`os.path.join(path, filename)`](https://docs.python.org/3/library/os.path.html#os.path.join)：组合需要操作的文件名为绝对路径
 - [`os.rename(...)`](https://docs.python.org/3/library/os.html#os.rename)：重命名某个文件
 
-上面的函数虽然可以完成需求，但说句实话，即使在写了很多年 Python 代码后，我依然觉得：**这些函数不光很难记，而且最终的成品代码也不怎么讨人喜欢。** 
+上面的函数虽然可以完成需求，但说句实话，即使在写了很多年 Python 代码后，我依然觉得：**这些函数不光很难记，而且最终的成品代码也不怎么讨人喜欢。**
 
 ### 使用 pathlib 模块改写代码
 
@@ -232,7 +232,7 @@ def chunked_file_reader(file, block_size=1024 * 8):
 
 ## 建议三：设计接受文件对象的函数
 
-统计完文件里的 “9” 之后，让我们换一个需求。现在，我想要统计每个文件里出现了多少个英文元音字母*（aeiou）*。只要对之前的代码稍作调整，很快就可以写出新函数 `count_vowels`。
+统计完文件里的 “9” 之后，让我们换一个需求。现在，我想要统计每个文件里出现了多少个英文元音字母 *（aeiou）*。只要对之前的代码稍作调整，很快就可以写出新函数 `count_vowels`。
 
 ```python
 def count_vowels(filename):
@@ -258,7 +258,7 @@ print(count_vowels('small_file.txt'))
 2. 为了准备测试用例，我要么提供几个样板文件，要么写一些临时文件
 3. 而文件是否能被正常打开、读取，也成了我们需要测试的边界情况
 
-**如果，你发现你的函数难以编写单元测试，那通常意味着你应该改进它的设计。**上面的函数应该如何改进呢？答案是：*让函数依赖“文件对象”而不是文件路径*。
+**如果，你发现你的函数难以编写单元测试，那通常意味着你应该改进它的设计。** 上面的函数应该如何改进呢？答案是：*让函数依赖“文件对象”而不是文件路径*。
 
 修改后的函数代码如下：
 
@@ -280,7 +280,7 @@ with open('small_file.txt') as fp:
     print(count_vowels_v2(fp))
 ```
 
-**这个改动带来的主要变化，在于它提升了函数的适用面。**因为 Python 是“鸭子类型”的，虽然函数需要接受文件对象，但其实我们可以把任何实现了文件协议的 “类文件对象（file-like object）” 传入 `count_vowels_v2` 函数中。
+**这个改动带来的主要变化，在于它提升了函数的适用面。** 因为 Python 是“鸭子类型”的，虽然函数需要接受文件对象，但其实我们可以把任何实现了文件协议的 “类文件对象（file-like object）” 传入 `count_vowels_v2` 函数中。
 
 而 Python 中有着非常多“类文件对象”。比如 io 模块内的 [StringIO](https://docs.python.org/3/library/io.html#io.StringIO) 对象就是其中之一。它是一种基于内存的特殊对象，拥有和文件对象几乎一致的接口设计。
 

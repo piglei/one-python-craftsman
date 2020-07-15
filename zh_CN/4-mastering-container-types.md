@@ -9,7 +9,7 @@
 图片来源: <a href="https://www.flickr.com/photos/chiotsrun/6002476959/in/photolist-a9qgh4-W4eQ1j-7MrCfo-4ARLWp-dwCzHh-Tascu9-RNRbRf-foLHW5-22dkkHM-9ceFA8-aGGd3a-26X3sqQ-iuTwX9-q52ktA-osn2eb-29oujY-6mXd1c-8E92nc-mPbq55-9GuPU8-26Q1NZG-8UL8PL-pdyFsW-7V8ifD-VZavJ8-2cUdHbU-9WrgjZ-6g7M5K-VMLVrb-cXDd4-bygFJG-C76kP-nMQW54-7MoQqn-qA3fud-c92dBU-tAzTBm-7KqFXc-24VvcW1-djQX9e-5LzjkA-63U4kb-bt1EEY-jLRpKo-dQSWBH-aDbqXc-8KhfnE-2m5ZsF-6ciuiR-qwdbt">"The Humble Mason Jar" by Chiot's Run</a> - 非商业性使用 2.0 通用</div>
 </div>
 
-容器”这两个字很少被 Python 技术文章提起。一看到“容器”，大家想到的多是那头蓝色小鲸鱼：*Docker*，但这篇文章和它没有任何关系。本文里的容器，是 Python 中的一个抽象概念，是对**专门用来装其他对象的数据类型**的统称。
+“容器”这两个字很少被 Python 技术文章提起。一看到“容器”，大家想到的多是那头蓝色小鲸鱼：*Docker*，但这篇文章和它没有任何关系。本文里的容器，是 Python 中的一个抽象概念，是对**专门用来装其他对象的数据类型**的统称。
 
 在 Python 中，有四类最常见的内建容器类型：`列表（list）`、`元组（tuple）`、`字典（dict）`、`集合（set）`。通过单独或是组合使用它们，可以高效的完成很多事情。
 
@@ -108,7 +108,7 @@ def validate_name(name):
 ```
 
 > Hint: 强烈建议阅读 [TimeComplexity - Python Wiki](https://wiki.python.org/moin/TimeComplexity)，了解更多关于常见容器类型的时间复杂度相关内容。
-> 
+>
 > 如果你对字典的实现细节感兴趣，也强烈建议观看 Raymond Hettinger 的演讲 [Modern Dictionaries(YouTube)](https://www.youtube.com/watch?v=p33CVV29OG8&t=1403s)
 
 ## 高层看容器
@@ -168,7 +168,7 @@ print("\n".join(add_ellipsis(comments)))
 
 #### 面向容器接口编程
 
-我们需要改进函数来避免这个问题。因为 `add_ellipsis` 函数强依赖了列表类型，所以当参数类型变为元组时，现在的函数就不再适用了*（原因：给 `comments[index]` 赋值的地方会抛出 `TypeError` 异常）。* 如何改善这部分的设计？秘诀就是：**让函数依赖“可迭代对象”这个抽象概念，而非实体列表类型。**
+我们需要改进函数来避免这个问题。因为 `add_ellipsis` 函数强依赖了列表类型，所以当参数类型变为元组时，现在的函数就不再适用了 *（原因：给 `comments[index]` 赋值的地方会抛出 `TypeError` 异常）。* 如何改善这部分的设计？秘诀就是：**让函数依赖“可迭代对象”这个抽象概念，而非实体列表类型。**
 
 使用生成器特性，函数可以被改成这样：
 
@@ -299,7 +299,7 @@ def merge_dict(d1, d2):
     result = d1.copy()
     result.update(d2)
     return result
-    
+
 user = merge_dict({"name": "piglei"}, {"movies": ["Fight Club"]})
 ```
 
@@ -317,7 +317,7 @@ user = {**{"name": "piglei"}, **{"movies": ["Fight Club"]}}
 
 ### 3. 使用 next() 函数
 
-`next()` 是一个非常实用的内建函数，它接收一个迭代器作为参数，然后返回该迭代器的下一个元素。使用它配合生成器表达式，可以高效的实现*“从列表中查找第一个满足条件的成员”* 之类的需求。
+`next()` 是一个非常实用的内建函数，它接收一个迭代器作为参数，然后返回该迭代器的下一个元素。使用它配合生成器表达式，可以高效的实现 *“从列表中查找第一个满足条件的成员”* 之类的需求。
 
 ```python
 numbers = [3, 7, 8, 2, 21]
@@ -346,7 +346,7 @@ print(next(i for i in numbers if i % 2 == 0))
 ```
 
 > Hint: 在 Python 3.6 中，默认的字典类型修改了实现方式，已经变成有序的了。并且在 Python 3.7 中，该功能已经从 **语言的实现细节** 变成了为 **可依赖的正式语言特性**。
-> 
+>
 > 但是我觉得让整个 Python 社区习惯这一点还需要一些时间，毕竟目前“字典是无序的”还是被印在无数本 Python 书上。所以，我仍然建议在一切需要有序字典的地方使用 OrderedDict。
 
 ## 常见误区
