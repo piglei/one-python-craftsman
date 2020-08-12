@@ -43,7 +43,7 @@
 在计算机科学领域，有一句著名的格言（俏皮话）：
 
 > There are only two hard things in Computer Science: cache invalidation and naming things.
-> 在计算机科学领域只有两件难事：缓存过期 和 给东西起名字
+> 在计算机科学领域只有两件难事：缓存失效 和 给东西起名字
 > 
 > -- Phil Karlton
 
