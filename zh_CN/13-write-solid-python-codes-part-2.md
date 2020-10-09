@@ -49,7 +49,7 @@ class User(Model):
     def deactivate(self):
         """停用当前用户
         """
-        self.is_active = True
+        self.is_active = False
         self.save()
 
 class Admin(User):
