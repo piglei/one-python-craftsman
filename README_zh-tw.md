@@ -9,21 +9,21 @@
 
 ## 文章列表
  
-- [1. 善用變數改善程式碼質量](zh_CN/1-using-variables-well.md)
-- [2. 編寫條件分支程式碼的技巧](zh_CN/2-if-else-block-secrets.md)
-- [3. 使用數字與字串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
-- [4. 容器的門道](zh_CN/4-mastering-container-types.md)
-- [5. 讓函式返回結果的技巧](zh_CN/5-function-returning-tips.md)
-- [6. 異常處理的三個好習慣](zh_CN/6-three-rituals-of-exceptions-handling.md)
-- [7. 編寫地道迴圈的兩個建議](zh_CN/7-two-tips-on-loop-writing.md)
-- [8. 使用裝飾器的技巧](zh_CN/8-tips-on-decorators.md)
-- [9. 一個關於模組的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
-- [10. 做一個精通規則的玩家](zh_CN/10-a-good-player-know-the-rules.md)
-- [11. 高效操作檔案的三個建議](zh_CN/11-three-tips-on-writing-file-related-codes.md)
-- [12. 寫好面向物件程式碼的原則（上）](zh_CN/12-write-solid-python-codes-part-1.md)
-- [13. 寫好面向物件程式碼的原則（中）](zh_CN/13-write-solid-python-codes-part-2.md)
-- [14. 寫好面向物件程式碼的原則（下）](zh_CN/14-write-solid-python-codes-part-3.md)
-- [15. 在邊界處思考](zh_CN/15-thinking-in-edge-cases.md)
+- [1. 善用變數改善程式碼質量](zh_TW/1-using-variables-well.md)
+- [2. 編寫條件分支程式碼的技巧](zh_TW/2-if-else-block-secrets.md)
+- [3. 使用數字與字串的技巧](zh_TW/3-tips-on-numbers-and-strings.md)
+- [4. 容器的門道](zh_TW/4-mastering-container-types.md)
+- [5. 讓函式返回結果的技巧](zh_TW/5-function-returning-tips.md)
+- [6. 異常處理的三個好習慣](zh_TW/6-three-rituals-of-exceptions-handling.md)
+- [7. 編寫地道迴圈的兩個建議](zh_TW/7-two-tips-on-loop-writing.md)
+- [8. 使用裝飾器的技巧](zh_TW/8-tips-on-decorators.md)
+- [9. 一個關於模組的小故事](zh_TW/9-a-story-on-cyclic-imports.md)
+- [10. 做一個精通規則的玩家](zh_TW/10-a-good-player-know-the-rules.md)
+- [11. 高效操作檔案的三個建議](zh_TW/11-three-tips-on-writing-file-related-codes.md)
+- [12. 寫好面向物件程式碼的原則（上）](zh_TW/12-write-solid-python-codes-part-1.md)
+- [13. 寫好面向物件程式碼的原則（中）](zh_TW/13-write-solid-python-codes-part-2.md)
+- [14. 寫好面向物件程式碼的原則（下）](zh_TW/14-write-solid-python-codes-part-3.md)
+- [15. 在邊界處思考](zh_TW/15-thinking-in-edge-cases.md)
 
 關注我的微信公眾號，在第一時間閱讀最新文章：
 
@@ -33,7 +33,7 @@
 
 ## 詳細內容
 
-### 1. [善用變數改善程式碼質量](zh_CN/1-using-variables-well.md)
+### 1. [善用變數改善程式碼質量](zh_TW/1-using-variables-well.md)
 
 * 如何為變數起名
     * 1 - 變數名要有描述性，不能太寬泛
@@ -55,7 +55,7 @@
     * 7 - 能不定義變數就不定義
 * 結語
 
-### 2. [編寫條件分支程式碼的技巧](zh_CN/2-if-else-block-secrets.md)
+### 2. [編寫條件分支程式碼的技巧](zh_TW/2-if-else-block-secrets.md)
 
 * 最佳實踐
     * 1 - 避免多層分支巢狀
@@ -73,7 +73,7 @@
 * 結語
 * 註解
 
-### 3. [使用數字與字串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
+### 3. [使用數字與字串的技巧](zh_TW/3-tips-on-numbers-and-strings.md)
 
 * 最佳實踐
     * 1 - 少寫數字字面量
@@ -91,7 +91,7 @@
     * 2 - 字串拼接並不慢
 * 結語
 
-### 4. [容器的門道](zh_CN/4-mastering-container-types.md)
+### 4. [容器的門道](zh_TW/4-mastering-container-types.md)
 
 * 底層看容器
     * 寫更快的程式碼
@@ -113,7 +113,7 @@
 * 系列其他文章
 * 註解
 
-### 5. [讓函式返回結果的技巧](zh_CN/5-function-returning-tips.md)
+### 5. [讓函式返回結果的技巧](zh_TW/5-function-returning-tips.md)
 
 * 程式設計建議
    * 1 - 單個函式不要返回多種型別
@@ -129,7 +129,7 @@
 * 總結
 * 附錄
 
-### 6. [異常處理的三個好習慣](zh_CN/6-three-rituals-of-exceptions-handling.md)
+### 6. [異常處理的三個好習慣](zh_TW/6-three-rituals-of-exceptions-handling.md)
 
 * 前言
 * 三個好習慣
@@ -139,7 +139,7 @@
 * 總結
 * 附錄
 
-### 7. [編寫地道迴圈的兩個建議](zh_CN/7-two-tips-on-loop-writing.md)
+### 7. [編寫地道迴圈的兩個建議](zh_TW/7-two-tips-on-loop-writing.md)
 
 * 前言
 * 什麼是“地道”的迴圈？
@@ -155,7 +155,7 @@
 * 總結
 * 附錄
 
-### 8. [使用裝飾器的技巧](zh_CN/8-tips-on-decorators.md)
+### 8. [使用裝飾器的技巧](zh_TW/8-tips-on-decorators.md)
 
 * 前言
 * 最佳實踐
@@ -168,7 +168,7 @@
 * 總結
 * 附錄
 
-### 9. [一個關於模組的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
+### 9. [一個關於模組的小故事](zh_TW/9-a-story-on-cyclic-imports.md)
 
 * 前言
 * 一個關於模組的小故事
@@ -178,7 +178,7 @@
 * 總結
 * 附錄
 
-### 10. [做一個精通規則的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+### 10. [做一個精通規則的玩家](zh_TW/10-a-good-player-know-the-rules.md)
 
 * 前言
    * Python 裡的規則
@@ -195,7 +195,7 @@
 * 總結
 * 附錄
 
-### 11. [高效操作檔案的三個建議](zh_CN/11-three-tips-on-writing-file-related-codes.md)
+### 11. [高效操作檔案的三個建議](zh_TW/11-three-tips-on-writing-file-related-codes.md)
 
 * 前言
 * 建議一：使用 pathlib 模組
@@ -211,7 +211,7 @@
 * 附錄
 * 註解
 
-### 12. [寫好面向物件程式碼的原則（上）](zh_CN/12-write-solid-python-codes-part-1.md)
+### 12. [寫好面向物件程式碼的原則（上）](zh_TW/12-write-solid-python-codes-part-1.md)
 
 * 前言
    * Python 對 OOP 的支援
@@ -229,7 +229,7 @@
 * 總結
 * 附錄
 
-### 13. [寫好面向物件程式碼的原則（中）](zh_CN/13-write-solid-python-codes-part-2.md)
+### 13. [寫好面向物件程式碼的原則（中）](zh_TW/13-write-solid-python-codes-part-2.md)
 
 * 前言
 * 里氏替換原則與繼承
@@ -245,7 +245,7 @@
 * 總結
 * 附錄
 
-### 14. [寫好面向物件程式碼的原則（下）](zh_CN/14-write-solid-python-codes-part-3.md)
+### 14. [寫好面向物件程式碼的原則（下）](zh_TW/14-write-solid-python-codes-part-3.md)
 
 * 前言
 * D：依賴倒置原則
@@ -266,7 +266,7 @@
 * 總結
 * 附錄
 
-### 15. [在邊界處思考](zh_CN/15-thinking-in-edge-cases.md)
+### 15. [在邊界處思考](zh_TW/15-thinking-in-edge-cases.md)
 
 * 前言
 * 第一課：使用分支還是異常？
