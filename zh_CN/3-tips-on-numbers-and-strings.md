@@ -242,9 +242,18 @@ ZeroDivisionError: division by zero
 这时，除了使用斜杠 `\` 和加号 `+` 将长字符串拆分为好几段以外，还有一种更简单的办法：**使用括号将长字符串包起来，然后就可以随意折行了**：
 
 ```python
+s = (
+    "There is something really bad happened during the process. "
+    "Please contact your administrator."
+)
+print(s)
+
+
 def main():
-    logger.info(("There is something really bad happened during the process. "
-                 "Please contact your administrator."))
+    logger.info(
+        "There is something really bad happened during the process. "
+        "Please contact your administrator."
+    )
 ```
 
 #### 当多级缩进里出现多行字符串时
