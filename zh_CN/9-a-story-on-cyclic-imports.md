@@ -37,8 +37,8 @@ from fancy_site.marketing import query_user_points
 
 def main():
     """获取所有的活跃用户，将积分情况发送给他们"""
-    users = get_active_users()
-    points = list_user_points(users)
+    users = list_active_users()
+    points = query_user_points(users)
     for user in users:
         user.add_notification(... ...)
         #  <... 已省略 ...>
