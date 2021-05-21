@@ -16,7 +16,7 @@
 
 - 异常的基本语法与用法*（建议阅读官方文档 [“Errors and Exceptions”](https://docs.python.org/3.6/tutorial/errors.html)）*
 - 为什么要使用异常代替错误返回*（建议阅读[《让函数返回结果的技巧》](https://www.zlovezl.cn/articles/function-returning-tips/)）*
-- 为什么在写 Python 时鼓励使用异常 *（建议阅读 [“Write Cleaner Python: Use Exceptions”](https://jeffknupp.com/blog/2013/02/06/write-cleaner-python-use-exceptions/)）*
+- 为什么在写 Python 时鼓励使用异常 *（建议阅读 [“Write Cleaner Python: Use Exceptions”](https://github.com/jeffknupp/blog/blob/17c45c5ffddca71b7cef3321cb8d002a1a810167/content/2013-02-06-write-cleaner-python-by-using-exceptions.md)）*
 
 ## 三个好习惯
 
