@@ -30,7 +30,7 @@
 
 ### Python 里的分支代码
 
-Python 支持最为常见的 `if/else` 条件分支语句，不过它缺少在其他编程语言中常见的 `switch/case` 语句。
+Python 支持最为常见的 `if/else` 条件分支语句，不过它缺少在其他编程语言中常见的 `switch/case` 语句 (在 Python 3.10 中，新增了 `match/case` 语法，[PEP635](https://www.python.org/dev/peps/pep-0635/)，与其他编程语言中的 `switch/case` 类似，但用法更加灵活，详见 [PEP636](https://www.python.org/dev/peps/pep-0636/))。
 
 除此之外，Python 还为 `for/while` 循环以及 `try/except` 语句提供了 else 分支，在一些特殊的场景下，它们可以大显身手。
 
