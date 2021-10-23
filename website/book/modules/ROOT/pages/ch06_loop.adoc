@@ -1,0 +1,1015 @@
+[[ch06_loop]]
+
+== 第 6 章 循环与可迭代对象
+
+“循环”是一个非常有趣的概念。在生活中，循环代表无休止的重复某件事，比如一直播放同一首歌就叫“单曲循环”。当某件事重复太多次以后，人们就很容易感到乏味，所以哪怕再好听的旷世名曲，也没人愿意连续听上一百遍。
+
+虽然人会对循环感到乏味，计算机却丝毫没有这个问题。程序员们的主要任务之一，就是利用循环概念，用极少的指令驱使计算机不知疲倦地完成繁重的计算任务。
+
+试想一下，假如不使用循环，从一个包含一万个数字的列表里找到数字 42 的位置，会是一件多么令人抓狂的任务。但正因为有了循环，我们可以用一个简单的 `for` 来搞定这类事情——无论列表里的数字是一万个还是十万个。
+
+在 Python 中，我们可以用两种方式编写循环：`for` 和 `while`。`for` 是我们最常用到的循环关键字，它的语法是 `for <item> in <iterable>`，需要配合一个可迭代对象 `iterable` 一起使用：
+
+[source,python]
+----
+# 循环打印列表里的所有字符串长度
+names = ['foo', 'bar', 'foobar']
+
+for name in names:
+    print(len(name))
+----
+
+Python 里的 `while` 循环和其他语言没什么区别。它的语法是 `while <expression>`，其中 `expression` 表达式是循环的成立条件，值为假时就中断循环。如果把上面的 `for` 循环翻译成 `while`，代码会变长不少：
+
+[source,python]
+----
+i = 0
+while i < len(names):
+    print(len(names[i]))
+    i += 1
+----
+
+通过对比这两段代码，我们可以观察到：对于一些常见的循环任务，使用 `for` 比 `while` 要方便得多。因此在日常编码中，`for` 的出场频率也远比 `while` 要高的多。
+
+如你所见，Python 的循环语法并不复杂，但这并不代表我们就可以很轻松地写出好的循环。要把循环代码写得漂亮，有时关键不在循环结构自身，而在于另一个用来配合循环的主角：可迭代对象。
+
+在这一章，我会和你分享在 Python 里编写循环的一些经验和技巧，帮你掌握如何利用可迭代对象写出更优雅的循环。
+
+<<<
+
+=== 6.1 基础知识
+
+==== 6.1.1 迭代器与可迭代对象
+
+我们知道，在编写 for 循环时，不是所有对象都可以拿来做循环主体——只有那些可迭代（iterable）对象才行。说到可迭代对象，你最先想到的肯定是那些内置类型，比如字符串、生成器以及第 3 章介绍的所有容器类型，等等。
+
+除了这些内置类型外，你其实还可以轻松定义其他的可迭代类型。但在此之前，我们需要先搞清楚 Python 里的“迭代”究竟是怎么一回事。这需要引入两个重要的内置函数：`iter()` 和 `next()`。
+
+===== 1. iter() 与 next() 内置函数
+
+还记得内置函数 `bool()` 吗？我在第 4 章介绍过，使用 `bool()` 可以获取某个对象的布尔真假值：
+
+[source,python]
+----
+>>> bool('foo')
+True
+----
+
+而 `iter()` 函数和 `bool()` 很像，调用 `iter()` 会尝试返回一个迭代器对象。拿常见的内置可迭代类型举例：
+
+[source,python]
+----
+>>> iter([1, 2, 3]) <.>
+<list_iterator object at 0x101a82d90>
+
+>>> iter('foo') <.>
+<str_iterator object at 0x101a99ed0>
+
+>>> iter(1) <.>
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not iterable
+----
+
+<.> 列表类型的迭代器对象——list_iterator
+<.> 字符串类型的迭代器对象——str_iterator
+<.> 对不可迭代的类型执行 `iter()` 会抛出 TypeError 异常
+
+什么是迭代器（iterator）？顾名思义，迭代器是一种帮助你迭代其他对象的对象。迭代器最鲜明的特征是：不断对它执行 `next()` 函数会返回下一次迭代结果。
+
+拿列表举例：
+
+[source,python]
+----
+>>> l = ['foo', 'bar']
+
+# 首先，通过 iter 函数拿到列表 l 的迭代器对象
+>>> iter_l = iter(l)
+>>> iter_l
+<list_iterator object at 0x101a8c6d0>
+
+# 然后对迭代器调用 next 不断获取列表的下一个值
+>>> next(iter_l)
+'foo'
+>>> next(iter_l)
+'bar'
+----
+
+当迭代器没有更多值可以返回时，便会抛出 `StopIteration` 异常：
+
+[source,python]
+----
+>>> next(iter_l)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+----
+
+除了可以使用 `next()` 拿到迭代结果以外，迭代器还有另一个重要的特点。那就是当你对迭代器执行 `iter()` 函数，尝试获取迭代器的迭代器对象时，返回的结果一定是迭代器本身：
+
+[source,python]
+----
+>>> iter_l
+<list_iterator object at 0x101a82d90>
+>>> iter(iter_l) is iter_l
+True
+----
+
+了解完上面这些概念后，其实你就已经了解了 for 循环的工作原理。当你在使用 for 循环遍历某个可迭代对象时，其实就是先调用了 `iter()` 拿到它的迭代器，然后再不断用 `next()` 从迭代器中获取值。
+
+也就是说，下面的这段 for 循环代码：
+
+[source,python]
+----
+names = ['foo', 'bar', 'foobar']
+
+for name in names:
+    print(name)
+----
+
+其实可以被翻译成这样：
+
+[source,python]
+----
+iterator = iter(names)
+while True:
+    try:
+        name = next(iterator)
+        print(name)
+    except StopIteration:
+        break
+----
+
+搞清楚迭代的原理后，接下来让我们尝试创建出自己的迭代器。
+
+===== 2. 自定义迭代器
+
+要自定义一个迭代器类型，关键在于实现下面这两个魔法方法：
+
+- `$$__$$iter$$__$$`：调用 `iter()` 时触发，迭代器（iterator）对象总是返回自身
+- `$$__$$next$$__$$`：调用 `next()` 时触发，通过 `return` 来返回结果，没有更多内容就抛出 `StopIteration` 异常，**会在被迭代过程中多次触发**
+
+举一个具体的例子，假如我想要编写一个和 `range()` 类似的迭代器对象 `Range7`，它可以返回一段范围内所有可被 7 整除或包含数字 7 的整数。
+
+下面是 `Range7` 类的代码：
+
+[source,python]
+----
+class Range7:
+    """生成一段范围内的可被 7 整除或包含 7 的整数
+
+    :param start: 开始数字
+    :param end: 结束数字
+    """
+
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        # 使用 current 保存当前所处的位置
+        self.current = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while True:
+            # 当已经到达边界时，抛出异常终止迭代
+            if self.current >= self.end:
+                raise StopIteration
+
+            if self.num_is_valid(self.current):
+                ret = self.current
+                self.current += 1
+                return ret
+            self.current += 1
+
+    def num_is_valid(self, num):
+        """判断数字是否满足要求"""
+        if num == 0:
+            return False
+        return num % 7 == 0 or '7' in str(num)
+----
+
+我们可以通过 `for` 循环来验证这个迭代器的执行效果：
+
+[source,python]
+----
+>>> r = Range7(0, 20)
+>>> for num in r:
+...     print(num)
+... 
+7
+14
+17
+----
+
+遍历 `Range7` 对象时，它确实会不断返回符合要求的数字。
+
+不过，虽然上面的代码满足了需求，但在进一步使用时，我们会发现现在的 `Range7` 对象有一个问题，那就是每个新 `Range7` 对象只能被完整遍历一次，假如做二次遍历就会拿不到任何结果：
+
+[source,python]
+----
+>>> r = Range7(0, 20)
+>>> tuple(r)
+(7, 14, 17)
+>>> tuple(r) <.>
+()
+----
+
+<.> 第二次用 `tuple()` 转换成元组，只能得到一个空元组
+
+这个问题并非 `Range7` 所独有，它其实是所有迭代器的“通病”。
+
+如果你回过头，仔细读一遍 `Range7` 的代码，肯定可以发现它在二次遍历时不返回结果的原因。
+
+在之前的代码里，每个 `Range7` 对象都只有唯一的一个 `current` 属性，当程序第一次遍历完迭代器后，`current` 就会不断增长为边界值 `self.end`。之后，除非手动重置 `current` 的值，二次遍历自然就不会再拿到任何结果。
+
+那到底要如何调整代码，才能让 `Range7` 对象可以被重复使用呢？这需要先从“迭代器（iterator）”和“可迭代对象（iterable）”的区别说起。
+
+===== 3. 区分迭代器与可迭代对象
+
+迭代器（iterator）与可迭代对象（iterable）这两个词虽然看上去很像，但它们表达的含义却大不相同。
+
+迭代器是可迭代对象的一种。它最常出现的场景是在迭代其他对象时，作为一种介质或工具对象存在——就像调用 `iter([])` 时返回的 `list_iterator`。每个迭代器都对应着**一次**完整的迭代过程，因此它必须在自身保存与当前迭代相关的状态——迭代位置（就像 `Range7` 里面的 `current` 属性）。
+
+一个合法的迭代器，必须要同时实现 `$$__$$iter$$__$$` 和 `$$__$$next$$__$$` 两个魔法方法。
+
+相比之下，可迭代对象的定义则宽泛许多。判断一个对象 `obj` 是否可迭代的唯一标准，就是调用 `iter(obj)`，然后看结果是不是一个迭代器（iterator）footnote:[事实上，这个检查过程也不用你手动做。`iter()` 函数本身就会自动校验结果是不是一个合法迭代器，假如不合法，调用时就会抛出 `TypeError: iter() returned non-iterator` 异常]。因此，可迭代对象只需要实现 `$$__$$iter$$__$$` 方法，不一定得实现 `$$__$$next$$__$$` 方法。
+
+所以，如果想让 `Range7` 对象在每次被迭代时都返回完整结果，我们必须把现在的代码拆成两部分：可迭代类型 `Range7` 和迭代器类型 `Range7Iterator`。
+
+[source,python]
+----
+class Range7:
+    """生成一段范围内的可被 7 整除，或包含 7 的数字"""
+
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    def __iter__(self):
+        # 返回一个新的迭代器对象
+        return Range7Iterator(self)
+
+
+class Range7Iterator:
+    def __init__(self, range_obj):
+        self.range_obj = range_obj
+        self.current = range_obj.start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        while True:
+            if self.current >= self.range_obj.end:
+                raise StopIteration
+
+            if self.num_is_valid(self.current):
+                ret = self.current
+                self.current += 1
+                return ret
+            self.current += 1
+
+    def num_is_valid(self, num):
+        if num == 0:
+            return False
+        return num % 7 == 0 or '7' in str(num)
+----
+
+在新代码中，每次遍历 `Range7` 对象时，都会创建出一个全新的迭代器对象 `Range7Iterator`，之前的问题因此可以得到圆满解决：
+
+[source,python]
+----
+>>> r = Range7(0, 20)
+
+>>> tuple(r)
+(7, 14, 17)
+
+>>> tuple(r) <.>
+(7, 14, 17)
+----
+
+<.> Range7 类型现在可以被重复迭代了
+
+最后，再总结一下迭代器与可迭代对象的区别：
+
+- 可迭代对象不一定是迭代器，但迭代器一定是可迭代对象
+- 对可迭代对象使用 `iter()` 会返回迭代器，迭代器则会返回它自身
+- 每个迭代器的被迭代过程是一次性的，可迭代对象则不一定
+- 可迭代对象只需要实现 `$$__$$iter$$__$$` 方法，而迭代器要额外实现 `$$__$$next$$__$$` 方法
+
+.可迭代对象与 $$__$$getitem$$__$$
+****
+除了 `$$__$$iter$$__$$` 和 `$$__$$next$$__$$` 方法外，还有一个魔法方法也和可迭代对象密切相关：`$$__$$getitem$$__$$`。
+
+如果一个类型没有定义 `$$__$$iter$$__$$`，但是定义了 `$$__$$getitem$$__$$` 方法，那么 Python 也会认为它是可迭代的。在遍历它时，解释器会不断使用数字索引值（0, 1, 2, ...）来调用  `$$__$$getitem$$__$$` 方法获得返回值，一直到抛出 `IndexError` 为止。
+
+但 `$$__$$getitem$$__$$` 可遍历的这个特点不属于目前主流的迭代器协议，更多是对旧版本的一种兼容行为，所以在本章不做过多阐述。
+****
+
+===== 4. 生成器是迭代器
+
+在第 3 章时，我简单介绍过生成器对象。我们知道，生成器是一种懒惰的可迭代对象，使用它来替代传统列表可以节约内存，提升执行效率。
+
+但除此之外，生成器还是一种简化的迭代器实现，使用它可以大大降低实现传统迭代器的编码成本。因此在平时，我们基本不怎么需要通过 `$$__$$iter$$__$$` 和 `$$__$$next$$__$$` 来实现迭代器，只要写上几个 `yield` 就行。
+
+如果利用生成器，上面的 `Range7Iterator` 可以被改写成一个只有 5 行代码的函数：
+
+[source,python]
+----
+def range_7_gen(start, end):
+    """生成器版本的 Range7Iterator"""
+    num = start
+    while num < end:
+        if num != 0 and (num % 7 == 0 or '7' in str(num)):
+            yield num
+        num += 1
+----
+
+我们可以用 `iter()` 和 `next()` 函数来验证“生成器就是迭代器”这个事实：
+
+[source,python]
+----
+>>> nums = range_7_gen(0, 20)
+
+# 使用 iter() 函数测试
+>>> iter(nums)
+<generator object range_7_gen at 0x10404b2e0>
+>>> iter(nums) is nums
+True
+
+# 使用 next() 不断获取下一个值
+>>> next(nums)
+7
+>>> next(nums)
+14
+----
+
+生成器（generator）利用其简单的语法，大大降低了迭代器的使用门槛，是用来优化循环代码时最得力的帮手。
+
+==== 6.1.2 修饰可迭代对象优化循环
+
+对于一位学过其他编程语言的人来说，假如他需要在遍历一个列表的同时，获取当前索引位置。他很可能会写出这样的代码：
+
+[source,python]
+----
+index = 0
+for name in names:
+    print(index, name)
+    index += 1
+----
+
+上面的循环虽然没错，但并不是最佳做法。一个拥有两年 Python 开发经验的人会说，这段代码应该这么写：
+
+[source,python]
+----
+for i, name in enumerate(names):
+    print(i, name)
+----
+
+https://docs.python.org/3/library/functions.html#enumerate[`enumerate()`] 是 Python 里的一个内置函数，它接收一个可迭代对象作为参数，返回一个不断生成 (当前下标, 当前元素) 的新可迭代对象，这个场景使用它最适合不过。
+
+虽然 `enumerate()` 函数自身很简单，但它其实代表了一种循环代码优化思路：通过修饰可迭代对象来优化循环。
+
+===== 使用生成器函数修饰可迭代对象
+
+什么是“修饰可迭代对象”？让我用一段简单的代码来说明：
+
+[source,python]
+----
+def sum_even_only(numbers):
+    """对 numbers 里面所有的偶数求和"""
+    result = 0
+    for num in numbers:
+        if num % 2 == 0:
+            result += num
+    return result
+----
+
+在这段代码的循环体内，我写了一条 `if` 语句来剔除掉了所有奇数。但是，假如借鉴 `enumerate()` 函数的思路，我们其实可以把这个“奇数剔除逻辑”提炼成一个生成器函数，从而达到简化循环内部代码的目的。
+
+下面就是我们需要的生成器函数 `even_only()`，它专门负责偶数过滤工作：
+
+[source,python]
+----
+def even_only(numbers):
+    for num in numbers:
+        if num % 2 == 0:
+            yield num
+----
+
+之后在 `sum_even_only_v2()` 里，只要先用 `even_only` 函数修饰 `numbers` 变量，循环内的“偶数过滤”逻辑就可以完全去掉，只需简单求和即可：
+
+[source,python]
+----
+def sum_even_only_v2(numbers):
+    """对 numbers 里面所有的偶数求和"""
+    result = 0
+    for num in even_only(numbers):
+        result += num
+    return result
+----
+
+总结一下，“修饰可迭代对象”是指用生成器（或普通的迭代器）在循环外部包装原本的循环主体，完成一些原本必须在循环内部执行的工作——比如过滤特定成员、提供额外结果等，以此来简化循环代码。
+
+除了定义自己的修饰函数外，你还可以直接使用标准库模块 `itertools` 里的许多现成工具。
+
+==== 6.1.3 使用 itertools 模块优化循环
+
+itertools 是一个和迭代器有关的标准库模块，它里面包含许多用来处理可迭代对象的工具函数。在模块的官方文档里，你可以找到每个函数的详细介绍与说明。
+
+在本小节，我也会对 itertools 里的部分函数做一些简单介绍，但侧重点会和官方文档稍有不同。我会通过一些常见的代码场景，来详细解释 itertools 是如何改善循环代码的。
+
+===== 1. 使用 product 扁平化多层嵌套循环
+
+虽然我们都知道：“扁平优于嵌套”，但有时针对某类需求，似乎一定得写一些多层嵌套循环才行。下面这个函数就是一例：
+
+[source,python]
+----
+def find_twelve(num_list1, num_list2, num_list3):
+    """从 3 个数字列表中，寻找是否存在和为 12 的 3 个数"""
+    for num1 in num_list1:
+        for num2 in num_list2:
+            for num3 in num_list3:
+                if num1 + num2 + num3 == 12:
+                    return num1, num2, num3
+----
+
+对于这种嵌套遍历多个对象的多层循环代码，我们可以使用 `product()` 函数来优化它。`product` 接收多个可迭代对象作为参数，然后根据它们的笛卡尔积不断生成结果。
+
+[source,python]
+----
+>>> from itertools import product
+>>> list(product([1, 2], [3, 4]))
+[(1, 3), (1, 4), (2, 3), (2, 4)]
+----
+
+用 `product` 优化函数里的嵌套循环：
+
+[source,python]
+----
+from itertools import product
+
+
+def find_twelve_v2(num_list1, num_list2, num_list3):
+    for num1, num2, num3 in product(num_list1, num_list2, num_list3):
+        if num1 + num2 + num3 == 12:
+            return num1, num2, num3
+----
+
+相比之前，新函数只用了一层 for 循环就完成了任务，代码变得更精炼了。
+
+===== 2. 使用 islice 实现循环内隔行处理
+
+假如我有一份数据文件，里面包含某论坛的许多帖子标题，内容格式是这样的：
+
+[source,plain]
+----
+python-guide: Python best practices guidebook, written for humans.
+---
+Python 2 Death Clock
+---
+Run any Python Script with an Alexa Voice Command
+---
+<... ...>
+----
+
+我现在需要解析这个文件，拿到文件里的所有标题。
+
+可能是为了格式美观，这份文件里的每两个标题之间，都有一个 `"---"` 分隔符。而这个分隔符给我的解析工作带来了一点小麻烦——在遍历过程中，我必须跳过这些无意义的符号。
+
+利用 `enumerate()` 内置函数，我可以直接在循环内加一段基于当前序号的 `if` 判断来做到这一点：
+
+[source,python]
+----
+def parse_titles(filename):
+    """从隔行数据文件中读取 reddit 主题名称
+    """
+    with open(filename, 'r') as fp:
+        for i, line in enumerate(fp):
+            # 跳过无意义的 '---' 分隔符
+            if i % 2 == 0:
+                yield line.strip()
+----
+
+但是，对于这类在循环内隔行处理的需求来说，如果使用 itertools 里的 https://docs.python.org/3.6/library/itertools.html#itertools.islice[islice()] 函数修饰被循环对象，整段循环代码可以变得更简单、更直接。
+
+`islice(seq, start, end, step)` 函数和数组切片操作（list[start:stop:step]）接收的参数几乎完全一致。如果需要在循环内部实现隔行处理，只要设置第三个参数“step（递进步长）”的值为 2 即可：
+
+[source,python]
+----
+from itertools import islice
+
+def parse_titles_v2(filename):
+    with open(filename, 'r') as fp:
+        # 设置 step=2，跳过无意义的 '---' 分隔符
+        for line in islice(fp, 0, None, 2):
+            yield line.strip()
+----
+
+===== 3. 使用 takewhile 替代 break 语句
+
+有时，我们需要在每次开始执行循环体代码时，决定是否需要提前结束循环。比如像下面这样：
+
+[source,python]
+----
+for user in users:
+    # 当第一个不合格的用户出现后，不再进行后面的处理
+    if not is_qualified(user):
+        break
+
+    # 进行处理 ... ...
+----
+
+对于这类代码，我们可以使用 `takewhile()` 函数来简化它。
+
+`takewhile(predicate, iterable)` 会在迭代第二个参数 `iterable` 的过程中，不断使用当前值作为参数调用 `predicate` 函数并对返回结果进行真值测试，如果为 `True`，则返回当前值并继续迭代，否则立即中断本次迭代。
+
+使用 `takewhile` 后的代码会变成这样：
+
+[source,python]
+----
+from itertools import takewhile
+
+for user in takewhile(is_qualified, users):
+    # 进行处理 ... ...
+----
+
+除了上面这三个函数以外，itertools 还有其他一些有意思的工具函数，它们都可以用来搭配循环使用，比如用 `chain()` 函数可以扁平化双层嵌套循环、用 `zip_longest()` 函数可以一次同时遍历多个对象，等等。
+
+本书篇幅有限，此处不再一一介绍 `itertools` 余下的其他函数，如有兴趣可自行查阅官方文档。
+
+==== 6.1.4 循环语句的 else 关键字
+
+在 Python 语言的所有关键字里，`else` 也许是其中最奇特（或者说最“臭名昭著”也行）的一个。条件分支语句用 `else` 来表示“否则执行某件事”，异常捕获语句用 `else` 表示“没异常就做某件事”。而在 `for` 和 `while` 循环结构里，人们同样也可以使用 `else` 关键字。
+
+举个例子，下面的 `process_tasks` 函数里有个批量处理任务的 `for` 循环：
+
+[source,python]
+----
+def process_tasks(tasks):
+    """批量处理任务，如遇到状态不为 Pending 的任务则中止本次处理。"""
+    non_pending_found = False
+    for task in tasks:
+        if not task.is_pending():
+            non_pending_found = True
+            break
+        process(task)
+
+    if non_pending_found:
+        notify_admin('Found non-pending task, processing aborted.')
+    else:
+        notify_admin('All tasks was processed.')
+----
+
+函数会在执行结束时给管理员发送通知。为了在不同情况（有或没有“pending”状态的任务）下发送不同通知，函数在循环开始前定义了一个标记变量 `non_pending_found`。
+
+假如利用循环语句的 `else` 分支，这份代码可被缩减成这样：
+
+[source,python]
+----
+def process_tasks(tasks):
+    """批量处理任务，如遇到状态不为 Pending 的任务则中止本次处理。"""
+    for task in tasks:
+        if not task.is_pending():
+            notify_admin('Found non-pending task, processing aborted.')
+            break
+        process(task)
+    else:
+        notify_admin('All tasks was processed.')
+----
+
+`for` 循环（和 `while` 循环）后的 `else` 关键字，代表如果循环正常结束（没有碰到任何 `break`），便执行该分支内的语句。因此，老式的“循环 + 标记变量”风格的代码，就可以利用该特性简写为“循环 + else 分支”。看上去挺好，对吧？
+
+但不知你是否记得，在介绍异常语句的 `else` 分支时，我说过那里的 `else` 关键字很不直观、很难理解。而现在循环语句里的 `else` 与之相比，更是有过之而无不及。
+
+假如一个 Python 初学者读到上面的第二段代码，基本不可能猜到代码里的 `else` 分支到底是什么意思。而这正是糟糕的关键字的“功劳”，如果 Python 当初使用 `nobreak` 或 `then` 来替代 `else`，相信这个语言特性会比现在好理解得多。
+
+正因如此，一些 Python 学习资料会建议大家避免使用循环里的 `else` 分支。理由很简单：因为和 `for...else` 所带来的高昂理解成本相比，它所提供的那点方便根本微不足道。但与此同时，也有更多的资料把循环的 `else` 分支当成一种地道的 Python 写法，大力推荐他人使用。
+
+所以，到底该用还是不该用 `for...else`？我在这其实很难给你一个权威建议。但我能告诉你的是，和 `try...else` 比起来，我使用 `for...else` 的次数要少得多。
+
+举例来说，假如前面的 `process_tasks` 函数在真实项目中出现，我极有可能会用“拆分子函数”的技巧来重构它。通过把循环结构拆分为一个独立函数，我可以完全避免“使用标记变量还是 else 分支”的艰难抉择：
+
+[source,python]
+----
+def process_tasks(tasks):
+    """批量处理任务并将结果通知管理员。"""
+    if _process_tasks(tasks):
+        notify_admin('All tasks was processed.')
+    else:
+        notify_admin('Found non-pending task, processing aborted.')
+
+
+def _process_tasks(tasks):
+    """批量处理任务，如遇到状态不为 Pending 的任务则中止本次处理。
+
+    :return: 是否完全处理所有任务
+    :rtype: bool
+    """
+    for task in tasks:
+        if not task.is_pending():
+            return False
+        process(task)
+    return True
+----
+
+=== 6.2 案例故事
+
+在工作中，文件对象是我们最常接触到的可迭代类型之一。用 `for` 循环遍历一个文件对象，便可逐行读取它的内容。但有时，这种方式在碰到大文件时，会出现一些奇怪的效率问题。在下面的故事中，小 R 就遇到了这个问题。
+
+==== 数字统计任务
+
+小 R 是一位刚接触 Python 语言的初学者，在学习了如何用 Python 读取文件后，他想要做一个小练习：计算在某个文件中，一共包含多少个数字字符（0-9）。
+
+参考了文件操作的相关文档后，他很快写出了如下所示的代码。
+
+.代码样例 6-1 标准的文件读取方式
+[source,python]
+----
+def count_digits(fname):
+    """计算文件里包含多少个数字字符"""
+    count = 0
+    with open(fname) as file:
+        for line in file:
+            for s in line:
+                if s.isdigit():
+                    count += 1
+    return count
+----
+
+小 R 的笔记本电脑上有一个测试用的小文件 `small_file.txt`，里面包含了一行行的随机字符串：
+
+[source,plain]
+----
+feiowe9322nasd9233rl
+aoeijfiowejf8322kaf9a
+----
+
+把这个文件传入函数后，程序轻松计算出了数字的数量：
+
+[source,python]
+----
+print(count_digits('small_file.txt'))
+# 输出结果: 13
+----
+
+不过奇怪的是，虽然 `count_digits()` 函数可以很快完成对 `small_file.txt` 的统计，但当小 R 把它用在另一个 5 GB 大的文件 `big_file.txt` 上时，却发现程序整整花费了一分多钟才能给出结果，并且整个执行过程耗光了笔记本电脑的全部 4G 内存。
+
+`big_file.txt` 的内容和 `small_file.txt` 没什么不同，也都是一些随机字符串而已。但在 `big_file.txt` 里，所有的文本都被放在了同一行：
+
+.大文件 big_file.txt
+[source,raw]
+----
+df2if283rkwefh... <剩余 5 GB 大小> ...
+----
+
+为什么同一份代码用到大文件上时，效率就会变低这么多呢？原因就藏在小 R 读取文件的方法里。
+
+===== 1. 读取文件的标准做法
+
+小 R 在代码里所使用的文件读取方式，可以称得上是 Python 里的“标准做法”：首先用 `with open(fine_name)` 上下文管理器语法获得一个文件对象，然后用 `for` 循环迭代它，**逐行**获取文件里的内容。
+
+为什么这种文件读取方式会成为标准？这是因为它有两个好处：
+
+[arabic]
+. `with` 上下文管理器会自动关闭文件描述符
+. 在迭代文件对象时，内容是一行一行返回的，不会占用太多内存
+
+不过这套标准做法虽好，但也不是没有缺点。假如被读取的文件里，根本就没有任何换行符，那么上面列的第 2 个好处就不再成立。缺少了换行符以后，程序遍历文件对象时就不知道该何时中断，最终只能一次性生成一个巨大的字符串对象，白白消耗掉大量时间和内存。
+
+这就是 `count_digits` 函数在处理 `big_file.txt` 时变得异常缓慢的原因。
+
+要解决这个问题，我们需要把这种读取文件的“标准做法”暂时放到一边。
+
+===== 2. 使用 while 循环加 read 方法分块读取
+
+除了直接遍历文件对象来逐行读取文件内容外，我们还可以调用更底层的 `file.read()` 方法。
+
+与直接用循环迭代文件对象不同，每次调用 `file.read(chunk_size)` 会马上读取从当前游标位置往后 `chunk_size` 大小的文件内容，不必等待任何换行符出现。
+
+有了 `file.read()` 方法的帮助，小 R 的函数可以被改写成这样:
+
+.代码样例 6-2 使用 `.read()` 读取文件
+[source,python]
+----
+def count_digits_v2(fname):
+    """计算文件里包含多少个数字字符，每次读取 8kb"""
+    count = 0
+    block_size = 1024 * 8
+    with open(fname) as file:
+        while True:
+            chunk = file.read(block_size)
+            # 当文件没有更多内容时，read 调用将会返回空字符串 ''
+            if not chunk:
+                break
+            for s in chunk:
+                if s.isdigit():
+                    count += 1
+    return count
+----
+
+在新函数中，我们使用了一个 `while` 循环来读取文件内容，每次最多读 8 KB，程序不再需要在内存中拼接庞大的字符串，内存占用会降低非常多。
+
+不过，新代码虽然解决了大文件读取时的性能问题，循环内的逻辑却变得更零碎了。如果使用 `iter()` 函数，我们可以进一步简化代码。
+
+===== 3. iter() 的另一个用法
+
+在 6.1.1 节，我那时介绍 `iter()` 是一个用来获取迭代器的内建函数，但除此之外，它其实还有另一个鲜为人知的用法。
+
+当我们使用 `iter(callable, sentinel)` 的方式调用 `iter` 函数时，会拿到一个特殊的迭代器对象。用循环遍历这个迭代器，会不断返回调用 `callable()` 的结果，假如结果等于 `setinel` ，迭代过程中止。
+
+利用这个特点，我们可以把上面的 `while` 重新改为 `for`，让循环内部变得更简单：
+
+.代码样例 6-3 巧用 `iter()` 读取文件
+[source,python]
+----
+from functools import partial
+
+def count_digits_v3(fname):
+    count = 0
+    block_size = 1024 * 8
+    with open(fname) as fp:
+        # 使用 functools.partial 构造一个新的无须参数的函数
+        _read = partial(fp.read, block_size) <.>
+
+        # 利用 iter() 构造一个不断调用 _read 的迭代器
+        for chunk in iter(_read, ''):
+            for s in chunk:
+                if s.isdigit():
+                    count += 1
+    return count
+----
+
+<.> 你可以在 7.1.3 节找到 `partial()` 工具函数的相关介绍
+
+完成改造后，我们再来看看新函数在性能方面表现如何。
+
+一开始，小 R 的旧程序需要 4 GB 内存，耗时超过一分钟，才能勉强完成 `big_file.txt` 的统计工作。而现在的新代码只需要 12 秒和 7 MB 内存就能完成同样的事情——效率提升了接近 4 倍，内存占用更是不到原来的 1%。
+
+解决了原有代码的性能问题后，小 R 很快又遇到了一个新问题。
+
+===== 4. 按职责拆解循环体代码
+
+在 `count_digits_v3()` 函数里，小 R 实现了统计文件里所有数字的功能。但现在，他又有了一个新任务：统计文件里面的所有偶数字符（0,2,4,6,8）出现的次数。
+
+在实现新需求时，小 R 会发现一个让人心烦的问题：他没法复用已有的“按块读取大文件”的功能，只能把那片包含 `partial()`、`iter()` 的循环代码全部依样画葫芦照抄一遍。
+
+之所以会这样，是因为在旧代码的循环内部，存在着两个独立的逻辑：“数据生成（从文件里不断获取数字字符）”与“数据消费（统计个数）”。这两个独立逻辑被放在了同一个循环体内，被耦合在了一起。
+
+为了提升代码的复用能力，我们需要帮小 R 解除这种耦合关系。
+
+要解耦循环体，生成器（或迭代器）是我们的首选。在这个案例中，我们可以定义一个新的生成器函数：`read_file_digits()`，由它来负责所有与“数据生成”相关的逻辑。
+
+.代码样例 6-4 读取数字内容的生成器函数
+[source,python]
+----
+def read_file_digits(fp, block_size=1024 * 8):
+    """生成器函数：分块读取文件内容，返回其中的数字字符"""
+    _read = partial(fp.read, block_size)
+    for chunk in iter(_read, ''):
+        for s in chunk:
+            if s.isdigit():
+                yield s
+----
+
+这样 `count_digits_v4()` 里的主循环就只需要负责计数即可。
+
+.代码样例 6-5 复用读取函数后的统计函数
+[source,python]
+----
+def count_digits_v4(fname):
+    count = 0
+    with open(fname) as file:
+        for _ in read_file_digits(file):
+            count += 1
+    return count
+----
+
+当小 R 接到新任务，需要统计偶数时，可以直接复用 `read_file_digits()` 函数：
+
+.代码样例 6-6 复用读取函数后的统计偶数函数
+[source,python]
+----
+from collections import defaultdict
+
+def count_even_groups(fname):
+    """分别统计文件里每个偶数字符出现的个数"""
+    counter = defaultdict(int)
+    with open(fname) as file:
+        for num in read_file_digits(file):
+            if int(num) % 2 == 0:
+                counter[int(num)] += 1
+    return counter
+----
+
+实现新需求变得轻而易举。
+
+小 R 的故事告诉了我们一个道理。在编写循环时，我们需要时常问自己：循环体内的代码是不是过长、过于复杂了？如果答案是肯定的，那就试着把代码按职责分类，抽象成独立的生成器（或迭代器）吧。这样不光能让代码变得更整洁，可复用性也会得到极大提升。
+
+=== 6.3 编程建议
+
+==== 6.3.1 中断嵌套循环的正确方式
+
+在 Python 里，当我们想要中断某个循环时，可以使用 `break` 语句。但有时，当程序需要马上从一个多层嵌套循环里中断时，一个 `break` 就会显得有点不够用。
+
+拿下面这段代码为例：
+
+[source,python]
+----
+def print_first_word(fp, prefix):
+    """找到文件里，第一个以指定前缀开头的单词，并打印出来
+
+    :param fp: 可读文件对象
+    :param prefix: 需要寻找的单词前缀
+    """
+    first_word = None
+    for line in fp:
+        for word in line.split():
+            if word.startswith(prefix):
+                first_word = word
+                # 注意：此处的 break 只能跳出最内层循环
+                break
+        # 一定要在外层加一个额外的 break 语句来判断是否结束循环
+        if first_word:
+            break
+
+    if first_word:
+        print(f'Found the first word startswith "{prefix}": "{first_word}"')
+    else:
+        print(f'Word starts with "{prefix}" was not found.')
+----
+
+`print_first_word` 函数的功能，是找到并打印某个文件里以特定前缀 `prefix` 开头的第一个单词，它的执行效果如下：
+
+[source,raw]
+----
+# 找到匹配结果时
+$ python labeled_break.py --prefix="re"
+Found the first word startswith "re": "rename"
+
+# 没找到匹配时
+$ python labeled_break.py --prefix="yy"
+Word starts with "yy" was not found.
+----
+
+在上面的代码里，为了让程序在找到第一个单词时中断查找，我写了两个 `break`——内层循环一个，外层循环一个。这其实是不得已而为之，因为 Python 语言不支持“带标签的 break”语句footnote:[带标签的 break 语句是指程序员在写 `break` 时指定一个代码标签——比如 `break outer_loop`，实现一次跳出多层循环的效果。许多编程语言（比如 Java、Go 语言）都支持这个功能。]，无法用一个 `break` 跳出多层循环。
+
+但这样写其实并不好，这许许多多的 `break` 会让代码逻辑变得更难理解，也更容易出现 bug。
+
+如果想快速从嵌套循环里跳出，其实有个更好的做法，那就是把循环代码拆分为一个新函数，然后直接使用 `return`。
+
+比如，在这段代码样例里，我们可以把 `print_first_word()` 里的“寻找单词”部分拆分为一个独立函数：
+
+[source,python]
+----
+def find_first_word(fp, prefix):
+    """找到文件里，第一个以指定前缀开头的单词，并打印出来
+
+    :param fp: 可读文件对象
+    :param prefix: 需要寻找的单词前缀
+    """
+    for line in fp:
+        for word in line.split():
+            if word.startswith(prefix):
+                return word
+    return None
+
+
+def print_first_word(fp, prefix):
+    first_word = find_first_word(fp, prefix)
+    if first_word:
+        print(f'Found the first word startswith "{prefix}": "{first_word}"')
+    else:
+        print(f'Word starts with "{prefix}" was not found.')
+----
+
+这样修改后，嵌套循环里的中断逻辑就变得更容易理解了。
+
+==== 6.3.2 巧用 next() 函数
+
+我在 6.1.1 提到过， 内置函数 `next()` 是构成迭代器协议的关键函数。但在日常编码时，我们却很少会直接用到 `next()`。这是因为在大部分场景下，循环语句已经可以满足普通迭代需求，不需要再去手动调用 `next()`。
+
+但 `next()` 函数其实很有趣。如果配合恰当的迭代器，`next()` 经常可以用很少的代码完成意想不到的功能。
+
+举个例子，假如有一个字典 `d`，你要怎么拿到它的第一个 `key` 呢？
+
+直接调用 `d.keys()[0]` 是不行的，因为字典键不是普通的容器对象，不支持切片操作： 
+
+[source,python]
+----
+>>> d = {'foo': 1, 'bar': 2}
+>>> d.keys()[0]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'dict_keys' object is not subscriptable
+----
+
+为了获取第一个 `key`，你必须把 `d.keys()` 先转换为普通列表才行：
+
+[source,python]
+----
+>>> list(d.keys())[0]
+'foo'
+----
+
+但这么做有一个很大的缺点，那就是假如字典内容很多，`list()` 操作需要在内存中构建一个大列表，内存占用大，执行效率也比较低。
+
+假如使用 `next()`，你可以更简单的完成任务：
+
+[source,python]
+----
+>>> next(iter(d.keys()))
+'foo'
+----
+
+只要先用 `iter()` 获取一个 `d.keys()` 的迭代器，再对它调用 `next()` 就能马上拿到第一个元素了。这样做不需要遍历字典的所有 `key`，自然比先转换列表的方法效率更高。
+
+除此之外，在生成器对象上执行 `next()`，还能高效完成一些元素查找类工作。
+
+假设有一个装了非常多整数的列表对象 `numbers`，我需要找到里面第一个可以被 `7` 整除的数字。
+
+除了编写传统的“`for` 循环配合 `break`”式代码，你也可以直接用 `next()` 配合生成器表达式来完成任务：
+
+[source,python]
+----
+>>> numbers = [3, 6, 8, 2, 21, 30, 42]
+>>> print(next(i for i in numbers if i % 7 == 0))
+21
+----
+
+==== 6.3.3 当心已被耗尽的迭代器
+
+截止到目前，我们已经见识到了使用生成器的许多好处，比如相比列表更省内存、可以用来解耦循环体代码，等等。但任何事物都有其两面性，生成器——或者说它的父类型：迭代器——并非完美无缺，它们最大的陷阱之一就是：会被耗尽。
+
+拿下面这段代码为例：
+
+[source,python]
+----
+>>> numbers = [1, 2, 3]
+
+# 使用生成器表达式，创建一个新的生成器对象
+# 此时想象中的 numbers 内容为：2, 4, 6
+>>> numbers = (i * 2 for i in numbers)
+----
+
+假如你连着对 `numbers` 做两次成员判断，程序会返回截然不同的结果：
+
+[source,python]
+----
+# 第一次 in 判断会触发生成器遍历，找到 4 后返回 True
+>>> 4 in numbers
+True
+
+# 做第二次 in 判断时，生成器已被部分遍历过，无法再找到 4，
+# 因此返回意料外的结果 False
+>>> 4 in numbers
+False
+----
+
+这种由生成器的“耗尽”特性所导致的 bug，隐蔽性非常强，当它出现在一些复杂项目中时，尤其难被定位。比如 Instagram 团队就曾在 PyCon 2017 上分享过一个他们遇到的类似问题footnote:[在搜索引擎搜索：“Instagram 在 PyCon 2017 的演讲摘要”，可以查看这个问题的详细内容。]。
+
+因此在平时，你需要对生成器（迭代器）的“可被一次性耗尽”特点铭记于心，避免写出由它所导致的 bug。假如你要重复使用一个生成器，可以调用 `list()` 函数将它转成列表后再使用。
+
+TIP: 除了生成器函数、生成器表达式以外，人们常常会忽略内置的 `map()`、`filter()` 函数也会返回一个一次性的迭代器对象。在使用这些函数时，也请务必当心。
+
+=== 6.4 总结
+
+在本章，我们学习了编写循环的相关知识。在 Python 里编写循环，关键不仅仅在于循环语法本身，更和可迭代类型息息相关。
+
+Python 里的对象迭代过程，有两个重要的参与者：`iter()` 与 `next()` 内置函数，它们分别对应着两个重要的魔法方法：`$$__$$iter$$__()$$` 和 `$$__$$next$$__$$()`。通过定义这两个魔法方法，我们可以快速创建出自己的迭代器对象。
+
+要写出好的循环，要记住一个关键点。那就是不要让循环体内的代码过于复杂，你可以把不同职责的代码，作为独立的生成器函数拆分出去，这样能大大提升代码的可复用性。
+
+==== 要点
+
+1. 迭代与迭代器原理：
+
+- 使用 `iter()` 函数会尝试获取一个迭代器对象
+- 使用 `next()` 函数会获取迭代器的下一个内容
+- `for` 循环可以被简单理解为：`while` 循环 + 不断调用 `next()`
+- 自定义迭代器需要实现 `$$__$$iter$$__$$` 和 `$$__$$next$$__$$` 两个魔法方法
+- 生成器对象（generator）是迭代器的一种
+- `iter(callable, sentinel)` 可以基于可调用对象构造一个迭代器
+
+2. 迭代器与可迭代对象：
+
+- 迭代器（iterator）和可迭代对象（iterable）是两个不同概念
+- 可迭代对象不一定是迭代器，但迭代器一定是可迭代对象
+- 对可迭代对象使用 `iter()` 会返回迭代器，迭代器则会返回它自身
+- 每个迭代器的被迭代过程是一次性的，可迭代对象则不一定
+- 可迭代对象只需要实现 `$$__$$iter$$__$$` 方法，而迭代器要额外实现 `$$__$$next$$__$$` 方法
+
+3. 代码可维护性技巧：
+
+- 通过定义生成器函数来修饰可迭代对象，可以优化循环内部代码
+- `itertools` 模块里有许多函数可以用来修饰可迭代对象
+- 生成器函数可以被用来解耦循环代码，提升复用性
+- 不要使用多个 `break`，拆分为函数然后直接 `return` 更好
+- 使用 `next()` 函数有时可以完成一些意想不到的功能
+
+4. 文件操作知识：
+
+- 使用标准做法读取文件内容，在处理没有换行符的大文件时会很慢
+- 调用 `file.read()` 方法可以解决读取大文件的性能问题

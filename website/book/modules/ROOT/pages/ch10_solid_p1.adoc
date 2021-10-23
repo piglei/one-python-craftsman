@@ -1,0 +1,751 @@
+[[ch10_solid_p1]]
+
+== 第 10 章 面向对象设计原则（上）
+
+面向对象作为一种流行的编程模式，功能强大，但同时也很难被掌握。一位刚接触面向对象的初学者，从能写一些简单的类，到能独自完成优秀的面向对象设计，整个过程往往要花费数月，乃至数年的时间。
+
+为了让面向对象编程变得更容易，许多前辈们将自己的宝贵经验，整理成了大量图书和资料。而这些书中最为有名的一本，当属 1994 年出版的《设计模式：可复用面向对象软件的基础》。
+
+在《设计模式》中，4 位作者从各自的经验出发，提炼总结了共 23 种经典设计模式。这些设计模式涵盖面向对象编程的各个环节——比如对象创建、行为包装等，具备极大的参考价值和实用性。
+
+但奇怪的是，虽然《设计模式》中的 23 种设计模式非常经典，我们却很少听到 Python 开发者们讨论这些模式，也很少在项目代码里见到它们的身影。为什么会这样呢？这和 Python 语言的动态特性有关。
+
+《设计模式》中的大部分设计模式，都是作者用静态编程语言，在一个有着诸多限制的面向对象环境里创造出来的。但 Python 不同，Python 是一门动态到骨子里的编程语言，它有着一等函数对象、“鸭子类型”、可自定义的数据模型等各种灵活特性。因此，我们极少会用 Python 来一比一还原经典设计模式。取而代之的是，我们几乎总是会为每种设计模式找到更适合 Python 的表现形式。
+
+比如，在 9.3.4 节就有一个与“单例模式”有关的例子。在示例代码里，我先是用 `$$__new__$$` 方法实现了经典的单例设计模式。但随后，一个模块级全局对象用更少的代码，满足了同样的需求。
+
+[source,python]
+----
+# 1：单例模式
+
+class AppConfig:
+
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            inst = super().__new__(cls)
+            cls._instance = inst
+        return cls._instance
+
+# 2：全局对象
+
+class AppConfig:
+    ...
+
+_config = AppConfig()
+----
+
+既然设计模式在 Python 里，无法像在其他语言里一样，带给我们太多实用价值。那我们还能如何学习面向对象设计？当我们编写面向对象代码时，怎样判断不同方案的优劣？怎样打磨出更好的设计？
+
+SOLID 设计原则可以回答上面的问题。
+
+在面向对象领域，除了 23 条经典的设计模式外，还有许多经典的设计原则。同具体的设计模式相比，原则通常更抽象、适用性更广，更适合融入到 Python 编程中。而在所有的设计原则中，SOLID 最为有名。
+
+SOLID 原则的雏形最早出现在 Robert C. Martin（Bob 大叔）2000 年发表的一篇文章中，在这篇名为 “Design Principles and Design Patterns” 的文章里，Bob 大叔创造与整理了多条面向对象设计原则。在随后出版的《敏捷软件开发：原则、模式与实践》一书中， Bob 大叔提取了这些原则的首字母，组成了单词 SOLID 来帮助记忆。
+
+SOLID 单词里的 5 个字母，分别代表 5 条不同设计原则。
+
+- S：Single responsibility principle（单一职责原则）
+- O：Open–closed principle（开放——关闭原则）
+- L：Liskov substitution principle（里式替换原则）
+- I：Interface segregation principle（接口隔离原则）
+- D：Dependency inversion principle（依赖倒置原则）
+
+在编写面向对象代码时，遵循这些设计原则可以帮你避开常见的设计陷阱，让你更容易写出易于扩展的好代码。反之，如果你的代码违反了原则中某几条，那么你的设计可能有着相当大的改进空间。
+
+接下来，我们将学习这 5 条设计原则的具体内容，我们会通过一些真实案例将原则实际应用到 Python 代码中。
+
+由于 SOLID 原则内容较多，我将其拆分成了两章。在本章，我们将学习这 5 条原则中的前两条：
+
+- S：Single responsibility principle（单一职责原则）
+- O：Open–closed principle（开放——关闭原则）
+
+让我们开始吧！
+
+<<<
+
+=== 10.1 类型注解基础
+
+为了让代码更具说明性，更好地描述出每条 SOLID 原则的特点，本章及下一章的所有代码将会使用 Python 的类型注解特性。
+
+在第 1 章中，我曾简单介绍过 Python 的类型注解（type hint）功能。简而言之，类型注解是一种给函数参数、返回值，以及任何变量增加类型描述的技术，规范的注解可以大大提升代码可读性。
+
+举个例子，下面的代码没有任何类型注解：
+
+[source,python]
+----
+class Duck:
+    """鸭子类
+
+    :param color: 鸭子颜色
+    """
+
+    def __init__(self, color):
+        self.color = color
+
+    def quack(self):
+        print(f"Hi, I'm a {self.color} duck!")
+
+
+def create_random_ducks(number):
+    """创建一批随机颜色鸭子
+
+    :param number: 需要创建的鸭子数量
+    """
+    ducks = []
+    for _ in number:
+        color = random.choice(['yellow', 'white', 'gray'])
+        ducks.append(Duck(color=color))
+    return ducks
+----
+
+下面是给代码添加了类型注解后的样子：
+
+[source,python]
+----
+from typing import List
+
+
+class Duck:
+    def __init__(self, color: str): <.>
+        self.color = color
+
+    def quack(self) -> None: <.>
+        print(f"Hi, I'm a {self.color} duck!")
+
+
+def create_random_ducks(number: int) -> List[Duck]: <.>
+    ducks: List[Duck] = [] <.>
+    for _ in number:
+        color = random.choice(['yellow', 'white', 'gray']) <.>
+        ducks.append(Duck(color=color))
+    return ducks
+----
+
+<.> 给函数参数加上类型注解
+<.> 通过 `->` 给返回值加上类型注解
+<.> 你可以用 `typing` 模块的特殊对象 `List` 来标注列表成员的具体类型，注意，这里用的是 `[]` 符号，而不是 `()`
+<.> 声明变量时，也可以为其加上类型注解
+<.> 类型注解是可选的，非常自由，比如这里的 `color` 变量就没加类型注解
+
+`typing` 是类型注解用到的主要模块，除了 `List` 以外，该模块内还有许多与类型有关的特殊对象，举例如下。
+
+* `Dict`：字典类型，例如 `Dict[str, int]` 代表键为字符串，值对整型的字典。
+* `Callable`：可调用对象，例如 `Callable$$[[str, str], List[str]]$$` 表示接受两个字符串作为参数，返回字符串列表的可调用对象。
+* `TextIO`：使用文本协议的类文件类型，对应还有二进制类型：`BinaryIO`
+* `Any`：代表任何类型。
+
+默认情况下，你可以把 Python 里的类型注解，当成一种增加代码可读性的特殊注释，因为它就像注释一样，只提升代码的说明性，不对程序的执行过程产生任何实际影响。
+
+但是，如果引入静态类型检查工具，类型注解就不再仅仅是注解了。它在增加可读性之余，还能对程序正确性产生积极的影响。在的 13.1.5 节，我会介绍如何用 mypy 来做到这一点。
+
+对类型注解的简介就先到这里，如果你想了解更多内容，可以查看 Python 官方文档的“类型注解”部分，里面的内容相当详细。
+
+=== 10.2 SRP：单一职责原则
+
+本章将通过一个具体案例，来说明 SOLID 原则的前两条：SRP（单一职责原则）和 OCP（开放——关闭原则）。
+
+==== 10.2.1 案例：一个简单的 Hacker News 爬虫
+
+Hacker News(后简称 HN)是一个知名的国外科技类资讯站点，在程序员圈子内很受欢迎。在 HN 的首页上，你可以阅读当前流行的文章，参与文章讨论。同时，你也可以向首页提交新的文章链接，系统会根据评分算法对文章进行排序，最受关注的热门文章会被排在最前面，HN首页截图如图 10-1 所示。
+
+image::ch10_hacker_news_front.png[width=85%, scalewidth=9cm,align="center"]
+.图 10-1 Hacker News 首页截图
+
+我平时挺爱逛 HN 的，常会去上面找一些热门文章看。但每次逛 HN，我都需要打开浏览器，在收藏夹找到网站书签，步骤还是挺繁琐的——程序员嘛，都“懒”！
+
+为了让浏览 HN 变得更方便，我想要写个程序，自动获取 HN 首页里最热门的条目标题和链接，把它们保存到普通文件里。这样我就能直接在命令行里浏览热门文章，岂不美哉？
+
+作为 Python 程序员，写个小脚本自然不在话下。利用 `requests`、`lxml` 等模块提供的强大功能，不到半小时，我就把程序写好了。
+
+.代码样例 10-1 Hacker News 新闻抓取脚本 news_digester.py
+[source,python]
+----
+import io
+import sys
+from typing import Iterable, TextIO
+
+import requests
+from lxml import etree
+
+
+class Post:
+    """HackerNew 上的条目
+
+    :param title: 标题
+    :param link: 链接
+    :param points: 当前得分
+    :param comments_cnt: 评论数
+    """
+
+    def __init__(self, title: str, link: str, points: str, comments_cnt: str):
+        self.title = title
+        self.link = link
+        self.points = int(points)
+        self.comments_cnt = int(comments_cnt)
+
+
+class HNTopPostsSpider:
+    """抓取 Hacker News Top 内容条目
+
+    :param fp: 存储抓取结果的目标文件对象
+    :param limit: 限制条目数，默认为 5
+    """
+
+    items_url = 'https://news.ycombinator.com/'
+    file_title = 'Top news on HN'
+
+    def __init__(self, fp: TextIO, limit: int = 5):
+        self.fp = fp
+        self.limit = limit
+
+    def write_to_file(self):
+        """以纯文本格式将 Top 内容写入文件"""
+        self.fp.write(f'# {self.file_title}\n\n')
+        for i, post in enumerate(self.fetch(), 1): <.>
+            self.fp.write(f'> TOP {i}: {post.title}\n')
+            self.fp.write(f'> 分数：{post.points} 评论数：{post.comments_cnt}\n')
+            self.fp.write(f'> 地址：{post.link}\n')
+            self.fp.write('------\n')
+
+    def fetch(self) -> Iterable[Post]:
+        """从 HN 抓取 Top 内容
+
+        :return: 可迭代的 Post 对象
+        """
+        resp = requests.get(self.items_url)
+
+        # 使用 XPath 可以方便的从页面解析出你需要的内容，以下均为页面解析代码
+        # 如果你对 xpath 不熟悉，可以忽略这些代码，直接跳到 yield Post() 部分
+        html = etree.HTML(resp.text)
+        items = html.xpath('//table[@class="itemlist"]/tr[@class="athing"]')
+        for item in items[: self.limit]:
+            node_title = item.xpath('./td[@class="title"]/a')[0]
+            node_detail = item.getnext()
+            points_text = node_detail.xpath('.//span[@class="score"]/text()')
+            comments_text = node_detail.xpath('.//td/a[last()]/text()')[0]
+
+            yield Post(
+                title=node_title.text,
+                link=node_title.get('href'),
+                # 条目可能会没有评分
+                points=points_text[0].split()[0] if points_text else '0',
+                comments_cnt=comments_text.split()[0],
+            )
+
+
+def main():
+    # with open('/tmp/hn_top5.txt') as fp:
+    #     crawler = HNTopPostsSpider(fp)
+    #     crawler.write_to_file()
+
+    # 因为 HNTopPostsSpider 接收任何 file-like 的对象，所以我们可以把 sys.stdout 传进去
+    # 实现往控制台标准输出打印的功能
+    crawler = HNTopPostsSpider(sys.stdout)
+    crawler.write_to_file()
+
+
+if __name__ == '__main__':
+    main()
+----
+
+<.> `enumerate()` 接收第二个参数，表示从这个数开始计数（默认为 0）
+
+执行这个脚本，我就能在命令行里看到 HN 站点上的 Top5 条目：
+
+[source,text]
+----
+$ python news_digester.py
+# Top news on HN
+
+> TOP 1: The auction that set off the race for AI supremacy
+> 分数：72 评论数：10
+> 地址：https://www.wired.com/story/secret-auction-race-ai-supremacy-google-microsoft-baidu/
+------
+> TOP 2: Introducing the Wikimedia Enterprise API
+> 分数：47 评论数：12
+> 地址：https://diff.wikimedia.org/2021/03/16/introducing-the-wikimedia-enterprise-api/
+------
+...
+----
+
+你可以明显看出来，上面的代码是符合面向对象风格的。因为在代码里，我定义了如下所示的两个类：
+
+. `Post`：代表一个 HN 内容条目，包含标题、链接等字段，是一个典型的“数据类”，主要用来衔接程序的“数据抓取”与“文件写入”行为。
+. `HNTopPostsSpider`：抓取 HN 内容的爬虫类，包含抓取页面、解析、写入结果等行为，是完成主要工作的类。
+
+虽然这个脚本基于面向对象风格编写（换句话说，也就是定义了几个 class 而已），可以满足我的需求。但从设计角度看，它却违反了 SOLID 原则中的第一条：“Single responsibility principle”（单一职责原则，后简称 SRP），让我们来看看这是为什么吧。
+
+
+单一职责原则是 SOLID 原则里的第一条，该原则认为：**一个类应该仅仅只有一个被修改的理由。**换句话说，每个类都应该只承担一种职责。
+
+要理解 SRP 原则，最重要的是理解原则里所说的“修改的理由”代表什么。显而易见，软件本身是没有生命的，修改的理由不会来自软件自身。你的程序不会突然跳起来说“我觉得我执行起来有点慢，需要优化一下”这种话。
+
+所有修改软件的理由，都来自与软件相关的人，人是导致程序被修改的“罪魁祸首”。
+
+举个例子，在上面的爬虫脚本里，你可以轻易找到两个需要修改 `HNTopPostsSpider` 类的理由。
+
+* 理由 1：HN 网站的程序员突然更新了页面样式，旧 xpath
+解析算法没法正常解析新页面，因此 `fetch()` 方法里的解析逻辑需要被修改。
+* 理由 2：程序的用户（也就是我）觉得纯文本格式不好看，想要改成 Markdown 样式，因此 `write_to_file()` 方法里的输出逻辑需要被修改。
+
+从这两条理由看来，`HNTopPostsSpider` 明显违反了 SRP 原则，它同时承担了“抓取帖子列表” 和 “将帖子列表写入文件” 这两种完全不同的职责。
+
+==== 10.2.2 违反 SRP 的坏处
+
+假如某个类违反了 SRP 原则，我们就会经常出于不同的原因去修改它，这很可能会导致不同功能之间互相影响。比如，某天我为了适配 Hacker News 站点的新样式，调整了页面解析逻辑，却发现输出的文件内容也全被破坏了。
+
+另外，单个类承担的职责越多，意味着这个类就越复杂，越难维护。在面向对象领域，有一种臭名昭著的类：God Class，God Class 专指那些包含了太多职责，代码特别多，什么事情都能做的类。God Class 是所有程序员的噩梦，每个理智尚存的程序员在碰到 God Class 后，第一个想法总是逃跑，逃得越远越好。
+
+最后，违反 SRP 原则的类也很难被复用。假如我现在要写另一个和 HN 有关的脚本，需要复用 `HNTopPostsSpider` 类的抓取和解析逻辑。我会发现这事根本做不到，因为我必须得提供一个莫名其妙的文件对象给 `HNTopPostsSpider` 类才行。
+
+违反 SRP 原则的坏处说了一箩筐，那么，究竟怎么修改脚本才能让它符合 SRP 原则呢？办法有很多，其中最传统的就是：把大类拆分为小类。
+
+==== 10.2.3 大类拆小类
+
+为了让 `HNTopPostsSpider` 类的职责变得更纯粹，我把其中与“写入文件”相关的内容拆了出去，成为了一个新的类：`PostsWriter`
+
+[source,python]
+----
+class PostsWriter:
+    """负责将帖子列表写入到文件"""
+
+    def __init__(self, fp: io.TextIOBase, title: str):
+        self.fp = fp
+        self.title = title
+
+    def write(self, posts: List[Post]):
+        self.fp.write(f'# {self.title}\n\n')
+        for i, post in enumerate(posts, 1):
+            self.fp.write(f'> TOP {i}: {post.title}\n')
+            self.fp.write(f'> 分数：{post.points} 评论数：{post.comments_cnt}\n')
+            self.fp.write(f'> 地址：{post.link}\n')
+            self.fp.write('------\n')
+----
+
+然后，对于 `HNTopPostsSpider` 类，我直接把 `write_to_file()` 方法删掉，让它只保留 `fetch()` 方法。
+
+[source,python]
+----
+class HNTopPostsSpider:
+    """抓取 Hacker News Top 内容条目"""
+
+    def __init__(self, limit: int = 5):
+        ...
+
+    def fetch(self) -> Iterable[Post]:
+        ...
+----
+
+这样修改以后，`HNTopPostsSpider` 和 `PostsWriter` 类都各自符合了单一职责原则。只有当解析逻辑变化时，我才会去修改 `HNTopPostsSpider` 类，同样，修改 `PostsWriter` 类的理由也只有调整输出格式一种。
+
+这两个类各自的修改可以单独进行而不会相互影响。
+
+最后，由于现在两个类都只各自负责一件事，我需要一个新角色把它们的工作串联起来，因此，我实现了一个新的函数 `get_hn_top_posts()`：
+
+[source,python]
+----
+def get_hn_top_posts(fp: Optional[TextIO] = None):
+    """获取 Hacker News 的 Top 内容，并将其写入文件中
+
+    :param fp: 需要写入的文件，如未提供，将往标准输出打印
+    """
+    dest_fp = fp or sys.stdout
+    crawler = HNTopPostsSpider()
+    writer = PostsWriter(dest_fp, title='Top news on HN')
+    writer.write(list(crawler.fetch()))
+----
+
+新函数通过组合 `HNTopPostsSpider` 与 `PostsWriter` 类，完成了主要工作。
+
+.函数同样可以“单一职责”
+****
+虽然单一职责是面向对象领域的设计原则，通常被用来形容类。但在 Python 中，单一职责的适用范围完全可以不限于类——通过定义函数，我们同样能让上面的代码符合单一职责原则。
+
+在下面的代码里，“写入文件”的逻辑就被拆分成了一个函数，它专门负责将帖子列表写入文件里：
+
+[source,python]
+----
+def write_posts_to_file(posts: List[Post], fp: TextIO, title: str):
+    """负责将帖子列表写入文件"""
+    fp.write(f'# {title}\n\n')
+    for i, post in enumerate(posts, 1):
+        fp.write(f'> TOP {i}: {post.title}\n')
+        fp.write(f'> 分数：{post.points} 评论数：{post.comments_cnt}\n')
+        fp.write(f'> 地址：{post.link}\n')
+        fp.write('------\n')
+----
+
+这个函数只做一件事，同样符合 SRP 原则。
+
+将某个职责拆分为新函数是一个具有 Python 特色的解决方案，它虽然没有那么“面向对象”，但却非常实用，甚至在许多场景下比编写类更简单、更高效。
+****
+
+=== 10.3 OCP：开放——关闭原则
+
+SOLID 原则的第二条是“Open–closed principle”（开放-关闭原则），简称 OCP 原则。OCP 原则认为：**类应该对扩展开放，对修改封闭。**换句话说：你应该可以在不修改某个类的前提下，扩展它的行为。
+
+这是一个看上去自相矛盾，让人一头雾水的设计原则。不修改代码的话，又怎么能改变行为呢？难道用超能力吗？
+
+其实，OCP 原则没你想的那么神秘，你身边就有一个符合 OCP 原则的例子：内置排序函数 `sorted()`。`sorted()` 是一个对可迭代对象进行排序的内置函数，它的使用方法如下：
+
+[source,python]
+----
+>>> l = [5, 3, 2, 4, 1]
+>>> sorted(l)
+[1, 2, 3, 4, 5]
+----
+
+默认情况下，`sorted()` 的排序策略是递增的，小的在前，大的在后。
+
+现在，假如我想改变 `sorted` 的排序逻辑，比如，让它使用所有元素对 3 取模后的结果来排序。我是不是得去修改 `sorted()`
+函数的源码呢？当然不用，我只要在调用函数时，传入自定义的 `key` 参数就行了。
+
+[source,python]
+----
+>>> l = [8, 1, 9]
+>>> sorted(l, key=lambda i: i % 3) <.>
+[9, 1, 8]
+----
+
+<.> 按照元素对 3 取模的结果排序，能被 3 整除的 9 排在了最前面，随后是 1 和 8
+
+通过上面的例子，你可以发现，`sorted()` 函数是一个符合 OCP 原则的绝佳例子，因为它：
+
+* 对扩展开放：你可以通过传入自定义 `key` 函数来扩展它的行为
+* 对修改关闭：你无须修改 sort 函数本身footnote:[即使你想修改也做不到，因为它是编译在 Python 里的内置函数。]
+
+接下来，让我们回到我的 Hacker News 爬虫脚本，看看 OCP 原则对它会产生什么影响。
+
+==== 10.3.1 接受 OCP 原则的考验
+
+距离上次用“单一职责”改造完 Hacker News 爬虫脚本后，已经过去了三天。在这三天里，我发现虽然脚本可以快速把内容抓回来，用起来很方便，但在多数情况下，脚本抓回来的那些内容，都不是我想看的。
+
+当前版本的脚本，会不分来源的把热门条目都抓取回来，但其实，我只对那些来自特定站点——比如 GitHub——的内容感兴趣。
+
+因此，我需要对脚本做点小小的改造。我需要修改 `HNTopPostsSpider` 类的代码来对结果进行过滤。
+
+很快，代码就被修改完毕：
+
+[source,python]
+----
+from urllib import parse
+
+
+class HNTopPostsSpider:
+    ...
+
+    def fetch(self) -> Iterable[Post]:
+        """从 HN 抓取 Top 内容"""
+        # ...
+        counter = 0
+        for item in items:
+            if counter >= self.limit:
+                break
+            # ...
+            link = node_title.get('href')
+
+            # 只关注来自 github.com 的内容
+            parsed_link = parse.urlparse(link) <.>
+            if parsed_link.netloc == 'github.com':
+                counter += 1
+                yield Post(...)
+----
+
+<.> 调用 `urlparse()` 会返回某个 URL 地址的解析结果——一个 `ParsedResult` 对象，该结果对象包含多个属性，其中 `netloc` 代表主机地址（域名） 
+
+接下来，让我简单测试一下修改后的效果：
+
+[source,text]
+----
+$ python news_digester_O_before.py
+# Top news on HN
+
+> TOP 1: Mimalloc – A compact general-purpose allocator
+> 分数：291 评论数：40
+> 地址：https://github.com/microsoft/mimalloc
+------
+...
+----
+
+看起来，新写的过滤代码起了作用，现在只有当内容条目来自 `github.com` 时，才会被写入到结果中。
+
+不过，正如希腊哲学家赫拉克利特所言：这世间唯一不变的，只有变化本身。没过几天，我的兴趣就发生了变化，我突然觉得，除了 GitHub 以外，来自 Bloombergfootnote:[一个英文财经资讯网站] 的内容也都很有意思。因此，我得给脚本的筛选逻辑加个新域名：bloomberg.com。
+
+这时我发现，为了增加 `bloomberg.com`，我必须得修改现有的 `HNTopPostsSpider` 类代码，调整那行 `if parsed_link.netloc == 'github.com'` 判断语句，才能达到我的目的。
+
+还记得 OCP 原则说什么吗？“类应该通过扩展而不是修改的方式改变自己的行为”，按照这个定义，现在的代码明显违反了 OCP 原则，因为我必须得修改类代码，才能调整域名过滤条件。
+
+那么，怎样才能让类符合 OCP 原则，达到不改代码就能调整行为的状态呢？第一个办法是使用继承。
+
+==== 10.3.2 通过继承改造代码
+
+继承是面向对象编程里的一个重要概念，它提供了强大的代码复用能力。
+
+////
+当我们在编写类时，可以让它继承另一个类，这样它就会获得后者的全部功能。在这个过程中，被继承的类是父类，继承它的类被称作子类。除了完全获得父类的功能外，子类还可以选择性的重写父类的部分行为，实现灵活的代码复用。
+////
+
+继承与 OCP 原则之间有着重要的联系。继承允许我们用一种新增子类，而不是修改原有类的方式来扩展程序的行为，这恰好符合 OCP 原则。而要做到有效地扩展，关键点在于：先找到父类中不稳定、会变动的内容。只有将这部分变化封装成方法（或属性），子类才能通过继承重写这部分行为。
+
+话题回到我的爬虫脚本。在目前的需求场景下，`HNTopPostsSpider` 类里会变动的不稳定逻辑，其实就是“用户对条目是否感兴趣”部分（谁让我一天一个想法呢？）。
+
+因此，我可以将这部分逻辑抽出来，提炼成一个新的方法：
+
+[source,python]
+----
+class HNTopPostsSpider:
+    ...
+
+    def fetch(self) -> Iterable[Post]:
+        # ...
+        for item in items:
+            # ...
+            post = Post(...)
+            # 使用测试方法来判断是否返回该帖子
+            if self.interested_in_post(post):
+                counter += 1
+                yield post
+
+    def interested_in_post(self, post: Post) -> bool:
+        """判断是否应该将帖子加入结果中"""
+        return True
+----
+
+有了这样的结构后，假如我只关心来自 `github.com` 的帖子，那么我只要定义一个继承 `HNTopPostsSpider` 的子类，然后重写父类的 `interested_in_post()` 方法即可。
+
+[source,python]
+----
+class GithubOnlyHNTopPostsSpider(HNTopPostsSpider):
+    """只关心来自 GitHub 的内容"""
+
+    def interested_in_post(self, post: Post) -> bool:
+        parsed_link = parse.urlparse(post.link)
+        return parsed_link.netloc == 'github.com'
+
+
+def get_hn_top_posts(fp: Optional[TextIO] = None):
+    # crawler = HNTopPostsSpider()
+    # 使用新的子类
+    crawler = GithubOnlyHNTopPostsSpider()
+    ...
+----
+
+假如某天，我的兴趣发生了变化？没关系，不用修改旧代码，只要增加新子类就行：
+
+[source,python]
+----
+class GithubNBloomBergHNTopPostsSpider(HNTopPostsSpider):
+    """只关心来自 GitHub/BloomBerg 的内容"""
+
+    def interested_in_post(self, post: Post) -> bool:
+        parsed_link = parse.urlparse(post.link)
+        return parsed_link.netloc in ('github.com', 'bloomberg.com')
+----
+
+在这个框架下，只要需求变化和“是否对条目感兴趣”有关，我都不需要修改原本的 `HNTopPostsSpider` 父类，我只要不断在它的基础上，创建新的子类就行。通过继承，我最终实现了 OCP 原则所说的：对扩展开放，对改变关闭，如图 10-2 所示。
+
+.图 10-2 通过继承实现 OCP 原则
+image::ch10_ocp_extends.png[width=90%, scalewidth=9cm,align="center"]
+
+==== 10.3.3 使用组合与依赖注入
+
+虽然继承功能强大，但它并非通往 OCP 原则的唯一途径。除了继承外，我们还可以使用另一种思路：组合（composition），更具体一点，使用基于组合思想的依赖注入（dependency injection）技术。
+
+与继承不同，依赖注入允许我们在创建对象时，将业务逻辑中易变的部分（也常被称为“算法”）通过初始化参数注入到对象里，最终利用多态特性达到“不改代码来扩展类”的效果。
+
+如之前所分析的，在这个脚本里，“条目过滤算法”是业务逻辑里的易变部分。要实现依赖注入，我们需要先给过滤算法建模。
+
+先定义了一个名为 `PostFilter` 的抽象类：
+
+[source,python]
+----
+from abc import ABC, abstractmethod
+
+class PostFilter(ABC):
+    """抽象类：定义如何过滤帖子结果"""
+
+    @abstractmethod
+    def validate(self, post: Post) -> bool:
+        """判断帖子是否应该被保留"""
+----
+
+随后，为了实现脚本的原始逻辑：不过滤任何条目。我们创建了一个继承该抽象类的默认算法类：`DefaultPostFilter`，它的过滤逻辑是保留所有结果。
+
+要实现依赖注入，`HNTopPostsSpider` 类也需要做一些调整，它必须在初始化时，接收一个名为 `post_filter` 的结果过滤器对象：
+
+[source,python]
+----
+class DefaultPostFilter(PostFilter):
+    """保留所有帖子"""
+
+    def validate(self, post: Post) -> bool:
+        return True
+
+
+class HNTopPostsSpider:
+    """抓取 Hacker News Top 内容条目
+
+    :param limit: 限制条目数，默认为 5
+    :param post_filter: 过滤结果条目的算法，默认为保留所有
+    """
+
+    items_url = 'https://news.ycombinator.com/'
+
+    def __init__(self, limit: int = 5, post_filter: Optional[PostFilter] = None):
+        self.limit = limit
+        self.post_filter = post_filter or DefaultPostFilter() <.>
+
+    def fetch(self) -> Iterable[Post]:
+        # ...
+        counter = 0
+        for item in items:
+            # ...
+            post = Post(...)
+            # 使用测试方法来判断是否返回该帖子
+            if self.post_filter.validate(post):
+                counter += 1
+                yield post
+----
+
+<.> 因为 `HNTopPostsSpider` 类所依赖的过滤器，是通过初始化参数被注入进来的，所以这个技术被称为“依赖注入”。
+
+如代码所表示的，当我不提供 `post_filter` 参数时，`HNTopPostsSpider.fetch()` 会保留所有的结果，不做任何过滤。假如需求发生了变化，当前的过滤逻辑需要被修改。那么我只要创建一个新的 
+`PostFilter` 类即可。
+
+下面就是分别过滤 GitHub 与 Bloomberg 的两个 `PostFilter` 类：
+
+[source,python]
+----
+class GithubPostFilter(PostFilter):
+    def validate(self, post: Post) -> bool:
+        parsed_link = parse.urlparse(post.link)
+        return parsed_link.netloc == 'github.com'
+
+
+class GithubNBloomPostFilter(PostFilter):
+    def validate(self, post: Post) -> bool:
+        parsed_link = parse.urlparse(post.link)
+        return parsed_link.netloc in ('github.com', 'bloomberg.com')
+----
+
+在创建 `HNTopPostsSpider` 对象时，我可以选择传入不同的过滤器对象，以此满足不同的过滤需求：
+
+[source,python]
+----
+crawler = HNTopPostsSpider() <.>
+crawler = HNTopPostsSpider(post_filter=GithubPostFilter()) <.>
+crawler = HNTopPostsSpider(post_filter=GithubNBloomPostFilter()) <.>
+----
+
+<.> 不过滤任何内容
+<.> 过滤仅 GitHub 站点内容
+<.> 过滤 GitHub 与 Bloomberg 站点
+
+.图 10-3 通过依赖注入实现 OCP 原则
+image::ch10_ocp_dep_injection.png[width=100%, scalewidth=9cm,align="center"]
+
+通过抽象与提炼过滤器算法，并结合多态与依赖注入技术，我同样让代码符合了 OCP 原则。
+
+.抽象类不是必须的
+****
+你可以发现，我编写的过滤器算法类，其实没有共享抽象类里的任何代码，也没有任何通过继承来复用代码的需求。因此，我其实可以完全不定义 `PostFilter` 抽象类，直接编写后面的过滤器类。
+
+这样做对于程序的运行效果不会有任何影响。因为 Python 是一门“鸭子类型”语言，它在调用不同算法类的 `.validate()` （也就是“多态”）前，不会做任何类型检查工作。
+
+但是，如果少了 `PostFilter` 抽象类，当我在编写 `HNTopPostsSpider` 类的 `$$__init__$$` 方式时，我就没法给 `post_filter` 增加类型注解了——`post_filter: Optional[这里写什么？]`，因为我根本找不到一个具体的类型。
+
+所以我必须编写一个抽象类，以此来满足类型注解的需求。
+
+这件事情告诉我们：类型注解是一种让 Python 更接近静态语言的东西。启用类型注解，你就必须给任何东西找到一个能作为注解的实体类型。类型注解会强制我们把大脑里的隐式“接口”和“协议”，显式的表达出来。
+****
+
+==== 10.3.4 使用数据驱动
+
+在实现 OCP 原则的众多手法中，除了继承与依赖注入外，还有另一种常被用到的方式：数据驱动。数据驱动的核心思想在于：将经常变动的部分以数据的方式抽离出来，当需求变化时，只改动数据，代码逻辑可以保持不动。
+
+听上去，数据驱动和依赖注入有点像，它们都是把变化的东西抽离到类外部。二者的不同点在于：依赖注入抽离的通常是类，而数据驱动抽离的则是纯粹的数据。
+
+下面，让我们在脚本中尝试一下数据驱动方案。
+
+改造成数据驱动的第一步是定义数据的格式。在这个需求中，变动的部分是“我感兴趣的站点地址”，因此我可以简单地用一个字符串列表 `filter_by_hosts: [List[str]]` 来指代这个地址。
+
+下面是修改过的 `HNTopPostsSpider` 类代码：
+
+[source,python]
+----
+class HNTopPostsSpider:
+    """抓取 Hacker News Top 内容条目
+
+    :param limit: 限制条目数，默认为 5
+    :param filter_by_hosts: 过滤结果的站点列表，默认为 None，代表不过滤
+    """
+
+    def __init__(self, limit: int = 5, filter_by_hosts: Optional[List[str]] = None):
+        self.limit = limit
+        self.filter_by_hosts = filter_by_hosts
+
+    def fetch(self) -> Iterable[Post]:
+        counter = 0
+        for item in items:
+            # ...
+            post = Post(...)
+            # 判断链接是否符合过滤条件
+            if self._check_link_from_hosts(post.link):
+                counter += 1
+                yield post
+
+    def _check_link_from_hosts(self, link: str) -> True:
+        """检查某链接是否属于所定义的站点"""
+        if self.filter_by_hosts is None:
+            return True
+        parsed_link = parse.urlparse(link)
+        return parsed_link.netloc in self.filter_by_hosts
+----
+
+修改完 `HNTopPostsSpider` 类后，它的调用方也要进行调整。在创建 `HNTopPostsSpider` 实例时，我得把想要过滤的站点列表传进去：
+
+[source,python]
+----
+hosts = None <.>
+hosts = ['github.com', 'bloomberg.com'] <.>
+crawler = HNTopPostsSpider(filter_by_hosts=hosts)
+----
+
+<.> 不过滤任何内容
+<.> 过滤来自 github.com 和 bloomberg.com 的内容
+
+之后，每当我需要调整过滤站点，只要修改 `hosts` 列表即可，无须调整 `HNTopPostsSpider` 类的任意一行代码。这种数据驱动的方式，同样满足了 OCP 原则的要求。
+
+同前面的继承与依赖注入相比，使用数据驱动的代码明显更简洁，因为它不需要定义任何额外的类。
+
+但数据驱动也有一个缺点：它的可定制性不如其他两种方式。举个例子，假如我现在想要以“链接是否以某个字符串结尾”来做过滤，现在的数据驱动代码就做不到。
+
+影响每种方案可定制性的根本原因，在于各方案的所处的抽象级别不一样。比如，在依赖注入方案里，我选择抽象的内容是“条目过滤**行为**”，而在数据驱动方案下，抽象内容则是“条目过滤行为的**有效站点地址**”。很明显，后者的层级更低，关注的内容更具体，所以灵活性自然不如前者。
+
+在日常工作中，如果你想写出符合 OCP 原则的代码，除了使用这里演示的继承、依赖注入和数据驱动外，还有许多不同的处理方式。每种方式各有优劣，你需要深入分析具体的需求场景，才能判断出哪种方式最为适合。这是一个无法一蹴而就、需要大量练习才能掌握的过程。
+
+=== 10.4 总结
+
+在本章，我通过一个具体的案例，向你描述了 SOLID 设计原则中的前两位成员：单一职责原则与开放——关闭原则。
+
+这两条原则看似简单，背后其实蕴藏了许多从好代码中提炼而来的智慧，它们的适用范围也不仅仅局限于面向对象编程。一旦你深入理解这两条原则后，你会在许多设计模式与框架中惊奇地发现它们的影子。
+
+在下一章，我将向你继续介绍 SOLID 原则的后三条，在此之前，先让我们回顾一下前两条原则的要点。
+
+==== 要点
+
+1. 单一职责原则（SRP）
+
+* SRP 原则认为：一个类只应该有一种被修改的原因
+* 编写更小的类通常更不容易违反 SRP 原则
+* SRP 原则同样适用于函数，你可以让函数和类协同工作
+
+2. 开放——关闭原则（OCP）
+
+* OCP 原则认为：类应该对改动关闭，对扩展开放
+* 通过分析需求，找到代码中易变的部分，是让类符合 OCP 原则的关键
+* 使用子类继承的方式可以让类符合 OCP 原则
+* 通过算法类与依赖注入，也可以让类符合 OCP 原则
+* 将数据与逻辑分离，使用数据驱动的方式也是符合 OCP 原则的好办法

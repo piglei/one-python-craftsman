@@ -1,0 +1,46 @@
+= 《Python 工匠》
+
+欢迎访问图书《Python 工匠》 *（暂定名）* 的首页，我是作者 piglei。
+
+《Python 工匠》是一本以 Python 进阶编程为主题的技术图书。纸质书将由人民邮电出版社于 2021 年底出版，本站提供了书中部分有代表性的章节，供读者试读。
+
+与其他同类图书相比，《Python 工匠》一书有着以下突出特点：
+
+- 专注于**基础编程素养**与 **Python 高级技巧**的结合。
+- 精于 Python：内容深入 Python 语言内核，不浮于表面。
+- 不求大而全，只求小而精：内容绝非翻译官方文档，都是经过作者精心挑选后的重要知识点。
+- 多案例故事：书中许多重要的观点与技巧，都是通过有趣的“案例故事”来表达。
+- 易读：全书文本追求简洁易读，没有任何复杂难读的“翻译腔”句子。
+
+== 本书适用人群
+
+本书适合以下人群阅读：
+
+- 以 Python 为主要开发语言的工程师
+- 工作中需要写一些 Python 的工程师
+- 有其他语言编程经验，想学习如何写出地道 Python 代码的工程师
+- 任何爱好编程，喜欢 Python 语言的读者
+
+本书内容以进阶知识为主。书里虽有少量基础知识讲解，但并不全面，描述得也并不详尽。正因如此，假如你从未有过任何编程经验，我并不建议你通过本书来入门 Python。
+
+在 Python 入门学习方面，我推荐由人民邮电出版社出版的《Python编程：从入门到实践》。当你对 Python 有了一些了解、打好基础后，欢迎再回过头来阅读本书，相信彼时可以获得更好的阅读体验。
+
+== 代码运行环境
+
+如果没有特殊说明，书中的所有的 Python 代码都是针对 Python 3.8 版本编写的。
+
+xref:ch01_variables.adoc[开始阅读]
+
+== 其他
+
+如你在阅读过程中，对内容有任何疑问，或是发现了错误，可通过这些途径联系我：
+
+- +++<i class="fas fa-envelope-square"></i>+++ Email: piglei2007@gmail.com
+- +++<i class="fab fa-github-square"></i>+++ GitHub: link:https://github.com/piglei[@piglei]
+- +++<i class="fas fa-rss-square"></i>+++ Blog：link:https://www.zlovezl.cn/[piglei's blog]
+- +++<i class="fab fa-twitter-square"></i>+++ Twitter：link:https://twitter.com/Piglei[@piglei]
+
+[quote]
+----
+本网站样章为“未精编版”，部分内容与纸质版可能略有出入。
+----

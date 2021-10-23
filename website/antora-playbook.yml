@@ -1,0 +1,14 @@
+content:
+  sources:
+  - url: ..
+    start_path: website/book
+    branches: HEAD
+output:
+  dir: ./public
+site:
+  title: Python 工匠
+ui: 
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: './supplemental-ui'
