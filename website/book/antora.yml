@@ -1,6 +1,6 @@
 name: book
 title: 《Python 工匠》
 version: 'latest'
-start_page: ROOT:main.adoc
+start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/nav.adoc

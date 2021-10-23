@@ -1,4 +1,4 @@
-* xref:main.adoc[首页]
+* xref:index.adoc[首页]
 * xref:preface.adoc[本书结构]
 * xref:ch01_variables.adoc[第 1 章 变量与注释]
 * xref:ch06_loop.adoc[第 6 章 循环与可迭代对象]

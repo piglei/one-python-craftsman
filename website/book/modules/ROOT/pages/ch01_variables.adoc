@@ -1,3 +1,5 @@
+:description: 第 1 章 变量与注释
+
 [[chapter01_variables]]
 
 == 第 1 章 变量与注释
