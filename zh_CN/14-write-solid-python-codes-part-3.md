@@ -21,7 +21,7 @@
 
 > High-level modules should not depend on low-level modules. Both should depend on abstractions.
 
-这个原则看上去有点反直觉。毕竟，在我们的第一堂编程课上，老师就是这么教我们写代码的：*“高层模块要依赖低层模块，hello world 程序依赖 printf()。”*那为什么这条原则又说不要这样做呢？而依赖倒置原则里的“倒置”又是指什么？
+这个原则看上去有点反直觉。毕竟，在我们的第一堂编程课上，老师就是这么教我们写代码的：*“高层模块要依赖低层模块，hello world 程序依赖 printf()。”* 那为什么这条原则又说不要这样做呢？而依赖倒置原则里的“倒置”又是指什么？
 
 让我们先把这些问题放在一边，看看下面这个小需求。上面这些问题的答案都藏在这个需求中。
 
@@ -167,11 +167,11 @@ def test_grouper_returning_valid_types():
 
 ### 实现依赖倒置原则
 
-首先，让我们重温一下“依赖倒置原则”*（后简称 D 原则）*的内容：**“高层模块不应该依赖于低层模块，二者都应该依赖于抽象。”**
+首先，让我们重温一下“依赖倒置原则”*（后简称 D 原则）* 的内容：**“高层模块不应该依赖于低层模块，二者都应该依赖于抽象。”**
 
 在上面的代码里，高层模块 `SiteSourceGrouper` 就直接依赖了低层模块 `requests`。为了让代码符合 D 原则，我们首先需要创造一个处于二者中间的抽象，然后让两个模块可以都依赖这个新的抽象层。
 
-创建抽象的第一步*（可能也是最重要的一步）*，就是确定这个抽象层的职责。在例子中，高层模块主要依赖 `requests` 做了这些事：
+创建抽象的第一步 *（可能也是最重要的一步）*，就是确定这个抽象层的职责。在例子中，高层模块主要依赖 `requests` 做了这些事：
 
 - 通过 `requests.get()` 获取 response
 - 通过 `response.text` 获取响应文本
@@ -191,7 +191,7 @@ type HNWebPage interface {
 
 不过，Python 根本没有接口这种东西。那该怎么办呢？虽然 Python 没有接口，但是有一个非常类似的东西：**“抽象类（Abstrace Class）”**。使用 [`abc`](https://docs.python.org/3/library/abc.html) 模块就可以轻松定义出一个抽象类：
 
-```
+```python
 from abc import ABCMeta, abstractmethod
 
 
@@ -206,13 +206,13 @@ class HNWebPage(metaclass=ABCMeta):
 
 抽象类和普通类的区别之一就是你不能将它实例化。如果你尝试实例化一个抽象类，解释器会报出下面的错误：
 
-```
+```python
 TypeError: Can't instantiate abstract class HNWebPage with abstract methods get_text
 ```
 
 所以，光有抽象类还不能算完事，我们还得定义几个依赖这个抽象类的实体。首先定义的是 `RemoteHNWebPage` 类。它的作用就是通过 requests 模块请求 HN 页面，返回页面内容。
 
-```
+```python
 class RemoteHNWebPage(HNWebPage):
     """远程页面，通过请求 HN 站点返回内容"""
 
@@ -226,7 +226,7 @@ class RemoteHNWebPage(HNWebPage):
 
 定义了 `RemoteHNWebPage` 类后，`SiteSourceGrouper` 类的初始化方法和 `get_groups` 也需要做对应的调整：
 
-```
+```python
 class SiteSourceGrouper:
     """对 HN 页面的新闻来源站点进行分组统计
     """
@@ -266,7 +266,7 @@ def main():
 
 再回到之前的单元测试上来。通过引入了新的抽象层 `HNWebPage`，我们可以实现一个不依赖外部网络的新类型 `LocalHNWebPage`。
 
-```
+```python
 class LocalHNWebPage(HNWebPage):
     """本地页面，根据本地文件返回页面内容"""
 
@@ -280,7 +280,7 @@ class LocalHNWebPage(HNWebPage):
 
 所以，单元测试也可以改为使用 `LocalHNWebPage`：
 
-```
+```python
 def test_grouper_from_local():
     page = LocalHNWebPage(path="./static_hn.html")
     grouper = SiteSourceGrouper(page)
@@ -394,7 +394,7 @@ def get_generated_at(self) -> datetime.datetime:
 
 但是，在给 `LocalHNWebPage` 添加 `get_generated_at` 方法时，我碰到了一个问题。`LocalHNWebPage` 是一个完全基于本地页面文件作为数据来源的类，仅仅通过 “static_hn.html” 这么一个本地文件，我根本就没法知道它的内容是什么时候生成的。
 
-这时我只能选择让它的 `get_generated_at` 方法返回一个错误的结果*（比如文件的修改时间）*，或者直接抛出异常。无论是哪种做法，我都可能违反 [里式替换原则](https://www.zlovezl.cn/articles/write-solid-python-codes-part-2/)。
+这时我只能选择让它的 `get_generated_at` 方法返回一个错误的结果 *（比如文件的修改时间）*，或者直接抛出异常。无论是哪种做法，我都可能违反 [里式替换原则](https://www.zlovezl.cn/articles/write-solid-python-codes-part-2/)。
 
 > Hint：里式替换原则认为子类（派生类）对象应该可以在程序中替代父类（基类）对象使用，而不破坏程序原本的功能。让方法抛出异常显然破坏了这一点。
 
