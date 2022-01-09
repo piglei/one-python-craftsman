@@ -226,7 +226,7 @@ class UnableToCreateUser(Exception):
 
 
 def create_user_from_name(username):
-    ""通过用户名创建一个 User 实例"
+    """通过用户名创建一个 User 实例
     
     :raises: 当无法创建用户时抛出 UnableToCreateUser
     """
