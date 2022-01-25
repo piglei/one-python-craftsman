@@ -285,7 +285,7 @@ def award_active_users_in_last_30days_v2():
 
 def notify_nonsleep_users_in_last_30days():
     """发送通知"""
-    for ts_start, ts_end in gen_weekend_ts_range(30, hour_start=3, hour_end=6):
+    for ts_start, ts_end in gen_weekend_ts_ranges(30, hour_start=3, hour_end=6):
         for record in LoginRecord.filter_by_range(ts_start, ts_end):
             notify_user(record.user_id, 'You should sleep more')
 ```
