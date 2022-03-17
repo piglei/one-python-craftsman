@@ -1,0 +1,31 @@
+{
+  "name": "book-cli",
+  "version": "1.2.0",
+  "description": "Init a html book with markdown file.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "static-html-server": "^0.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "static-html-server -p 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvpvvp/book-cli.git"
+  },
+  "keywords": [
+    "book",
+    "markdown"
+  ],
+  "author": "vvpvvp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vvpvvp/book-cli/issues"
+  },
+  "homepage": "https://github.com/vvpvvp/book-cli#readme"
+}

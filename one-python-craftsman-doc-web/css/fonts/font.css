@@ -1,0 +1,16 @@
+@import "./style.css";
+
+[class^="book-icon-"], [class*=" book-icon-"] {
+  font-size: inherit;
+  display: inline-block;
+  vertical-align: middle;
+}
+.book-icon-loading, .book-icon-spinner {
+  animation: ani-load-loop 1s linear infinite;
+}
+
+@keyframes ani-load-loop {
+  from { transform: rotate(0deg);}
+  50%  { transform: rotate(180deg);}
+  to   { transform: rotate(360deg);}
+}
