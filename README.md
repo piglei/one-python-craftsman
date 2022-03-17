@@ -40,7 +40,7 @@
 
 如果你觉得读 GitHub 文件不太方便，也可以访问[这个镜像站点](https://pengzhangzhi.github.io/one-python-craftsman/)阅读所有文章（由 [@pengzhangzhi](https://github.com/pengzhangzhi) 搭建）。
 
-也欢迎你关注我的微信公众号，在第一时间阅读最新文章：
+也欢迎你关注我的微信公众号：piglei，在第一时间阅读最新文章：
 
 <img src="https://user-images.githubusercontent.com/731266/54093209-2edced80-43d0-11e9-8e69-764f5da8b275.png" />
 
