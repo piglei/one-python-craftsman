@@ -24,20 +24,20 @@
 ## 文章列表
  
 - 1\. <del>善用变量改善代码质量</del> [[图书版：变量与注释](https://www.zlovezl.cn/book/ch01_variables.html)]
-- [2. 编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
-- [3. 使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
-- [4. 容器的门道](zh_CN/4-mastering-container-types.md)
-- [5. 让函数返回结果的技巧](zh_CN/5-function-returning-tips.md)
-- [6. 异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
+- [2. 编写条件分支代码的技巧](../zh_CN/2-if-else-block-secrets.md)
+- [3. 使用数字与字符串的技巧](../zh_CN/3-tips-on-numbers-and-strings.md)
+- [4. 容器的门道](../zh_CN/4-mastering-container-types.md)
+- [5. 让函数返回结果的技巧](../zh_CN/5-function-returning-tips.md)
+- [6. 异常处理的三个好习惯](../zh_CN/6-three-rituals-of-exceptions-handling.md)
 - 7\. <del>编写地道循环的两个建议</del> [[图书版：循环与可迭代对象](https://www.zlovezl.cn/book/ch06_loop.html)]
-- [8. 使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
-- [9. 一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
-- [10. 做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
-- [11. 高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
+- [8. 使用装饰器的技巧](../zh_CN/8-tips-on-decorators.md)
+- [9. 一个关于模块的小故事](../zh_CN/9-a-story-on-cyclic-imports.md)
+- [10. 做一个精通规则的玩家](../zh_CN/10-a-good-player-know-the-rules.md)
+- [11. 高效操作文件的三个建议](../zh_CN/11-three-tips-on-writing-file-related-codes.md)
 - 12\. <del>写好面向对象代码的原则（上）</del> [[图书版：面向对象设计原则（上）](https://www.zlovezl.cn/book/ch10_solid_p1.html)]
-- [13. 写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
-- [14. 写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
-- [15. 在边界处思考](zh_CN/15-thinking-in-edge-cases.md)
+- [13. 写好面向对象代码的原则（中）](../zh_CN/13-write-solid-python-codes-part-2.md)
+- [14. 写好面向对象代码的原则（下）](../zh_CN/14-write-solid-python-codes-part-3.md)
+- [15. 在边界处思考](../zh_CN/15-thinking-in-edge-cases.md)
 
 关注我的微信公众号，在第一时间阅读最新文章：
 
@@ -47,7 +47,7 @@
 
 ## 详细内容
 
-### 1. [善用变量改善代码质量](zh_CN/1-using-variables-well.md)
+### 1. [善用变量改善代码质量](../zh_CN/1-using-variables-well.md)
 
 * 如何为变量起名
     * 1 - 变量名要有描述性，不能太宽泛
@@ -69,7 +69,7 @@
     * 7 - 能不定义变量就不定义
 * 结语
 
-### 2. [编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
+### 2. [编写条件分支代码的技巧](../zh_CN/2-if-else-block-secrets.md)
 
 * 最佳实践
     * 1 - 避免多层分支嵌套
@@ -87,7 +87,7 @@
 * 结语
 * 注解
 
-### 3. [使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
+### 3. [使用数字与字符串的技巧](../zh_CN/3-tips-on-numbers-and-strings.md)
 
 * 最佳实践
     * 1 - 少写数字字面量
@@ -105,7 +105,7 @@
     * 2 - 字符串拼接并不慢
 * 结语
 
-### 4. [容器的门道](zh_CN/4-mastering-container-types.md)
+### 4. [容器的门道](../zh_CN/4-mastering-container-types.md)
 
 * 底层看容器
     * 写更快的代码
@@ -127,7 +127,7 @@
 * 系列其他文章
 * 注解
 
-### 5. [让函数返回结果的技巧](zh_CN/5-function-returning-tips.md)
+### 5. [让函数返回结果的技巧](../zh_CN/5-function-returning-tips.md)
 
 * 编程建议
    * 1 - 单个函数不要返回多种类型
@@ -143,7 +143,7 @@
 * 总结
 * 附录
 
-### 6. [异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
+### 6. [异常处理的三个好习惯](../zh_CN/6-three-rituals-of-exceptions-handling.md)
 
 * 前言
 * 三个好习惯
@@ -153,7 +153,7 @@
 * 总结
 * 附录
 
-### 7. [编写地道循环的两个建议](zh_CN/7-two-tips-on-loop-writing.md)
+### 7. [编写地道循环的两个建议](../zh_CN/7-two-tips-on-loop-writing.md)
 
 * 前言
 * 什么是“地道”的循环？
@@ -169,7 +169,7 @@
 * 总结
 * 附录
 
-### 8. [使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
+### 8. [使用装饰器的技巧](../zh_CN/8-tips-on-decorators.md)
 
 * 前言
 * 最佳实践
@@ -182,7 +182,7 @@
 * 总结
 * 附录
 
-### 9. [一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
+### 9. [一个关于模块的小故事](../zh_CN/9-a-story-on-cyclic-imports.md)
 
 * 前言
 * 一个关于模块的小故事
@@ -192,7 +192,7 @@
 * 总结
 * 附录
 
-### 10. [做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
+### 10. [做一个精通规则的玩家](../zh_CN/10-a-good-player-know-the-rules.md)
 
 * 前言
    * Python 里的规则
@@ -209,7 +209,7 @@
 * 总结
 * 附录
 
-### 11. [高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
+### 11. [高效操作文件的三个建议](../zh_CN/11-three-tips-on-writing-file-related-codes.md)
 
 * 前言
 * 建议一：使用 pathlib 模块
@@ -225,7 +225,7 @@
 * 附录
 * 注解
 
-### 12. [写好面向对象代码的原则（上）](zh_CN/12-write-solid-python-codes-part-1.md)
+### 12. [写好面向对象代码的原则（上）](../zh_CN/12-write-solid-python-codes-part-1.md)
 
 * 前言
    * Python 对 OOP 的支持
@@ -243,7 +243,7 @@
 * 总结
 * 附录
 
-### 13. [写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
+### 13. [写好面向对象代码的原则（中）](../zh_CN/13-write-solid-python-codes-part-2.md)
 
 * 前言
 * 里氏替换原则与继承
@@ -259,7 +259,7 @@
 * 总结
 * 附录
 
-### 14. [写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
+### 14. [写好面向对象代码的原则（下）](../zh_CN/14-write-solid-python-codes-part-3.md)
 
 * 前言
 * D：依赖倒置原则
@@ -280,7 +280,7 @@
 * 总结
 * 附录
 
-### 15. [在边界处思考](zh_CN/15-thinking-in-edge-cases.md)
+### 15. [在边界处思考](../zh_CN/15-thinking-in-edge-cases.md)
 
 * 前言
 * 第一课：使用分支还是异常？
