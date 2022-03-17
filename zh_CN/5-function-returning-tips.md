@@ -149,7 +149,7 @@ def create_for_input():
     try:
         item = create_item(name)
     except CreateItemError as e:
-        print(f'create item failed: {err_msg}')
+        print(f'create item failed: {e}')
     else:
         print(f'item<{name}> created')
 
