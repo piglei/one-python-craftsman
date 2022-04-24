@@ -50,7 +50,7 @@ Python 支持最为常见的 `if/else` 条件分支语句，不过它缺少在�
 
 但是因为 Python 使用了缩进来代替 `{}`，所以过深的嵌套分支会产生比其他语言下更为严重的后果。比如过多的缩进层次很容易就会让代码超过 [PEP8](https://www.python.org/dev/peps/pep-0008/) 中规定的每行字数限制。让我们看看这段代码：
 
-```Python
+```python
 def buy_fruit(nerd, store):
     """去水果店买苹果
     
