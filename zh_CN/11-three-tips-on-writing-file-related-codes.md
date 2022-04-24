@@ -214,7 +214,7 @@ def count_nine_v3(fname):
     return count
 ```
 
-进行到这一步，代码似乎已经没有优化的空间了，但其实不然。[iter(iterable)](https://docs.python.org/3/library/functions.html#iter) 是一个用来构造迭代器的内建函数，但它还有一个更少人知道的用法。当我们使用 `iter(callable, sentinel)` 的方式调用它时，会返回一个特殊的对象，迭代它将不断产生可调用对象 callable 的调用结果，直到结果为 setinel 时，迭代终止。
+进行到这一步，代码似乎已经没有优化的空间了，但其实不然。[iter(iterable)](https://docs.python.org/3/library/functions.html#iter) 是一个用来构造迭代器的内建函数，但它还有一个更少人知道的用法。当我们使用 `iter(callable, sentinel)` 的方式调用它时，会返回一个特殊的对象，迭代它将不断产生可调用对象 callable 的调用结果，直到结果为 sentinel 时，迭代终止。
 
 ```python
 def chunked_file_reader(file, block_size=1024 * 8):
