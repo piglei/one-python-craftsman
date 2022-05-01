@@ -5,7 +5,7 @@
 - [第 6 章 循环与可迭代对象](https://www.zlovezl.cn/book/ch06_loop.html)
 - [第 10 章 面向对象设计原则](https://www.zlovezl.cn/book/ch10_solid_p1.html)
 
-包含全部内容的纸质书现已正式上市，欢迎购买。
+包含全部内容的纸质书现已正式上市。同开源文章相比，图书的知识结构更为流畅，增加了“函数”“面向对象编程”等章节，总文字量几乎翻倍，欢迎购买。
 
 [点击购买](https://item.jd.com/13068111.html) | [豆瓣书评](https://book.douban.com/subject/35723705/) | [图灵社区](https://www.ituring.com.cn/book/3007)
 
