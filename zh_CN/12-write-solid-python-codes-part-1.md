@@ -400,7 +400,7 @@ def main():
 
 ```python
 class GithubNBloomBergHNTopPostsSpider(HNTopPostsSpider):
-    """只关系来自 Github/BloomBerg 的内容
+    """只关心来自 Github/BloomBerg 的内容
     """
     def interested_in_post(self, post: Post) -> bool:
         if 'github' in post.link.lower() \
