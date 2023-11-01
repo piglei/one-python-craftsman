@@ -27,7 +27,7 @@ xref:ch01_variables.adoc[开始阅读]
 
 - +++<i class="fas fa-envelope-square"></i>+++ Email: piglei2007@gmail.com
 - +++<i class="fab fa-github-square"></i>+++ GitHub: link:https://github.com/piglei[@piglei]
-- +++<i class="fas fa-rss-square"></i>+++ Blog：link:https://www.zlovezl.cn/[piglei's blog]
+- +++<i class="fas fa-rss-square"></i>+++ Blog：link:https://www.piglei.com/[piglei's blog]
 - +++<i class="fab fa-twitter-square"></i>+++ Twitter：link:https://twitter.com/Piglei[@piglei]
 
 [quote]
