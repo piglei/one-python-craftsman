@@ -1,11 +1,11 @@
-#  Python 工匠：高效操作文件的三个建议
+# Python 工匠：高效操作文件的三个建议
 
 ## 前言
 
 > 这是 “Python 工匠”系列的第 11 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/06/devon-divine-1348025-unsplash_1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/06/devon-divine-1348025-unsplash_1280.jpg" width="100%" />
 </div>
 
 在这个世界上，人们每天都在用 Python 完成着不同的工作。而文件操作，则是大家最常需要解决的任务之一。使用 Python，你可以轻松为他人生成精美的报表，也可以用短短几行代码快速解析、整理上万份数据文件。
@@ -46,7 +46,7 @@ def unify_ext_with_os_path(path):
 - [`os.path.join(path, filename)`](https://docs.python.org/3/library/os.path.html#os.path.join)：组合需要操作的文件名为绝对路径
 - [`os.rename(...)`](https://docs.python.org/3/library/os.html#os.rename)：重命名某个文件
 
-上面的函数虽然可以完成需求，但说句实话，即使在写了很多年 Python 代码后，我依然觉得：**这些函数不光很难记，而且最终的成品代码也不怎么讨人喜欢。** 
+上面的函数虽然可以完成需求，但说句实话，即使在写了很多年 Python 代码后，我依然觉得：**这些函数不光很难记，而且最终的成品代码也不怎么讨人喜欢。**
 
 ### 使用 pathlib 模块改写代码
 
@@ -192,7 +192,7 @@ def count_nine_v2(fname):
 
 假如我们在讨论的不是 Python，而是其他编程语言。那么可以说上面的代码已经很好了。但是如果你认真分析一下 `count_nine_v2` 函数，你会发现在循环体内部，存在着两个独立的逻辑：**数据生成（read 调用与 chunk 判断）** 与 **数据消费**。而这两个独立逻辑被耦合在了一起。
 
-正如我在[《编写地道循环》](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)里所提到的，为了提升复用能力，我们可以定义一个新的 `chunked_file_reader` 生成器函数，由它来负责所有与“数据生成”相关的逻辑。这样 `count_nine_v3` 里面的主循环就只需要负责计数即可。
+正如我在[《编写地道循环》](https://www.piglei.com/articles/two-tips-on-loop-writing/)里所提到的，为了提升复用能力，我们可以定义一个新的 `chunked_file_reader` 生成器函数，由它来负责所有与“数据生成”相关的逻辑。这样 `count_nine_v3` 里面的主循环就只需要负责计数即可。
 
 ```python
 def chunked_file_reader(fp, block_size=1024 * 8):
@@ -379,18 +379,15 @@ def parse(self, source, parser=None):
 ## 附录
 
 - 题图来源: Photo by Devon Divine on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：异常处理的三个好习惯](https://www.zlovezl.cn/articles/three-rituals-of-exceptions-handling/)
-- [Python 工匠：编写地道循环的两个建议](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)
-
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：异常处理的三个好习惯](https://www.piglei.com/articles/three-rituals-of-exceptions-handling/)
+- [Python 工匠：编写地道循环的两个建议](https://www.piglei.com/articles/two-tips-on-loop-writing/)
 
 ## 注解
 
 1. <a id="annot1"></a>视机器空闲内存的多少，这个过程可能会消耗比 2GB 更多的内存。
-
-

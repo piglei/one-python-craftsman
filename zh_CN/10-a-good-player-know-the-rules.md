@@ -5,7 +5,7 @@
 > 这是 “Python 工匠”系列的第 10 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/05/jeshoots-com-632498-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/05/jeshoots-com-632498-unsplash_w1280.jpg" width="100%" />
 </div>
 
 编程，其实和玩电子游戏有一些相似之处。你在玩不同游戏前，需要先学习每个游戏的不同规则，只有熟悉和灵活运用游戏规则，才更有可能在游戏中获胜。
@@ -120,11 +120,11 @@ def find_potential_customers_v2():
 >>> a - b
 {1, 7}
 ```
- 
+
 所以，计算“所有去过普吉岛但没去过新西兰的人”，其实就是一次集合的求差值操作。那么要怎么做，才能把我们的问题套入到集合的游戏规则里去呢?
- 
+
 ### 利用集合的游戏规则
- 
+
 在 Python 中，如果要把某个东西装到集合或字典里，一定要满足一个基本条件：**“这个东西必须是可以被哈希（Hashable）的”** 。什么是 “Hashable”？
 
 举个例子，Python 里面的所有可变对象，比如字典，就 **不是** Hashable 的。当你尝试把字典放入集合中时，会发生这样的错误：
@@ -357,13 +357,11 @@ Python 世界有着一套非常复杂的规则，这些规则的涵盖范围包�
 ## 附录
 
 - 题图来源: Photo by JESHOOTS.COM on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：异常处理的三个好习惯](https://www.zlovezl.cn/articles/three-rituals-of-exceptions-handling/)
-- [Python 工匠：编写地道循环的两个建议](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)
-
-
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：异常处理的三个好习惯](https://www.piglei.com/articles/three-rituals-of-exceptions-handling/)
+- [Python 工匠：编写地道循环的两个建议](https://www.piglei.com/articles/two-tips-on-loop-writing/)

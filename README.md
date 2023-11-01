@@ -1,9 +1,9 @@
 《Python 工匠》图书首页上线啦！共有 3 章在线内容，欢迎阅读。
 
-- [图书首页](https://www.zlovezl.cn/book/)
-- [第 1 章 变量与注释](https://www.zlovezl.cn/book/ch01_variables.html)
-- [第 6 章 循环与可迭代对象](https://www.zlovezl.cn/book/ch06_loop.html)
-- [第 10 章 面向对象设计原则](https://www.zlovezl.cn/book/ch10_solid_p1.html)
+- [图书首页](https://www.piglei.com/book/)
+- [第 1 章 变量与注释](https://www.piglei.com/book/ch01_variables.html)
+- [第 6 章 循环与可迭代对象](https://www.piglei.com/book/ch06_loop.html)
+- [第 10 章 面向对象设计原则](https://www.piglei.com/book/ch10_solid_p1.html)
 
 图书《Python 工匠》现已正式上市。同开源文章相比，图书的知识结构更为流畅，增加了“函数”“面向对象编程”等核心章节，总内容量几乎翻倍，欢迎购买。
 
@@ -21,18 +21,18 @@
 
 ## 文章列表
 
-- 1\. <del>善用变量改善代码质量</del> [[图书版：变量与注释](https://www.zlovezl.cn/book/ch01_variables.html)]
+- 1\. <del>善用变量改善代码质量</del> [[图书版：变量与注释](https://www.piglei.com/book/ch01_variables.html)]
 - [2. 编写条件分支代码的技巧](zh_CN/2-if-else-block-secrets.md)
 - [3. 使用数字与字符串的技巧](zh_CN/3-tips-on-numbers-and-strings.md)
 - [4. 容器的门道](zh_CN/4-mastering-container-types.md)
 - [5. 让函数返回结果的技巧](zh_CN/5-function-returning-tips.md)
 - [6. 异常处理的三个好习惯](zh_CN/6-three-rituals-of-exceptions-handling.md)
-- 7\. <del>编写地道循环的两个建议</del> [[图书版：循环与可迭代对象](https://www.zlovezl.cn/book/ch06_loop.html)]
+- 7\. <del>编写地道循环的两个建议</del> [[图书版：循环与可迭代对象](https://www.piglei.com/book/ch06_loop.html)]
 - [8. 使用装饰器的技巧](zh_CN/8-tips-on-decorators.md)
 - [9. 一个关于模块的小故事](zh_CN/9-a-story-on-cyclic-imports.md)
 - [10. 做一个精通规则的玩家](zh_CN/10-a-good-player-know-the-rules.md)
 - [11. 高效操作文件的三个建议](zh_CN/11-three-tips-on-writing-file-related-codes.md)
-- 12\. <del>写好面向对象代码的原则（上）</del> [[图书版：面向对象设计原则（上）](https://www.zlovezl.cn/book/ch10_solid_p1.html)]
+- 12\. <del>写好面向对象代码的原则（上）</del> [[图书版：面向对象设计原则（上）](https://www.piglei.com/book/ch10_solid_p1.html)]
 - [13. 写好面向对象代码的原则（中）](zh_CN/13-write-solid-python-codes-part-2.md)
 - [14. 写好面向对象代码的原则（下）](zh_CN/14-write-solid-python-codes-part-3.md)
 - [15. 在边界处思考](zh_CN/15-thinking-in-edge-cases.md)

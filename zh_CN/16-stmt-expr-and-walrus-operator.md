@@ -304,4 +304,4 @@ if any((ret := n) % 7 == 0 for n in nums):
 
 希望以上的内容对你有所帮助。
 
-> 这篇文章属于“Python 工匠”系列，如果你喜欢它，也欢迎了解我的书[《Python工匠：案例、技巧与工程实践》\[试读\]](https://www.zlovezl.cn/book/index.html) | [\[书评\]](https://book.douban.com/subject/35723705/)，其中有大量同样风格的 Python 编程进阶知识。
+> 这篇文章属于“Python 工匠”系列，如果你喜欢它，也欢迎了解我的书[《Python工匠：案例、技巧与工程实践》\[试读\]](https://www.piglei.com/book/index.html) | [\[书评\]](https://book.douban.com/subject/35723705/)，其中有大量同样风格的 Python 编程进阶知识。

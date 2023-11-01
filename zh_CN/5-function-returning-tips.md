@@ -5,7 +5,7 @@
 > 这是 “Python 工匠”系列的第 5 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/03/dominik-scythe-283337-unsplash-w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/03/dominik-scythe-283337-unsplash-w1280.jpg" width="100%" />
 </div>
 
 毫无疑问，函数是 Python 语言里最重要的概念之一。在编程时，我们将真实世界里的大问题分解为小问题，然后通过一个个函数交出答案。函数既是重复代码的克星，也是对抗代码复杂度的最佳武器。
@@ -23,22 +23,22 @@ Python 函数通过调用 `return` 语句来返回结果。使用 `return value`
 ### 内容目录
 
 - [Python 工匠：让函数返回结果的技巧](#python-工匠让函数返回结果的技巧)
-  - [序言](#序言)
-    - [Python 的函数返回方式](#python-的函数返回方式)
-    - [内容目录](#内容目录)
-  - [编程建议](#编程建议)
-    - [1. 单个函数不要返回多种类型](#1-单个函数不要返回多种类型)
-    - [2. 使用 partial 构造新函数](#2-使用-partial-构造新函数)
-    - [3. 抛出异常，而不是返回结果与错误](#3-抛出异常而不是返回结果与错误)
-    - [4. 谨慎使用 None 返回值](#4-谨慎使用-none-返回值)
-      - [1. 作为操作类函数的默认返回值](#1-作为操作类函数的默认返回值)
-      - [2. 作为某些“意料之中”的可能没有的值](#2-作为某些意料之中的可能没有的值)
-      - [3. 作为调用失败时代表“错误结果”的值](#3-作为调用失败时代表错误结果的值)
-    - [5. 合理使用“空对象模式”](#5-合理使用空对象模式)
-    - [6. 使用生成器函数代替返回列表](#6-使用生成器函数代替返回列表)
-    - [7. 限制递归的使用](#7-限制递归的使用)
-  - [总结](#总结)
-  - [附录](#附录)
+    - [序言](#序言)
+        - [Python 的函数返回方式](#python-的函数返回方式)
+        - [内容目录](#内容目录)
+    - [编程建议](#编程建议)
+        - [1. 单个函数不要返回多种类型](#1-单个函数不要返回多种类型)
+        - [2. 使用 partial 构造新函数](#2-使用-partial-构造新函数)
+        - [3. 抛出异常，而不是返回结果与错误](#3-抛出异常而不是返回结果与错误)
+        - [4. 谨慎使用 None 返回值](#4-谨慎使用-none-返回值)
+            - [1. 作为操作类函数的默认返回值](#1-作为操作类函数的默认返回值)
+            - [2. 作为某些“意料之中”的可能没有的值](#2-作为某些意料之中的可能没有的值)
+            - [3. 作为调用失败时代表“错误结果”的值](#3-作为调用失败时代表错误结果的值)
+        - [5. 合理使用“空对象模式”](#5-合理使用空对象模式)
+        - [6. 使用生成器函数代替返回列表](#6-使用生成器函数代替返回列表)
+        - [7. 限制递归的使用](#7-限制递归的使用)
+    - [总结](#总结)
+    - [附录](#附录)
 
 ## 编程建议
 
@@ -161,11 +161,9 @@ def create_for_input():
 - 虽然我在这里鼓励使用异常，但“异常”总是会无法避免的让人 **感到惊讶**，所以，最好在函数文档里说明可能抛出的异常类型
 - 异常不同于返回值，它在被捕获前会不断往调用栈上层汇报。所以 `create_item` 的一级调用方完全可以省略异常处理，交由上层处理。这个特点给了我们更多的灵活性，但同时也带来了更大的风险。
 
-
 > Hint：如何在编程语言里处理错误，是一个至今仍然存在争议的主题。比如像上面不推荐的多返回值方式，正是缺乏异常的 Go 语言中最核心的错误处理机制。另外，即使是异常机制本身，不同编程语言之间也存在着差别。
-> 
+>
 > 异常，或是不异常，都是由语言设计者进行多方取舍后的结果，更多时候不存在绝对性的优劣之分。**但是，单就 Python 语言而言，使用异常来表达错误无疑是更符合 Python 哲学，更应该受到推崇的。**
-
 
 ### 4. 谨慎使用 None 返回值
 
@@ -368,7 +366,7 @@ def foo_func(items):
         yield item
 ```
 
-我在 [系列第 4 篇文章“容器的门道”](https://www.zlovezl.cn/articles/mastering-container-types/) 里详细分析过这个模式，更多细节可以访问文章，搜索 “写扩展性更好的代码” 查看。
+我在 [系列第 4 篇文章“容器的门道”](https://www.piglei.com/articles/mastering-container-types/) 里详细分析过这个模式，更多细节可以访问文章，搜索 “写扩展性更好的代码” 查看。
 
 ### 7. 限制递归的使用
 
@@ -401,14 +399,11 @@ def foo_func(items):
 ## 附录
 
 - 题图来源: Dominik Scythe on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：善用变量改善代码质量](https://www.zlovezl.cn/articles/python-using-variables-well/)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：使用数字与字符串的技巧](https://www.zlovezl.cn/articles/tips-on-numbers-and-strings/)
-
-
-
+- [Python 工匠：善用变量改善代码质量](https://www.piglei.com/articles/python-using-variables-well/)
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：使用数字与字符串的技巧](https://www.piglei.com/articles/tips-on-numbers-and-strings/)

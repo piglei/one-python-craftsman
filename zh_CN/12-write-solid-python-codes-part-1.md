@@ -2,11 +2,10 @@
 
 ## 前言
 
-
 > 这是 “Python 工匠”系列的第 12 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/06/kelly-sikkema-Z9AU36chmQI-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/06/kelly-sikkema-Z9AU36chmQI-unsplash_w1280.jpg" width="100%" />
 </div>
 
 Python 是一门支持多种编程风格的语言，面对相同的需求，拥有不同背景的程序员可能会写出风格迥异的 Python 代码。比如一位习惯编写 C 语言的程序员，通常会定义一大堆函数来搞定所有事情，这是[“过程式编程”](https://en.wikipedia.org/wiki/Procedural_programming)的思想。而一位有 Java 背景的程序员则更倾向于设计许多个相互关联的类*（class）*，这是 [“面向对象编程（后简称 OOP）”](https://en.wikipedia.org/wiki/Object-oriented_programming)。
@@ -36,7 +35,7 @@ Python 语言虽然拥有类、继承、多态等核心 OOP 特性，但和那�
 接下来，让我用一个真实的 Python 代码样例来分别向你诠释这 5 条设计原则。
 
 > 写在最前面的注意事项：
-> 
+>
 > 0. “原则”不是“法律”，它只起到指导作用，并非不可以违反
 > 1. “原则”的后两条与接口（Interface）有关，而 Python 没有接口，所以对这部分的诠释是我的个人理解，与原版可能略有出入
 > 2. 文章后面的内容含有大量代码，请做好心理准备 ☕️
@@ -49,7 +48,7 @@ Python 语言虽然拥有类、继承、多态等核心 OOP 特性，但和那�
 我经常会去上面看一些热门文章，但我觉得每次打开浏览器访问有点麻烦。所以，我准备编写一个脚本，自动抓取 HN 首页 Top5 的新闻标题与链接，并用纯文本的方式写入到文件。方便自己用其他工具阅读。
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/06/hackernews_frontpage.png" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/06/hackernews_frontpage.png" width="100%" />
 图：Hacker News 首页截图
 </div>
 
@@ -577,18 +576,14 @@ def main():
 
 [<<<上一篇【11.高效操作文件的三个建议】](11-three-tips-on-writing-file-related-codes.md)
 
-
 ## 附录
 
 - 题图来源: Photo by Kelly Sikkema on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：让函数返回结果的技巧](https://www.zlovezl.cn/articles/function-returning-tips/)
-- [Python 工匠：编写地道循环的两个建议](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)
-- [Python 工匠：高效操作文件的三个建议](https://www.zlovezl.cn/articles/three-tips-on-writing-file-related-codes/)
-
-
-
+- [Python 工匠：让函数返回结果的技巧](https://www.piglei.com/articles/function-returning-tips/)
+- [Python 工匠：编写地道循环的两个建议](https://www.piglei.com/articles/two-tips-on-loop-writing/)
+- [Python 工匠：高效操作文件的三个建议](https://www.piglei.com/articles/three-tips-on-writing-file-related-codes/)

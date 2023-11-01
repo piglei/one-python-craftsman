@@ -5,7 +5,7 @@
 > 这是 “Python 工匠”系列的第 7 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/04/lai-man-nung-1205465-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/04/lai-man-nung-1205465-unsplash_w1280.jpg" width="100%" />
 </div>
 
 循环是一种常用的程序控制结构。我们常说，机器相比人类的最大优点之一，就是机器可以不眠不休的重复做某件事情，但人却不行。而**“循环”**，则是实现让机器不断重复工作的关键概念。
@@ -52,7 +52,7 @@ for i, name in enumerate(names):
 
 使用修饰函数处理可迭代对象，可以在各种方面影响循环代码。而要找到合适的例子来演示这个方法，并不用去太远，内置模块 [itertools](https://docs.python.org/3.6/library/itertools.html) 就是一个绝佳的例子。
 
-简单来说，itertools 是一个包含很多面向可迭代对象的工具函数集。我在之前的系列文章[《容器的门道》](https://www.zlovezl.cn/articles/mastering-container-types/)里提到过它。
+简单来说，itertools 是一个包含很多面向可迭代对象的工具函数集。我在之前的系列文章[《容器的门道》](https://www.piglei.com/articles/mastering-container-types/)里提到过它。
 
 如果要学习 itertools，那么 [Python 官方文档](https://docs.python.org/3.6/library/itertools.html) 是你的首选，里面有非常详细的模块相关资料。但在这篇文章里，侧重点将和官方文档稍有不同。我会通过一些常见的代码场景，来详细解释它是如何改善循环代码的。
 
@@ -72,7 +72,6 @@ def find_twelve(num_list1, num_list2, num_list3):
 ```
 
 对于这种需要嵌套遍历多个对象的多层循环代码，我们可以使用 [product()](https://docs.python.org/3.6/library/itertools.html#itertools.product) 函数来优化它。`product()` 可以接收多个可迭代对象，然后根据它们的笛卡尔积不断生成结果。
-
 
 ```python
 from itertools import product
@@ -311,14 +310,11 @@ def notify_nonsleep_users_in_last_30days():
 ## 附录
 
 - 题图来源: Photo by Lai man nung on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：容器的门道](https://www.zlovezl.cn/articles/mastering-container-types/)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：异常处理的三个好习惯](https://www.zlovezl.cn/articles/three-rituals-of-exceptions-handling/)
-
-
-
+- [Python 工匠：容器的门道](https://www.piglei.com/articles/mastering-container-types/)
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：异常处理的三个好习惯](https://www.piglei.com/articles/three-rituals-of-exceptions-handling/)

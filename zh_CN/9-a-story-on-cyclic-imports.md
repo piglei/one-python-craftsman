@@ -5,7 +5,7 @@
 > 这是 “Python 工匠”系列的第 9 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/05/ricardo-gomez-angel-669574-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/05/ricardo-gomez-angel-669574-unsplash_w1280.jpg" width="100%" />
 </div>
 
 模块（Module）是我们用来组织 Python 代码的基本单位。很多功能强大的复杂站点，都由成百上千个独立模块共同组成。
@@ -125,7 +125,7 @@ ImportError: cannot import name 'User' from 'fancy_site.users' (.../fancy_site/u
 
 如此一来，整个模块依赖关系成为了环状，程序自然也就没法执行下去了。
 
-![modules_before](https://www.zlovezl.cn/static/uploaded/2019/05/modules_before.png)
+![modules_before](https://www.piglei.com/static/uploaded/2019/05/modules_before.png)
 
 不过，没有什么问题能够难倒一个可以正常访问 Google 的程序员。小 R 随便上网一搜，发现这样的问题很好解决。因为 Python 的 import 语句非常灵活，他只需要 **把在 users 模块内导入 send_sms 函数的语句挪到 `add_notification` 方法内，延缓 import 语句的执行就行啦。**
 
@@ -157,7 +157,7 @@ from .msg_utils import send_sms
 
 新的模块依赖关系如下图所示：
 
-![modules_afte](https://www.zlovezl.cn/static/uploaded/2019/05/modules_after.png)
+![modules_afte](https://www.piglei.com/static/uploaded/2019/05/modules_after.png)
 
 在新的模块结构中，整个项目被整齐的分为三层，模块间的依赖关系也变得只有**单向流动**。之前在函数内部 `import` 的“延迟导入”技巧，自然也就没有用武之地了。
 
@@ -185,14 +185,11 @@ from .msg_utils import send_sms
 ## 附录
 
 - 题图来源: Photo by Ricardo Gomez Angel on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：异常处理的三个好习惯](https://www.zlovezl.cn/articles/three-rituals-of-exceptions-handling/)
-- [Python 工匠：编写地道循环的两个建议](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)
-
-
-
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：异常处理的三个好习惯](https://www.piglei.com/articles/three-rituals-of-exceptions-handling/)
+- [Python 工匠：编写地道循环的两个建议](https://www.piglei.com/articles/two-tips-on-loop-writing/)

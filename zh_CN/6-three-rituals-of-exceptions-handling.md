@@ -5,7 +5,7 @@
 > 这是 “Python 工匠”系列的第 6 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/03/bernard-hermant-665508-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/03/bernard-hermant-665508-unsplash_w1280.jpg" width="100%" />
 </div>
 
 如果你用 Python 编程，那么你就无法避开异常，因为异常在这门语言里无处不在。打个比方，当你在脚本执行时按 `ctrl+c` 退出，解释器就会产生一个 `KeyboardInterrupt` 异常。而 `KeyError`、`ValueError`、`TypeError` 等更是日常编程里随处可见的老朋友。
@@ -15,7 +15,7 @@
 在这篇文章里，我会分享与异常处理相关的 3 个好习惯。继续阅读前，我希望你已经了解了下面这些知识点：
 
 - 异常的基本语法与用法*（建议阅读官方文档 [“Errors and Exceptions”](https://docs.python.org/3.6/tutorial/errors.html)）*
-- 为什么要使用异常代替错误返回*（建议阅读[《让函数返回结果的技巧》](https://www.zlovezl.cn/articles/function-returning-tips/)）*
+- 为什么要使用异常代替错误返回*（建议阅读[《让函数返回结果的技巧》](https://www.piglei.com/articles/function-returning-tips/)）*
 - 为什么在写 Python 时鼓励使用异常 *（建议阅读 [“Write Cleaner Python: Use Exceptions”](https://jeffknupp.com/blog/2013/02/06/write-cleaner-python-use-exceptions/)）*
 
 ## 三个好习惯
@@ -294,7 +294,7 @@ def upload_avatar(request):
 ```
 
 > Hint：建议阅读 [PEP 343 -- The "with" Statement | Python.org](https://www.python.org/dev/peps/pep-0343/)，了解与上下文管理器有关的更多知识。
-> 
+>
 > 模块 [contextlib](https://docs.python.org/3/library/contextlib.html) 也提供了非常多与编写上下文管理器相关的工具函数与样例。
 
 ## 总结
@@ -314,13 +314,11 @@ def upload_avatar(request):
 ## 附录
 
 - 题图来源: Photo by Bernard Hermant on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：善用变量改善代码质量](https://www.zlovezl.cn/articles/python-using-variables-well/)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：让程序返回结果的技巧](https://www.zlovezl.cn/articles/function-returning-tips/)
-
-
+- [Python 工匠：善用变量改善代码质量](https://www.piglei.com/articles/python-using-variables-well/)
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：让程序返回结果的技巧](https://www.piglei.com/articles/function-returning-tips/)

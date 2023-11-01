@@ -5,7 +5,7 @@
 > 这是 “Python 工匠”系列的第 8 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/05/clem-onojeghuo-142120-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/05/clem-onojeghuo-142120-unsplash_w1280.jpg" width="100%" />
 </div>
 
 装饰器 *(Decorator)* 是 Python 里的一种特殊工具，它为我们提供了一种在函数外部修改函数的灵活能力。它有点像一顶画着独一无二 `@` 符号的神奇帽子，只要将它戴在函数头顶上，就能悄无声息的改变函数本身的行为。
@@ -345,17 +345,14 @@ def decorated(*args, **kwargs):
 
 [<<<上一篇【7.编写地道循环的两个建议】](7-two-tips-on-loop-writing.md)
 
-
 ## 附录
 
 - 题图来源: Photo by Clem Onojeghuo on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：编写条件分支代码的技巧](https://www.zlovezl.cn/articles/python-else-block-secrets/)
-- [Python 工匠：异常处理的三个好习惯](https://www.zlovezl.cn/articles/three-rituals-of-exceptions-handling/)
-- [Python 工匠：编写地道循环的两个建议](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)
-
-
+- [Python 工匠：编写条件分支代码的技巧](https://www.piglei.com/articles/python-else-block-secrets/)
+- [Python 工匠：异常处理的三个好习惯](https://www.piglei.com/articles/three-rituals-of-exceptions-handling/)
+- [Python 工匠：编写地道循环的两个建议](https://www.piglei.com/articles/two-tips-on-loop-writing/)

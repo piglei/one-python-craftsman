@@ -5,10 +5,10 @@
 > 这是 “Python 工匠”系列的第 13 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2019/11/neonbrand-CXDw96Oy-Yw-unsplash_w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2019/11/neonbrand-CXDw96Oy-Yw-unsplash_w1280.jpg" width="100%" />
 </div>
 
-在 [上一篇文章](https://www.zlovezl.cn/articles/write-solid-python-codes-part-1/) 里，我用一个虚拟小项目作为例子，讲解了“SOLID”设计原则中的前两位成员：S *（单一职责原则）* 与 O *（开放-关闭原则）*。
+在 [上一篇文章](https://www.piglei.com/articles/write-solid-python-codes-part-1/) 里，我用一个虚拟小项目作为例子，讲解了“SOLID”设计原则中的前两位成员：S *（单一职责原则）* 与 O *（开放-关闭原则）*。
 
 在这篇文章中，我将继续介绍 SOLID 原则的第三位成员：**L（里氏替换原则）**。
 
@@ -29,6 +29,7 @@
 同前面的 S 与 O 两个原则的命名方式不同，里氏替换原则 *（Liskov Substitution Principle）* 是直接用它的发明者 [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov) 命名的，原文看起来像一个复杂的数学公式：
 
 > Let q(x) be a property provable about objects of x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T.
+>
 > - 出处: [Liskov substitution principle - Wikipedia](https://en.wikipedia.org/wiki/Liskov_substitution_principle)
 
 如果把它比较通俗的翻译过来，大概是这样：**当你使用继承时，子类（派生类）对象应该可以在程序中替代父类（基类）对象使用，而不破坏程序原本的功能。**
@@ -344,13 +345,11 @@ class Admin(User):
 ## 附录
 
 - 题图来源: Photo by NeONBRAND on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：写好面向对象代码的原则（上）](https://www.zlovezl.cn/articles/write-solid-python-codes-part-1/)
-- [Python 工匠：编写地道循环的两个建议](https://www.zlovezl.cn/articles/two-tips-on-loop-writing/)
-- [Python 工匠：高效操作文件的三个建议](https://www.zlovezl.cn/articles/three-tips-on-writing-file-related-codes/)
-
-
+- [Python 工匠：写好面向对象代码的原则（上）](https://www.piglei.com/articles/write-solid-python-codes-part-1/)
+- [Python 工匠：编写地道循环的两个建议](https://www.piglei.com/articles/two-tips-on-loop-writing/)
+- [Python 工匠：高效操作文件的三个建议](https://www.piglei.com/articles/three-tips-on-writing-file-related-codes/)

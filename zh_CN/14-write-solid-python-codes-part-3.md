@@ -4,11 +4,10 @@
 
 > 这是 “Python 工匠”系列的第 14 篇文章。[[查看系列所有文章]](https://github.com/piglei/one-python-craftsman)
 
-
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2020/02/carolina-garcia-tavizon-w1280.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2020/02/carolina-garcia-tavizon-w1280.jpg" width="100%" />
 </div>
- 
+
 在这篇文章中，我将继续介绍 SOLID 原则剩下的两位成员：**I（接口隔离原则）** 和 **D（依赖倒置原则）**。为了方便，这篇文章将会使用先 D 后 I 的顺序。
 
 ## D：依赖倒置原则
@@ -32,7 +31,7 @@
 我想要按照来源域名来分组统计条目数量，这样就能知道哪个站在 HN 上最受欢迎。
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2020/02/SOLID_3_hn.jpg" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2020/02/SOLID_3_hn.jpg" width="100%" />
 图：Hacker News 条目来源截图
 </div>
 
@@ -91,7 +90,7 @@ Site: latimes.com | Count: 1
 `SiteSourceGrouper` 是我们的核心类。为了完成任务，它需要使用 `requests` 模块获取首页内容、`lxml` 模块解析标题。所以，现在的依赖关系是“正向”的，高层模块 `SiteSourceGrouper` 依赖低层模块 `requests`、`lxml`。
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2020/02/SOLID_D_before.png" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2020/02/SOLID_D_before.png" width="100%" />
 图：SiteSourceGrouper 依赖 requests、lxml
 </div>
 
@@ -256,7 +255,7 @@ def main():
 做完这些修改后，让我们再看看现在的模块依赖关系：
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2020/02/SOLID_D_after.png" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2020/02/SOLID_D_after.png" width="100%" />
 图：SiteSourceGrouper 和 RemoteHNWebPage 都依赖抽象层 HNWebPage
 </div>
 
@@ -291,7 +290,7 @@ def test_grouper_from_local():
 这样就可以在没有外网的服务器上测试 `SiteSourceGrouper` 类的核心逻辑了。
 
 > Hint：其实上面的测试函数 `test_grouper_from_local` 远远算不上一个合格的测试用例。
-> 
+>
 > 如果真要测试 `SiteSourceGrouper` 的核心逻辑。我们应该准备一个虚构的 Hacker News 页面 *（比如刚好包含 5 个 来源自 github.com 的条目）*，然后判断结果是否包含 `assert result['github.com] == 5`
 
 ### 问题：一定要使用抽象类 abc 吗？
@@ -394,7 +393,7 @@ def get_generated_at(self) -> datetime.datetime:
 
 但是，在给 `LocalHNWebPage` 添加 `get_generated_at` 方法时，我碰到了一个问题。`LocalHNWebPage` 是一个完全基于本地页面文件作为数据来源的类，仅仅通过 “static_hn.html” 这么一个本地文件，我根本就没法知道它的内容是什么时候生成的。
 
-这时我只能选择让它的 `get_generated_at` 方法返回一个错误的结果 *（比如文件的修改时间）*，或者直接抛出异常。无论是哪种做法，我都可能违反 [里式替换原则](https://www.zlovezl.cn/articles/write-solid-python-codes-part-2/)。
+这时我只能选择让它的 `get_generated_at` 方法返回一个错误的结果 *（比如文件的修改时间）*，或者直接抛出异常。无论是哪种做法，我都可能违反 [里式替换原则](https://www.piglei.com/articles/write-solid-python-codes-part-2/)。
 
 > Hint：里式替换原则认为子类（派生类）对象应该可以在程序中替代父类（基类）对象使用，而不破坏程序原本的功能。让方法抛出异常显然破坏了这一点。
 
@@ -429,7 +428,7 @@ class SiteAchiever:
 代码写到这，让我们回头看看上个例子里的 *条目来源分组类 `SiteSourceGrouper`* 。
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2020/02/SOLID_I_before.png" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2020/02/SOLID_I_before.png" width="100%" />
 图：成功违反了 I 协议
 </div>
 
@@ -474,7 +473,7 @@ class HNWebPage(ContentOnlyHNWebPage):
 同时，对于 `LocalHNWebPage` 类来说，它也只需要实现那个只返回的文本的 `ContentOnlyHNWebPage` 就行。
 
 <div style="text-align: center; color: #999; margin: 14px 0 14px;font-size: 12px;">
-<img src="https://www.zlovezl.cn/static/uploaded/2020/02/SOLID_I_after.png" width="100%" />
+<img src="https://www.piglei.com/static/uploaded/2020/02/SOLID_I_after.png" width="100%" />
 图：实施接口隔离后的结果
 </div>
 
@@ -534,17 +533,14 @@ def is_new_visitor(cookies: Dict) -> bool:
 
 [<<<上一篇【13.写好面向对象代码的原则（中）】](13-write-solid-python-codes-part-2.md)
 
-
 ## 附录
 
 - 题图来源: Photo by Carolina Garcia Tavizon on Unsplash
-- 更多系列文章地址：https://github.com/piglei/one-python-craftsman
+- 更多系列文章地址：<https://github.com/piglei/one-python-craftsman>
 
 系列其他文章：
 
 - [所有文章索引 [Github]](https://github.com/piglei/one-python-craftsman)
-- [Python 工匠：写好面向对象代码的原则（上）](https://www.zlovezl.cn/articles/write-solid-python-codes-part-1/)
-- [Python 工匠：写好面向对象代码的原则（中）](https://www.zlovezl.cn/articles/write-solid-python-codes-part-2/)
-- [Python 工匠：写好面向对象代码的原则（下）](https://www.zlovezl.cn/articles/write-solid-python-codes-part-3/)
-
-
+- [Python 工匠：写好面向对象代码的原则（上）](https://www.piglei.com/articles/write-solid-python-codes-part-1/)
+- [Python 工匠：写好面向对象代码的原则（中）](https://www.piglei.com/articles/write-solid-python-codes-part-2/)
+- [Python 工匠：写好面向对象代码的原则（下）](https://www.piglei.com/articles/write-solid-python-codes-part-3/)
