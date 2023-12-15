@@ -7,6 +7,8 @@
 
 图书《Python 工匠》现已正式上市。同开源文章相比，图书的知识结构更为流畅，增加了“函数”“面向对象编程”等核心章节，总内容量几乎翻倍，欢迎购买。
 
+![image](https://github.com/piglei/one-python-craftsman/assets/731266/256a6af5-2eab-4f32-ad8e-aff590836bc2)
+
 [点击购买](https://item.jd.com/13068111.html) | [豆瓣书评](https://book.douban.com/subject/35723705/) | [图灵社区](https://www.ituring.com.cn/book/3007)
 
 ---
