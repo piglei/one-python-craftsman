@@ -5,7 +5,7 @@
 - [第 6 章 循环与可迭代对象](https://www.piglei.com/book/ch06_loop.html)
 - [第 10 章 面向对象设计原则](https://www.piglei.com/book/ch10_solid_p1.html)
 
-图书《Python 工匠》现已正式上市。同开源文章相比，图书的知识结构更为流畅，增加了“函数”“面向对象编程”等核心章节，总内容量几乎翻倍，欢迎购买。
+图书《Python 工匠：案例、技巧与工程实践》现已正式上市。同开源文章相比，图书的知识结构更为流畅，增加了“函数”“面向对象编程”等核心章节，**总内容量几乎翻倍**，欢迎购买。
 
 <img height="300px" src="https://github.com/piglei/one-python-craftsman/assets/731266/256a6af5-2eab-4f32-ad8e-aff590836bc2" />
 
